@@ -1,0 +1,54 @@
+---
+---
+
+<div id="consent-banner" class="fixed bottom-6 left-6 right-6 md:left-auto md:max-w-md z-40 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-2xl translate-y-12 opacity-0 pointer-events-none transition-all duration-500">
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-1.5">
+      <h3 class="font-bold text-slate-900 dark:text-white text-sm">Controle de Privacidade (LGPD)</h3>
+      <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+        Utilizamos cookies e tecnologias semelhantes para fins de analytics e publicidade personalizada. Você pode aceitar ou recusar essas atividades a qualquer momento.
+      </p>
+    </div>
+    <div class="flex justify-end gap-3 text-xs font-semibold">
+      <button id="consent-decline" class="px-4 py-2 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg transition active:scale-95">
+        Recusar
+      </button>
+      <button id="consent-accept" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow transition active:scale-95">
+        Aceitar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const banner = document.getElementById('consent-banner');
+    const acceptBtn = document.getElementById('consent-accept');
+    const declineBtn = document.getElementById('consent-decline');
+
+    if (!banner || !acceptBtn || !declineBtn) return;
+
+    const consent = localStorage.getItem('lgpd-consent');
+
+    if (!consent) {
+      // Show banner after a slight delay
+      setTimeout(() => {
+        banner.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+      }, 1000);
+    } else if (consent === 'granted') {
+      window.dispatchEvent(new CustomEvent('consent-granted'));
+    }
+
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem('lgpd-consent', 'granted');
+      banner.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+      window.dispatchEvent(new CustomEvent('consent-granted'));
+    });
+
+    declineBtn.addEventListener('click', () => {
+      localStorage.setItem('lgpd-consent', 'denied');
+      banner.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+      window.dispatchEvent(new CustomEvent('consent-denied'));
+    });
+  });
+</script>

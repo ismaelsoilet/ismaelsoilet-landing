@@ -1,0 +1,4 @@
+{
+  "question": "Como a arquitetura estática ajuda nas conversões?",
+  "answer": "Páginas estáticas carregam instantaneamente (Lighthouse 100), reduzindo a taxa de rejeição e mantendo os usuários engajados desde o primeiro segundo."
+}

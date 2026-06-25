@@ -1,0 +1,22 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/seo/Breadcrumb.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const { title, description, image, noindex } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} image={image} noindex={noindex}>
+  <!-- Breadcrumbs -->
+  <div class="max-w-6xl mx-auto px-6 pt-6">
+    <Breadcrumb />
+  </div>
+  
+  <slot />
+</BaseLayout>

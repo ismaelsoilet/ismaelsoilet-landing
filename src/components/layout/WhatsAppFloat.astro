@@ -1,0 +1,41 @@
+---
+import { site } from '../../content/site';
+---
+
+<a 
+  href={site.contact.whatsapp}
+  target="_blank" 
+  rel="noopener noreferrer" 
+  class="fixed bottom-6 right-6 z-30 p-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-emerald-400"
+  aria-label="Fale conosco pelo WhatsApp"
+>
+  <svg class="w-6 h-6 w-safe-bounce" aria-hidden="true">
+    <use href="/icons/sprite.svg#icon-whatsapp-logo" />
+  </svg>
+</a>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .w-safe-bounce {
+      animation: whatsapp-wiggle 3s infinite;
+    }
+  }
+
+  @keyframes whatsapp-wiggle {
+    0%, 90%, 100% {
+      transform: rotate(0deg);
+    }
+    92% {
+      transform: rotate(15deg);
+    }
+    94% {
+      transform: rotate(-15deg);
+    }
+    96% {
+      transform: rotate(10deg);
+    }
+    98% {
+      transform: rotate(-10deg);
+    }
+  }
+</style>

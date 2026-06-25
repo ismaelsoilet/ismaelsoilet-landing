@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.5.2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Astro Check (Typecheck)
+        run: pnpm typecheck
+
+      - name: Check SVG Icons Sprite References
+        run: pnpm check-icons
+
+      - name: Run AI Files Parity Check (Warn-only)
+        run: pnpm check-ai-files
+        continue-on-error: true
+
+      - name: Build static site
+        run: pnpm build
+
+      - name: Run Build Smoke Test
+        run: pnpm smoke-test
+
+      - name: Run Partytown Tracking Guard Check
+        run: pnpm check-tracking
+
+      - name: Run Size Limit Budget Checks
+        run: pnpm size-limit
+
+      - name: Run QA SEO / JSON-LD / AIO Checks
+        run: pnpm qa-seo
+
+      - name: Run Broken Links Checks
+        run: pnpm broken-links
+
+      - name: Run Accessibility Checks (axe)
+        run: pnpm check-a11y
+
+      - name: Run Lighthouse CI Audits
+        run: npx lhci autorun --upload.target=temporary-public-storage
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

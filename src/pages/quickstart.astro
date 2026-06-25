@@ -1,0 +1,106 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import Badge from '../components/ui/Badge.astro';
+---
+
+<PageLayout 
+  title="Guia de Inicialização Rápida" 
+  description="Aprenda a reconfigurar, personalizar e implantar uma nova landing page corporativa para seus clientes em menos de 30 minutos."
+  noindex={true}
+>
+  <!-- Hero Section -->
+  <Section class="pt-8 pb-12 bg-radial from-slate-900 via-slate-950 to-slate-950 text-slate-100 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="max-w-3xl mx-auto text-center flex flex-col gap-6">
+      <Badge variant="success" class="self-center">Passo a Passo</Badge>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+        Lançamento em <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">30 Minutos</span>
+      </h1>
+      <p class="text-lg text-slate-400 leading-relaxed">
+        Siga as 5 etapas a seguir para reconfigurar o template, atualizar o design visual e publicar a página de destino do seu novo cliente.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Walkthrough Steps -->
+  <Section class="bg-white dark:bg-slate-900/20">
+    <div class="max-w-4xl mx-auto flex flex-col gap-10">
+      
+      <!-- Step 1 -->
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+        <div class="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0 text-xl font-bold">1</div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Editar Configurações Básicas</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+            Abra o arquivo `src/content/site.ts` e atualize as informações da organização, e-mails de contato, link do WhatsApp corporativo, chaves de webhooks e IDs opcionais de monitoramento.
+          </p>
+          <pre class="bg-slate-100 dark:bg-slate-905 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+export const site: SiteConfig = &#123;
+  org: &#123;
+    name: "Nome do Cliente",
+    url: "https://www.site-cliente.com.br",
+    logo: "https://www.site-cliente.com.br/logo.svg"
+  &#125;
+&#125;;</pre>
+        </div>
+      </Card>
+
+      <!-- Step 2 -->
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+        <div class="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0 text-xl font-bold">2</div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Substituir Arquivo do Logo</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+            Salve o arquivo de logotipo oficial do seu cliente em formato SVG na pasta `public/logo.svg`. Certifique-se de que ele esteja devidamente limpo e otimizado para que carregue instantaneamente.
+          </p>
+          <p class="text-xs text-indigo-500 dark:text-indigo-400 font-semibold">Dica: O favicon.ico e apple-touch-icon.png também podem ser substituídos na pasta public/.</p>
+        </div>
+      </Card>
+
+      <!-- Step 3 -->
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+        <div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0 text-xl font-bold">3</div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Ajustar Variáveis de Cores</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+            Altere as cores principais nas declarações de tema. O Tailwind v4 utiliza variáveis CSS no arquivo de estilos principal `src/styles/global.css`. Altere o `@theme` principal do projeto para as cores do manual de marca do seu cliente.
+          </p>
+          <pre class="bg-slate-100 dark:bg-slate-905 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+@theme &#123;
+  --color-primary: #4f46e5;
+  --color-cyber: #06b6d4;
+  --font-sans: 'Inter Variable', sans-serif;
+&#125;</pre>
+        </div>
+      </Card>
+
+      <!-- Step 4 -->
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+        <div class="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-500 shrink-0 text-xl font-bold">4</div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Atualizar Textos e Portfólio</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+            Substitua os textos promocionais, depoimentos e itens de serviços na pasta `src/content/`. Você pode editar os arquivos JSON existentes e escrever artigos de blog específicos na pasta `src/content/blog/`.
+          </p>
+        </div>
+      </Card>
+
+      <!-- Step 5 -->
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+        <div class="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0 text-xl font-bold">5</div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Construir e Implantar (Build e Deploy)</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+            Execute a compilação local ou configure sua plataforma de hospedagem preferida (Nginx, Vercel ou Cloudflare Pages). Todos os arquivos de configuração necessários já vêm integrados ao template.
+          </p>
+          <pre class="bg-slate-100 dark:bg-slate-905 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+# Instalar dependências e realizar build
+pnpm install
+pnpm build</pre>
+        </div>
+      </Card>
+
+    </div>
+  </Section>
+</PageLayout>

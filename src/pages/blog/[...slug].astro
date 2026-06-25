@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const publishedPosts = posts.filter(post => !post.data.draft || import.meta.env.DEV);
+  return publishedPosts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+const allPosts = await getCollection('blog');
+const published = allPosts.filter(p => !p.data.draft);
+const relatedPosts = published
+  .filter(p => p.id !== post.id && p.data.category === post.data.category)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const serviceLinks: Record<string, { href: string; label: string }> = {
+  SEO:         { href: '/servicos',    label: 'Consultoria SEO' },
+  CRO:         { href: '/#solucoes',   label: 'Módulo de Conversão (CRO)' },
+  Performance: { href: '/#solucoes',   label: 'Módulo de Desempenho' },
+  AIO:         { href: '/servicos',    label: 'Consultoria SEO/AIO' },
+  LGPD:        { href: '/privacidade', label: 'Conformidade LGPD' },
+};
+const serviceLink = serviceLinks[post.data.category] || { href: '/servicos', label: 'Nossos Serviços' };
+---
+
+<BlogPostLayout frontmatter={post.data} slug={post.id} headings={headings} relatedPosts={relatedPosts} serviceLink={serviceLink}>
+  <Content />
+</BlogPostLayout>

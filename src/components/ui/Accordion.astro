@@ -1,0 +1,27 @@
+---
+interface Props {
+  question: string;
+  class?: string;
+}
+
+const { question, class: className = '' } = Astro.props;
+---
+
+<details class:list={["group border border-slate-200 dark:border-slate-800/80 rounded-xl bg-white dark:bg-slate-900/40 overflow-hidden transition-all duration-300", className]}>
+  <summary class="flex justify-between items-center p-6 text-sm md:text-base font-bold text-slate-800 dark:text-slate-200 cursor-pointer list-none select-none hover:text-cyan-500 dark:hover:text-cyan-400 focus:outline-none">
+    <span>{question}</span>
+    <span class="text-slate-400 transition-transform duration-300 group-open:rotate-180">
+      <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-caret-right" /></svg>
+    </span>
+  </summary>
+  <div class="px-6 pb-6 text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/40 pt-4">
+    <slot />
+  </div>
+</details>
+
+<style>
+  /* Remove default disclosure triangle indicator */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

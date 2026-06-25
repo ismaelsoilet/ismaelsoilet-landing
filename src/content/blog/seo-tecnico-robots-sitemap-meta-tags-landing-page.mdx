@@ -1,0 +1,54 @@
+---
+title: "SEO Técnico: Robots.txt, Sitemaps e Meta Tags para LPs"
+description: "Checklist de SEO técnico para landing pages: robots.txt, sitemaps XML, meta tags, canonical tags e muito mais para garantir indexação correta."
+pubDate: "2026-06-12"
+author: "Suitplus"
+category: "SEO"
+keywords: ["robots.txt", "sitemap", "meta tags", "seo técnico", "indexação"]
+cover: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80"
+draft: false
+---
+
+SEO técnico é a base que garante que suas landing pages sejam descobertas, rastreadas e indexadas corretamente pelos motores de busca. Sem isso, o melhor conteúdo do mundo não será encontrado.
+
+## Robots.txt: O Portal do Crawler
+
+O arquivo robots.txt controla quais áreas do seu site os robôs de busca podem acessar. Para landing pages estáticas em Astro, a configuração ideal é permitir tudo exceto diretórios internos:
+
+```txt
+User-agent: *
+Allow: /
+Disallow: /_astro/
+Sitemap: https://seudominio.com/sitemap.xml
+```
+
+Evite bloquear assets CSS e JS, pois o Google precisa deles para renderizar a página corretamente.
+
+## Sitemaps XML Dinâmicos
+
+Sitemaps listam todas as URLs do seu site para facilitar o trabalho dos crawlers. Em Astro, o pacote `@astrojs/sitemap` gera automaticamente um sitemap com todas as páginas estáticas.
+
+Configure prioridades corretas: landing pages principais com prioridade 1.0, páginas de blog com 0.8, páginas institucionais com 0.6. Mantenha o sitemap sempre atualizado com o deploy.
+
+## Meta Tags Essenciais
+
+Cada landing page deve ter meta tags únicas e descritivas:
+
+- **Title tag**: até 60 caracteres, com palavra-chave principal no início
+- **Meta description**: entre 140 e 160 caracteres, com call to action
+- **Canonical tag**: aponte para a URL canônica para evitar conteúdo duplicado
+- **Meta robots**: use "index, follow" para páginas que devem aparecer no Google
+- **Open Graph**: tags para controlar a aparência em redes sociais
+- **Twitter Cards**: versão específica para exibição no Twitter/X
+
+## Headings Hierarchy
+
+A estrutura de headings (H1, H2, H3) ajuda o Google a entender a hierarquia do conteúdo. Use um único H1 por página, H2 para seções principais e H3 para subseções. Mantenha uma hierarquia lógica sem pular níveis.
+
+## Dados Estruturados no Head
+
+Além dos schemas JSON-LD no corpo, inclua dados estruturados no `<head>` da página como metadados de author, artigo e site. Isso ajuda o Google a gerar rich snippets nos resultados de busca.
+
+## Conclusão
+
+SEO técnico não é opcional. Robots.txt bem configurado, sitemaps atualizados e meta tags otimizadas são o mínimo para qualquer landing page que almeje tráfego orgânico. Invista na base técnica antes de pensar em conteúdo.

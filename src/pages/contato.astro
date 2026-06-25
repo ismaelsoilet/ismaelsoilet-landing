@@ -1,0 +1,80 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import Badge from '../components/ui/Badge.astro';
+import ContactForm from '../components/ui/ContactForm.astro';
+import { site } from '../content/site';
+---
+
+<PageLayout 
+  title="Contato" 
+  description="Entre em contato com a equipe da Suitplus. Preencha o formulário para enviar uma mensagem ou fale conosco diretamente via WhatsApp ou e-mail."
+>
+  <Section class="pt-8 pb-16 bg-radial from-slate-900 via-slate-950 to-slate-950 text-slate-100 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="max-w-3xl mx-auto text-center flex flex-col gap-6">
+      <Badge variant="success" class="self-center">Fale Conosco</Badge>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+        Como podemos ajudar a acelerar o seu <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">negócio?</span>
+      </h1>
+      <p class="text-lg text-slate-400 leading-relaxed">
+        Preencha o formulário abaixo ou utilize um de nossos canais de atendimento direto. Nossa equipe responderá em até 24 horas úteis.
+      </p>
+    </div>
+  </Section>
+
+  <Section class="bg-white dark:bg-slate-900/20">
+    <div class="grid md:grid-cols-12 gap-12 items-start">
+      <!-- Contact details -->
+      <div class="md:col-span-5 flex flex-col gap-8">
+        <div>
+          <h2 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Informações de Contato</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Escolha o canal mais adequado para sua necessidade.</p>
+        </div>
+
+        <div class="flex flex-col gap-6">
+          <Card class="p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0">
+              <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-file-text" /></svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider mb-1">E-mail Comercial</h3>
+              <a href={`mailto:${site.contact.email}`} class="text-sm text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition">
+                {site.contact.email}
+              </a>
+            </div>
+          </Card>
+
+          <Card class="p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0">
+              <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-whatsapp-logo" /></svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider mb-1">Telefone / WhatsApp</h3>
+              <a href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="text-sm text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition">
+                {site.contact.phone}
+              </a>
+            </div>
+          </Card>
+
+          <Card class="p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
+              <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-clock" /></svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider mb-1">Horário de Atendimento</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Segunda a Sexta, das 09:00 às 18:00 (Horário de Brasília)
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      <!-- Form container -->
+      <div class="md:col-span-7 border border-slate-200 dark:border-slate-800 p-8 rounded-2xl bg-white dark:bg-slate-900/30">
+        <ContactForm />
+      </div>
+    </div>
+  </Section>
+</PageLayout>

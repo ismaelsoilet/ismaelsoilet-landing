@@ -1,0 +1,227 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/ui/Section.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+
+// Fetch all non-draft blog posts and sort by pubDate descending
+const posts = (await getCollection('blog'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const allCategories = ['Todas', ...new Set(posts.map(p => p.data.category))];
+
+// Featured post is the most recent one
+const featuredPost = posts[0];
+const regularPosts = posts.slice(1);
+---
+
+<PageLayout 
+  title="Nosso Blog" 
+  description="Fique por dentro das novidades sobre performance web, otimização de conversão (CRO), conformidade LGPD e novidades sobre inteligência artificial (AIO)."
+>
+  <!-- Hero / Header -->
+  <Section class="pt-8 pb-12 bg-radial from-slate-900 via-slate-950 to-slate-950 text-slate-100 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="max-w-3xl mx-auto text-center flex flex-col gap-6">
+      <Badge variant="success" class="self-center">Artigos & Insights</Badge>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+        Conhecimento técnico para <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">escalar</span>
+      </h1>
+      <p class="text-lg text-slate-400 leading-relaxed">
+        Artigos práticos de engenharia e marketing escritos por especialistas para ajudar sua marca a atingir velocidade máxima e conversões elevadas.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Blog Listing -->
+  <Section class="bg-white dark:bg-slate-900/20" id="blog-listing">
+    {posts.length === 0 ? (
+      <div class="text-center py-20 text-slate-500">
+        Nenhum artigo publicado ainda. Volte em breve!
+      </div>
+    ) : (
+      <div class="flex flex-col gap-10">
+        <!-- Category Filter -->
+        <div id="category-filter" class="flex flex-wrap gap-2 justify-center" role="tablist" aria-label="Filtrar por categoria">
+          {allCategories.map(cat => {
+            const isActive = cat === 'Todas';
+            return (
+              <button
+                data-category-filter={cat}
+                class:list={[
+                  'px-3.5 py-1.5 text-xs font-semibold rounded-full border transition active:scale-95',
+                  isActive
+                    ? 'bg-cyber-600 text-white border-cyber-600 shadow-sm'
+                    : 'bg-white text-slate-700 border-slate-300 hover:border-cyber-400 hover:text-cyber-600'
+                ]}
+                role="tab"
+                aria-selected={isActive}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
+        <!-- Featured Post Card -->
+        {featuredPost && (
+          <div
+            id="featured-post"
+            data-category={featuredPost.data.category}
+            class="grid md:grid-cols-2 gap-8 items-center border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-8 bg-slate-50 dark:bg-slate-900/40"
+          >
+            {featuredPost.data.cover && (
+              <div class="rounded-2xl overflow-hidden h-72 border border-slate-200/10 dark:border-slate-900">
+                <Image src={featuredPost.data.cover} alt="" width={600} height={350} class="w-full h-full object-cover" aria-hidden="true" />
+              </div>
+            )}
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-cyber-500">
+                <span>{featuredPost.data.category}</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-700"></span>
+                <time datetime={featuredPost.data.pubDate.toISOString()}>
+                  {featuredPost.data.pubDate.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </time>
+              </div>
+              <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                <a href={`/blog/${featuredPost.id}`} class="hover:text-cyber-500 transition">
+                  {featuredPost.data.title}
+                </a>
+              </h2>
+              <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                {featuredPost.data.description}
+              </p>
+              <div class="mt-2">
+                <Button variant="cyber" href={`/blog/${featuredPost.id}`}>
+                  Ler Artigo Completo
+                  <svg class="w-4 h-4 ml-2" aria-hidden="true"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Regular Posts Grid -->
+        <div id="posts-grid" class="grid md:grid-cols-3 gap-8">
+          {regularPosts.map(post => (
+            <div
+              data-category={post.data.category}
+              class="flex flex-col justify-between border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 p-6 rounded-2xl"
+            >
+              <div>
+                {post.data.cover && (
+                  <div class="rounded-xl overflow-hidden h-44 mb-5 border border-slate-200/10 dark:border-slate-900">
+                    <Image src={post.data.cover} alt="" width={400} height={225} class="w-full h-full object-cover" aria-hidden="true" />
+                  </div>
+                )}
+                <div class="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-cyber-500 mb-3">
+                  <span>{post.data.category}</span>
+                  <span class="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-700"></span>
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  </time>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-snug">
+                  <a href={`/blog/${post.id}`} class="hover:text-cyber-500 transition">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4 line-clamp-3">
+                  {post.data.description}
+                </p>
+              </div>
+              <div class="border-t border-slate-100 dark:border-slate-800/40 pt-4 mt-4">
+                <a href={`/blog/${post.id}`} class="inline-flex items-center text-xs font-bold text-cyber-500 hover:text-cyber-600 transition" aria-label={`Ler o artigo ${post.data.title}`}>
+                  Ler Artigo
+                  <svg class="w-3.5 h-3.5 ml-1.5"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Empty state (shown when filter yields no results) -->
+        <div id="no-results" class="text-center py-16 hidden">
+          <p class="text-slate-500 dark:text-slate-400 text-lg">Nenhum artigo encontrado nesta categoria.</p>
+        </div>
+      </div>
+    )}
+  </Section>
+</PageLayout>
+
+<script is:inline>
+  function applyCategoryFilter(category) {
+    const featured = document.getElementById('featured-post');
+    const posts = document.querySelectorAll('#posts-grid > div');
+    const noResults = document.getElementById('no-results');
+    const buttons = document.querySelectorAll('[data-category-filter]');
+
+    if (!posts.length) return;
+
+    const showAll = !category || category === 'Todas';
+    let visibleCount = 0;
+
+    if (featured) {
+      const match = showAll || featured.getAttribute('data-category') === category;
+      featured.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    }
+
+    posts.forEach(post => {
+      const match = showAll || post.getAttribute('data-category') === category;
+      post.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    });
+
+    if (noResults) {
+      noResults.classList.toggle('hidden', visibleCount > 0);
+    }
+
+    buttons.forEach(btn => {
+      const btnCat = btn.getAttribute('data-category-filter');
+      const isActive = showAll ? btnCat === 'Todas' : btnCat === category;
+      btn.setAttribute('aria-selected', String(isActive));
+      if (isActive) {
+        btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-300', 'hover:border-cyber-400', 'hover:text-cyber-600');
+        btn.classList.add('bg-cyber-600', 'text-white', 'border-cyber-600', 'shadow-sm');
+      } else {
+        btn.classList.remove('bg-cyber-600', 'text-white', 'border-cyber-600', 'shadow-sm');
+        btn.classList.add('bg-white', 'text-slate-700', 'border-slate-300', 'hover:border-cyber-400', 'hover:text-cyber-600');
+      }
+    });
+  }
+
+  function initCategoryFilter() {
+    const buttons = document.querySelectorAll('[data-category-filter]');
+    if (!buttons.length) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const initialCategory = params.get('categoria') || 'Todas';
+    applyCategoryFilter(initialCategory);
+
+    buttons.forEach(btn => {
+      btn.removeEventListener('click', onFilterClick);
+      btn.addEventListener('click', onFilterClick);
+    });
+  }
+
+  function onFilterClick(e) {
+    const category = e.currentTarget.getAttribute('data-category-filter');
+    const url = new URL(window.location.href);
+    if (!category || category === 'Todas') {
+      url.searchParams.delete('categoria');
+    } else {
+      url.searchParams.set('categoria', category);
+    }
+    window.history.replaceState({ categoria: category }, '', url.pathname + url.search);
+    applyCategoryFilter(category);
+  }
+
+  document.addEventListener('astro:page-load', initCategoryFilter);
+  document.addEventListener('DOMContentLoaded', initCategoryFilter);
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initCategoryFilter();
+  }
+</script>

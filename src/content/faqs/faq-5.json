@@ -1,0 +1,4 @@
+{
+  "question": "Posso integrar com meu CRM atual?",
+  "answer": "Sim. Nosso formulário assíncrono dispara eventos de webhook nativos que podem se conectar diretamente ao n8n, ActiveCampaign, RD Station ou Salesforce."
+}

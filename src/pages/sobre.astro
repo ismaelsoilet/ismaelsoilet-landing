@@ -1,0 +1,136 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import Badge from '../components/ui/Badge.astro';
+
+// Fetch Team and Testimonials
+const team = await getCollection('team');
+const testimonials = await getCollection('testimonials');
+---
+
+<PageLayout 
+  title="Sobre Nós" 
+  description="Conheça a história da Suitplus, nossa missão, visão, valores e a equipe técnica por trás de nossas soluções corporativas de alta performance."
+>
+  <!-- Hero Section -->
+  <Section class="pt-8 pb-16 bg-radial from-slate-900 via-slate-950 to-slate-950 text-slate-100 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="max-w-3xl mx-auto text-center flex flex-col gap-6">
+      <Badge variant="info" class="self-center">Nossa História</Badge>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+        Quem somos e o que nos <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">impulsiona</span>
+      </h1>
+      <p class="text-lg text-slate-400 leading-relaxed">
+        Fundada com o propósito de redefinir os padrões de performance e segurança na web, a Suitplus combina excelência técnica com foco em conversões reais para clientes corporativos.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Mission, Vision, Values -->
+  <Section class="bg-white dark:bg-slate-900/20 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="grid md:grid-cols-3 gap-8">
+      <Card class="p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-4">
+          <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-rocket" /></svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">Missão</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+          Entregar infraestrutura digital de altíssima velocidade e conversão, reduzindo fricções técnicas e impulsionando negócios organicamente.
+        </p>
+      </Card>
+
+      <Card class="p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-4">
+          <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-eye" /></svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">Visão</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+          Tornar-se a referência internacional em arquitetura web estática corporativa, promovendo uma internet mais rápida, limpa e segura.
+        </p>
+      </Card>
+
+      <Card class="p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-4">
+          <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-shield" /></svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2">Valores</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+          Foco na performance medida cientificamente, respeito absoluto à privacidade dos dados dos usuários e integridade em cada linha de código.
+        </p>
+      </Card>
+    </div>
+  </Section>
+
+  <!-- Team Grid -->
+  <Section class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-4">
+      <Badge variant="warning" class="self-center">Liderança Técnica</Badge>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Especialistas comprometidos com o seu resultado</h2>
+      <p class="text-slate-600 dark:text-slate-400">Uma equipe de engenharia e negócios focada em performance web e otimização de taxas de conversão.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {team.map(member => (
+        <Card class="flex flex-col items-center text-center p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+          <Image 
+            src={member.data.avatar} 
+            alt={`Retrato de ${member.data.name}, ${member.data.role} na Suitplus.`} 
+            width={96}
+            height={96}
+            class="w-24 h-24 rounded-full object-cover mb-4 border-2 border-indigo-500/20" 
+          />
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">{member.data.name}</h3>
+          <span class="text-xs font-semibold text-indigo-500 dark:text-indigo-400 mb-4">{member.data.role}</span>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+            {member.data.bio}
+          </p>
+          <div class="flex gap-4 text-slate-400">
+            {member.data.linkedin && (
+              <a href={member.data.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" aria-label={`Perfil do LinkedIn de ${member.data.name}`}>
+                <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-linkedin-logo" /></svg>
+              </a>
+            )}
+            {member.data.github && (
+              <a href={member.data.github} target="_blank" rel="noopener noreferrer" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition" aria-label={`Perfil do GitHub de ${member.data.name}`}>
+                <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-github-logo" /></svg>
+              </a>
+            )}
+          </div>
+        </Card>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Testimonials Section -->
+  <Section class="bg-white dark:bg-slate-900/20">
+    <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col gap-4">
+      <Badge variant="success" class="self-center">O que dizem</Badge>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Opinião de quem confia em nós</h2>
+      <p class="text-slate-600 dark:text-slate-400">Aceleração de verdade medida e aprovada pelos tomadores de decisão.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {testimonials.map(item => (
+        <Card class="flex flex-col justify-between gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+          <div class="flex gap-1 text-yellow-500">
+            {Array.from({ length: item.data.rating }).map(() => (
+              <svg class="w-4 h-4 fill-current"><use href="/icons/sprite.svg#icon-star" /></svg>
+            ))}
+          </div>
+          <p class="text-slate-600 dark:text-slate-400 text-sm italic leading-relaxed">
+            "{item.data.quote}"
+          </p>
+          <div class="flex items-center gap-3">
+            <Image src={item.data.avatar} alt="" width={40} height={40} class="w-10 h-10 rounded-full object-cover" aria-hidden="true" />
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white">{item.data.clientName}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">{item.data.clientRole}, {item.data.company}</p>
+            </div>
+          </div>
+        </Card>
+      ))}
+    </div>
+  </Section>
+</PageLayout>

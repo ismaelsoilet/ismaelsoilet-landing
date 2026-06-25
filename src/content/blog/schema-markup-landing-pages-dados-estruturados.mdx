@@ -1,0 +1,54 @@
+---
+title: "Schema Markup para Landing Pages: Guia de Dados Estruturados"
+description: "Guia prático de implementação de dados estruturados JSON-LD para landing pages incluindo esquemas de produto, FAQ, review e organização com exemplos reais."
+pubDate: "2026-06-14"
+author: "Suitplus"
+category: "SEO"
+keywords: ["schema markup", "json-ld", "dados estruturados", "rich snippets", "seo"]
+cover: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800&q=80"
+draft: false
+---
+
+Dados estruturados são a linguagem que o Google entende para exibir rich snippets nos resultados de busca. Implementar JSON-LD corretamente pode aumentar significativamente o CTR orgânico.
+
+## O Que é JSON-LD?
+
+JSON-LD (JavaScript Object Notation for Linked Data) é o formato recomendado pelo Google para dados estruturados. Ele é inserido como um bloco de script no `<head>` da página sem afetar a renderização visual.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Consultoria SEO Avançada"
+}
+```
+
+## Schema de Organização
+
+Toda landing page deve incluir o schema de organização. Isso associa sua marca à entidade correta no Knowledge Graph do Google.
+
+Inclua nome, URL, logo, endereço e links para redes sociais. O logo deve estar em formato acessível e ter altura mínima de 112px.
+
+## Schema de Produto ou Serviço
+
+Landing pages de venda devem usar `Product` ou `Service`. Inclua nome, descrição, preço, moeda e disponibilidade. Para serviços profissionais, o schema `Service` é mais adequado.
+
+Adicione `aggregateRating` se tiver avaliações e `offers` com detalhes de preço e URL de compra.
+
+## FAQ Schema
+
+Um dos schemas mais efetivos para landing pages. Ele permite que suas perguntas frequentes apareçam expandidas diretamente nos resultados de busca, ocupando mais espaço e aumentando o CTR.
+
+Cada FAQ deve ser uma pergunta real respondida de forma concisa. Não use FAQ schema para conteúdo promocional, pois o Google pode penalizar.
+
+## Review e Testimonial Schema
+
+Adicione `Review` schema para depoimentos reais de clientes, com nome, avaliação em estrelas e texto do depoimento. Isso gera estrelas nos resultados de busca.
+
+## BreadcrumbList Schema
+
+O schema de breadcrumbs ajuda o Google a entender a estrutura de navegação do site. Implemente em todas as páginas exceto na home.
+
+## Conclusão
+
+Dados estruturados são um diferencial competitivo. Landing pages com JSON-LD bem implementado conquistam rich snippets, maior CTR e melhor posicionamento. Priorize os schemas de organização, produto e FAQ.

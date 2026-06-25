@@ -1,0 +1,8 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={["animate-pulse bg-slate-200 dark:bg-slate-800 rounded-lg", className]}></div>

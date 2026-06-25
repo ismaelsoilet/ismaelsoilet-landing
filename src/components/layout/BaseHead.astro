@@ -1,0 +1,93 @@
+---
+import { site } from '../../content/site';
+import { themeScript } from '../../lib/theme';
+import { buildOrganizationSchema, buildWebPageSchema } from '../../lib/seo';
+import JsonLd from '../seo/JsonLd.astro';
+import defaultOgImage from '../../assets/og-image.png';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+}
+
+const { 
+  title, 
+  description, 
+  image = '/src/assets/og-image.png', 
+  noindex = false, 
+  type = 'website' 
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, site.org.url).toString();
+const absoluteImageUrl = image.startsWith('http') ? image : `${site.org.url}${defaultOgImage.src}`;
+
+// Schema builds
+const orgSchema = buildOrganizationSchema();
+const pageSchema = buildWebPageSchema(Astro.url.pathname, `${title} | ${site.org.name}`, description);
+
+// For hreflang/i18n tags
+const lang = Astro.currentLocale || 'pt-BR';
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Preload variable font (used by :root and prose typography) -->
+<link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+<!-- Icons are loaded locally via the SVG sprite at /icons/sprite.svg
+     (see the <use> references in components under src/components/).
+     No external CDN stylesheet is required. -->
+
+<!-- Primary Meta Tags -->
+<title>{title} | {site.org.name}</title>
+<meta name="title" content={`${title} | ${site.org.name}`} />
+<meta name="description" content={description} />
+{noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow" />}
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- i18n Alt Locales (Self-referential + alternate) -->
+<link rel="alternate" hreflang={lang} href={canonicalUrl} />
+<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={`${title} | ${site.org.name}`} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={absoluteImageUrl} />
+<meta property="og:image:width" content="1730" />
+<meta property="og:image:height" content="909" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:site_name" content={site.org.name} />
+<meta property="og:locale" content={lang === 'pt-BR' ? 'pt_BR' : 'en_US'} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={`${title} | ${site.org.name}`} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={absoluteImageUrl} />
+
+<!-- Theme Color Meta Tags (Safari and Chrome theme color support) -->
+<meta name="theme-color" media="(prefers-color-scheme: light)" content={site.theme.colors.light} />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content={site.theme.colors.dark} />
+
+<!-- Favicons / Touch Icons -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="mask-icon" href="/logo.svg" color="#4f46e5" /> <!-- Safari pinned tab support -->
+
+<!-- Inline Script to apply dark/light theme (Prevents FOUC) -->
+<script is:inline set:html={themeScript} />
+
+<!-- Standard JSON-LD Structured Data -->
+<JsonLd schema={orgSchema} />
+<JsonLd schema={pageSchema} />
+
+<!-- Hook for page-specific JSON-LD schemas -->
+<slot />

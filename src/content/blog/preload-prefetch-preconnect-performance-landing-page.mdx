@@ -1,0 +1,69 @@
+---
+title: "Pré-carregamento: Preload, Prefetch e Preconnect na Prática"
+description: "Guia de resource hints para landing pages: preload, prefetch, preconnect e dns-prefetch para acelerar o carregamento e melhorar Core Web Vitals."
+pubDate: "2026-06-10"
+author: "Suitplus"
+category: "Performance"
+keywords: ["preload", "prefetch", "preconnect", "performance web", "core web vitals", "resource hints"]
+cover: "https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?w=800&q=80"
+draft: false
+---
+
+Resource hints são instruções que você dá ao navegador para carregar recursos críticos antes que eles sejam necessários. Quando bem usados, eles reduzem significativamente o tempo de carregamento percebido e melhoram as métricas de Core Web Vitals.
+
+## Preload: Recursos Críticos Imediatos
+
+O `rel="preload"` instrui o navegador a baixar um recurso com alta prioridade assim que a página começa a carregar. Use para fontes, imagens LCP e CSS crítico.
+
+```html
+<link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/css/critical.css" as="style">
+```
+
+Não abuse: pré-carregar tudo anula o benefício. Selecione apenas 2 a 3 recursos críticos para o LCP.
+
+## Prefetch: Preparando a Próxima Navegação
+
+O `rel="prefetch"` baixa recursos que serão necessários em páginas futuras com baixa prioridade. Ideal para landing pages que sabem para onde o usuário provavelmente irá.
+
+Em landing pages, pré-carregue a página de serviço ou contato se houver alta taxa de navegação entre essas páginas. Use com moderação para não consumir banda desnecessária.
+
+```html
+<link rel="prefetch" href="/servicos">
+```
+
+## Preconnect: Conexões Antecipadas
+
+O `rel="preconnect"` instrui o navegador a iniciar a conexão TCP e TLS com um domínio terceiro antes do necessário. Essencial para CDNs, Google Fonts, APIs e scripts de analytics.
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+```
+
+O preconnect reduz o tempo de handshake de 200-400ms para praticamente zero quando o recurso é solicitado.
+
+## DNS-Prefetch: Resolução Antecipada de DNS
+
+O `rel="dns-prefetch"` é mais leve que o preconnect e resolve apenas o DNS do domínio. Use para domínios que serão acessados mas não imediatamente.
+
+```html
+<link rel="dns-prefetch" href="https://www.google-analytics.com">
+```
+
+## Priorização de Resource Hints
+
+Use a seguinte hierarquia de prioridade:
+
+1. **Preload**: recursos críticos para a página atual (fontes, imagem LCP)
+2. **Preconnect**: domínios terceiros essenciais (CDN, Google Fonts, GTM)
+3. **DNS-Prefetch**: domínios terceiros secundários
+4. **Prefetch**: páginas de navegação futura
+
+## Monitoramento de Impacto
+
+Use o Lighthouse e o Chrome DevTools para verificar se seus resource hints estão sendo efetivos. O painel de cobertura mostra quais recursos foram carregados e usados. Recursos pré-carregados mas não usados são desperdício.
+
+## Conclusão
+
+Resource hints são ferramentas poderosas e gratuitas de otimização de performance. Preload para o que é crítico agora, preconnect para o que é necessário em breve e prefetch para o que virá depois. Landing pages que dominam resource hints carregam visivelmente mais rápido.

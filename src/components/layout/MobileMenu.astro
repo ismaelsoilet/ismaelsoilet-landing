@@ -1,0 +1,103 @@
+---
+import { site } from '../../content/site';
+---
+
+<div id="mobile-menu" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300 ease-in-out" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="Menu de Navegação">
+  <!-- Backdrop -->
+  <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+  <!-- Menu Drawer -->
+  <div class="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-slate-900 border-l border-slate-800 p-6 flex flex-col justify-between shadow-2xl">
+    <div class="flex flex-col gap-8">
+      <div class="flex justify-between items-center">
+        <span class="font-bold text-lg bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">{site.org.name}</span>
+        <button id="mobile-menu-close" class="p-2 text-slate-400 hover:text-white rounded-lg active:scale-95 transition" aria-label="Fechar menu">
+          <svg class="w-6 h-6"><use href="/icons/sprite.svg#icon-minus" /></svg>
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-6 text-lg font-medium text-slate-300">
+        <a href="/" class="hover:text-white transition py-2 border-b border-slate-800/50">Home</a>
+        <a href="/servicos" class="hover:text-white transition py-2 border-b border-slate-800/50">Serviços</a>
+        <a href="/sobre" class="hover:text-white transition py-2 border-b border-slate-800/50">Sobre</a>
+        <a href="/blog" class="hover:text-white transition py-2 border-b border-slate-800/50">Blog</a>
+        <a href="/contato" class="hover:text-white transition py-2 border-b border-slate-800/50">Contato</a>
+        <a
+          href="/index-exemplo"
+          class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition py-2 border-b border-slate-800/50 font-semibold"
+        >
+          <svg class="w-4 h-4" aria-hidden="true"><use href="/icons/sprite.svg#icon-sparkle" /></svg>
+          Exemplo
+        </a>
+      </nav>
+    </div>
+
+    <div class="flex flex-col gap-4 text-center border-t border-slate-800 pt-6">
+      <span class="text-xs text-slate-500">{site.contact.email}</span>
+      <div class="flex justify-center gap-4 text-slate-400">
+        {site.social.linkedin && (
+          <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-white transition" aria-label="LinkedIn">
+            <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-linkedin-logo" /></svg>
+          </a>
+        )}
+        {site.social.instagram && (
+          <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" class="hover:text-white transition" aria-label="Instagram">
+            <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-instagram-logo" /></svg>
+          </a>
+        )}
+        {site.social.github && (
+          <a href={site.social.github} target="_blank" rel="noopener noreferrer" class="hover:text-white transition" aria-label="GitHub">
+            <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-github-logo" /></svg>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
+    if (!mobileMenu || !backdrop) return;
+    mobileMenu.classList.remove('translate-x-full');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    mobileMenu.removeAttribute('inert');
+    backdrop.classList.remove('opacity-0');
+    backdrop.classList.add('opacity-100');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
+    if (!mobileMenu || !backdrop) return;
+    mobileMenu.classList.add('translate-x-full');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenu.setAttribute('inert', '');
+    backdrop.classList.remove('opacity-100');
+    backdrop.classList.add('opacity-0');
+    document.body.style.overflow = '';
+  }
+
+  // Bind UI elements on every page load
+  document.addEventListener('astro:page-load', () => {
+    const closeBtn = document.getElementById('mobile-menu-close');
+    const menuTrigger = document.getElementById('mobile-menu-trigger'); // header button will have this id
+    const backdrop = document.getElementById('mobile-menu-backdrop');
+
+    if (menuTrigger) menuTrigger.addEventListener('click', openMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+  });
+
+  // Close menu on escape key (global listener runs only once)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu && mobileMenu.getAttribute('aria-hidden') === 'false') {
+        closeMenu();
+      }
+    }
+  });
+</script>

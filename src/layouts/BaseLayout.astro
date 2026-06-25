@@ -1,0 +1,153 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import BaseHead from '../components/layout/BaseHead.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import MobileMenu from '../components/layout/MobileMenu.astro';
+import WhatsAppFloat from '../components/layout/WhatsAppFloat.astro';
+import ConsentBanner from '../components/integrations/ConsentBanner.astro';
+import PartytownScripts from '../components/integrations/PartytownScripts.astro';
+import WebVitalsReporter from '../components/integrations/WebVitalsReporter.astro';
+import { site } from '../content/site';
+
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+}
+
+const { title, description, image, noindex = false, type = 'website' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+  <head>
+    <BaseHead title={title} description={description} image={image} noindex={noindex} type={type}>
+      <ClientRouter />
+    </BaseHead>
+  </head>
+  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white transition-colors duration-300">
+    <!-- Skip-to-Content Link -->
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-6 focus:py-3 focus:bg-indigo-600 focus:text-white focus:font-bold focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-400">
+      Pular para o conteúdo principal
+    </a>
+
+    <!-- Sticky Header -->
+    <Header />
+
+    <!-- Main Content Area -->
+    <main id="main" class="flex-grow focus:outline-none" tabindex="-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+
+    <!-- Drawer Mobile Menu -->
+    <MobileMenu />
+
+    <!-- WhatsApp Floating Action Button -->
+    <WhatsAppFloat />
+
+    <!-- LGPD Consent Cookie Banner -->
+    <ConsentBanner />
+
+    <!-- Partytown Scripts and Web Vitals Reporter -->
+    <PartytownScripts />
+    <WebVitalsReporter />
+
+    <!-- Console filter: silences Firefox-specific deprecation warnings from Partytown sandbox.
+         These are noise from the third-party Partytown service worker, not application errors. -->
+    <script>
+      (() => {
+        if (typeof window === 'undefined') return;
+        const noisyPatterns = [
+          /Window\.fullScreen/,
+          /InstallTrigger/,
+          /onmozfullscreenchange/,
+          /onmozfullscreenerror/,
+          /mozOrientation/,
+          /onmozorientationchange/,
+          /rastreamento de identidade digital/,
+          /screen\.availWidth/,
+          /partytown-sandbox-sw\.js/,
+        ];
+        const shouldSilence = (args: unknown[]): boolean => {
+          const joined = args.map((a) => (typeof a === 'string' ? a : String(a))).join(' ');
+          return noisyPatterns.some((rx) => rx.test(joined));
+        };
+        const origWarn = console.warn.bind(console);
+        const origError = console.error.bind(console);
+        console.warn = (...args: unknown[]) => {
+          if (shouldSilence(args)) return;
+          origWarn(...args);
+        };
+        console.error = (...args: unknown[]) => {
+          if (shouldSilence(args)) return;
+          origError(...args);
+        };
+      })();
+    </script>
+
+    <!-- Smooth scroll helper for anchor transitions -->
+    <script>
+      // Helper: safe ID lookup that handles:
+      //  - IDs starting with digits (invalid CSS selectors, but valid in getElementById)
+      //  - URL-encoded characters in hash fragments (e.g. "%C3%A7" for "ç")
+      //  - Special characters in slugs (e.g. "1-o-problema-...")
+      const getElementByHash = (hash: string): HTMLElement | null => {
+        try {
+          const id = decodeURIComponent(hash.replace(/^#/, ''));
+          return document.getElementById(id);
+        } catch {
+          return null;
+        }
+      };
+
+      document.addEventListener('astro:page-load', () => {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (prefersReducedMotion) return;
+
+        // Smooth scroll for same-page anchors
+        document.querySelectorAll('a[href*="#"]').forEach((anchor: any) => {
+          anchor.addEventListener('click', function (e: MouseEvent) {
+            const url = new URL(anchor.href, window.location.href);
+            
+            // Handle same-page hash transitions
+            if (url.pathname === window.location.pathname) {
+              const hash = url.hash;
+              if (hash && hash !== '#main') { // Skip accessibility skip-link
+                const target = getElementByHash(hash);
+                if (target) {
+                  e.preventDefault();
+                  target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                  });
+                  history.pushState(null, '', hash);
+                }
+              }
+            }
+          });
+        });
+
+        // Smooth scroll on page load if hash exists in URL
+        if (window.location.hash && window.location.hash !== '#main') {
+          const target = getElementByHash(window.location.hash);
+          if (target) {
+            setTimeout(() => {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }, 150); // Small delay to let View Transitions finish
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

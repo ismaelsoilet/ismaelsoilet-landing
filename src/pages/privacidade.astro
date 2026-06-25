@@ -1,0 +1,40 @@
+---
+import { getEntry } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/ui/Section.astro';
+
+const entry = await getEntry('legal', 'privacidade');
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { lastUpdated, sections } = entry.data;
+---
+
+<PageLayout 
+  title="Política de Privacidade" 
+  description="Consulte a Política de Privacidade da Suitplus. Saiba como gerenciamos os dados pessoais sob conformidade da LGPD."
+  noindex={true}
+>
+  <Section class="max-w-4xl mx-auto py-12 md:py-20">
+    <header class="border-b border-slate-200/10 dark:border-slate-900 pb-6 mb-10">
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-2">
+        Política de Privacidade
+      </h1>
+      <p class="text-sm text-slate-500 dark:text-slate-400">
+        Última atualização: <time datetime={new Date(lastUpdated).toISOString()}>
+          {new Date(lastUpdated).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </time>
+      </p>
+    </header>
+
+    <div class="flex flex-col gap-8 text-slate-700 dark:text-slate-300 leading-relaxed">
+      {sections.map(section => (
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xl font-bold text-slate-950 dark:text-white">{section.heading}</h2>
+          <p class="text-sm md:text-base">{section.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+</PageLayout>

@@ -1,0 +1,237 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+import Button from '../components/ui/Button.astro';
+import Accordion from '../components/ui/Accordion.astro';
+import Badge from '../components/ui/Badge.astro';
+import Tabs from '../components/ui/Tabs.astro';
+import Skeleton from '../components/ui/Skeleton.astro';
+
+const demoTabs = [
+  { id: 'info', label: 'Informações Básicas' },
+  { id: 'detail', label: 'Especificações Técnicas' },
+  { id: 'support', label: 'Canais de Suporte' }
+];
+---
+
+<PageLayout 
+  title="Catálogo de Componentes" 
+  description="Visualização interativa de todos os componentes de UI, botões, badges, layouts e acordeões integrados ao template Suitplus."
+  noindex={true}
+>
+  <Section class="pt-8 pb-12 bg-radial from-slate-900 via-slate-950 to-slate-950 text-slate-100 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="max-w-3xl mx-auto text-center flex flex-col gap-6">
+      <Badge variant="info" class="self-center font-bold">Design System</Badge>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+        Catálogo de <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Componentes</span>
+      </h1>
+      <p class="text-lg text-slate-400 leading-relaxed">
+        Demonstração viva dos blocos de construção de interface utilizados em nosso ecossistema. Teste estados de hover, foco e alternância de temas.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Button Catalog -->
+  <Section class="bg-white dark:bg-slate-900/20 border-b border-slate-200/5 dark:border-slate-900">
+    <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Botões (Button)</h2>
+    <div class="flex flex-col gap-8">
+      <div>
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Variantes e Estilos</h3>
+        <div class="flex flex-wrap gap-4 items-center">
+          <Button variant="primary">Primary Button</Button>
+          <Button variant="cyber">Cyber (Acento)</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="ghost">Ghost Link</Button>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Estados (States)</h3>
+        <div class="flex flex-wrap gap-4 items-center">
+          <Button variant="primary" disabled>Desabilitado (Disabled)</Button>
+          <Button variant="cyber" class="opacity-70 cursor-wait">Carregando... (Loading)</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Tamanhos (Sizes)</h3>
+        <div class="flex flex-wrap gap-4 items-end">
+          <Button variant="primary" size="sm">Small (sm)</Button>
+          <Button variant="primary" size="md">Medium (md)</Button>
+          <Button variant="primary" size="lg">Large (lg)</Button>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Badges & Accordions -->
+  <Section class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="grid md:grid-cols-2 gap-12">
+      <!-- Badges -->
+      <div>
+        <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Badges</h2>
+        <div class="flex flex-wrap gap-4">
+          <Badge variant="info">Informativo</Badge>
+          <Badge variant="success">Sucesso / Concluído</Badge>
+          <Badge variant="warning">Aviso / Atenção</Badge>
+        </div>
+      </div>
+
+      <!-- Accordion -->
+      <div>
+        <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Acordeão (Accordion)</h2>
+        <div class="flex flex-col gap-4">
+          <Accordion question="Como funciona o Acordeão nativo?">
+            Este acordeão é implementado utilizando a tag HTML5 semântica `<details>` combinada com `<summary>`. Zero JavaScript é necessário para a abertura/fechamento, garantindo velocidade máxima e total acessibilidade por teclado.
+          </Accordion>
+          <Accordion question="Ele suporta customização?">
+            Sim! Você pode estilizar livremente as bordas, cores e o espaçamento interno usando classes utilitárias ou passadas como props.
+          </Accordion>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Card & GlassCard -->
+  <Section class="bg-white dark:bg-slate-900/20 border-b border-slate-200/5 dark:border-slate-900">
+    <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Cards & Glassmorphism</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Card Standard -->
+      <Card class="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 p-8">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Card Padrão</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          Card opaco tradicional com bordas cinzas e sombreamento leve. Perfeito para grids de recursos, planos ou seções de depoimento.
+        </p>
+        <Button variant="outline" size="sm">Acessar</Button>
+      </Card>
+
+      <!-- GlassCard -->
+      <GlassCard class="p-8">
+        <h3 class="text-lg font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 dark:from-cyan-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">GlassCard (Glassmorphism)</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          Card semitransparente com desfoque de fundo (`backdrop-filter`). Possui fallbacks automáticos para navegadores antigos e respeita preferências de acessibilidade.
+        </p>
+        <Button variant="cyber" size="sm">Explorar</Button>
+      </GlassCard>
+    </div>
+  </Section>
+
+  <!-- Form Elements -->
+  <Section class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200/5 dark:border-slate-900">
+    <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Elementos de Formulário</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="flex flex-col gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 font-semibold">Campo de Texto Padrão</label>
+          <input 
+            type="text" 
+            placeholder="Seu nome completo" 
+            class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-sm"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 font-semibold">Campo com Erro</label>
+          <input 
+            type="email" 
+            value="email-invalido@" 
+            class="w-full px-4 py-3 rounded-lg border border-rose-500 bg-white dark:bg-slate-900/60 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-rose-500/50 transition-all text-sm"
+          />
+          <span class="text-xs text-rose-500 mt-1 block font-medium">Insira um endereço de e-mail válido.</span>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 font-semibold">Área de Texto (Textarea)</label>
+        <textarea 
+          rows="4" 
+          placeholder="Como podemos ajudar sua empresa?" 
+          class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-sm"
+        ></textarea>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Alerts & Status -->
+  <Section class="bg-white dark:bg-slate-900/20 border-b border-slate-200/5 dark:border-slate-900">
+    <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Banners de Alerta e Status</h2>
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-3 p-4 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 rounded-xl text-emerald-800 dark:text-emerald-300">
+        <svg class="w-5 h-5 shrink-0"><use href="/icons/sprite.svg#icon-check-circle" /></svg>
+        <p class="text-sm font-medium">Formulário enviado com sucesso! Entraremos em contato em breve.</p>
+      </div>
+      <div class="flex items-center gap-3 p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-xl text-amber-800 dark:text-amber-300">
+        <svg class="w-5 h-5 shrink-0"><use href="/icons/sprite.svg#icon-warning-circle" /></svg>
+        <p class="text-sm font-medium">Atenção: Por favor, preencha todos os campos obrigatórios antes de prosseguir.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Tabs & Skeletons -->
+  <Section class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="grid md:grid-cols-2 gap-12">
+      <!-- Tabs -->
+      <div>
+        <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Abas (Tabs)</h2>
+        <Tabs tabs={demoTabs} idPrefix="catalog-tabs">
+          <div slot="info" class="p-4 bg-white dark:bg-slate-900/40 rounded-xl border border-slate-200 dark:border-slate-800">
+            <h3 class="font-bold text-sm mb-2 text-slate-900 dark:text-white">Conteúdo da Aba de Informações</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Aqui fica o conteúdo primário sobre o produto. É renderizado e animado de forma nativa e sem quebras no fluxo do layout.
+            </p>
+          </div>
+          <div slot="detail" class="p-4 bg-white dark:bg-slate-900/40 rounded-xl border border-slate-200 dark:border-slate-800">
+            <h3 class="font-bold text-sm mb-2 text-slate-900 dark:text-white">Especificações Técnicas</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Ideal para descrever detalhes mais avançados do seu serviço, dados técnicos ou tabelas comparativas.
+            </p>
+          </div>
+          <div slot="support" class="p-4 bg-white dark:bg-slate-900/40 rounded-xl border border-slate-200 dark:border-slate-800">
+            <h3 class="font-bold text-sm mb-2 text-slate-900 dark:text-white">Canais de Suporte Dedicados</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Atendimento garantido em menos de 2 horas úteis para parceiros do plano Platinum.
+            </p>
+          </div>
+        </Tabs>
+      </div>
+
+      <!-- Skeletons -->
+      <div>
+        <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Skeletons (Carregamento)</h2>
+        <div class="flex flex-col gap-4 p-6 border border-slate-200 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900/30">
+          <div class="flex items-center gap-4">
+            <Skeleton class="w-12 h-12 rounded-full shrink-0" />
+            <div class="flex-grow flex flex-col gap-2">
+              <Skeleton class="w-2/3 h-4 rounded" />
+              <Skeleton class="w-1/2 h-3 rounded" />
+            </div>
+          </div>
+          <Skeleton class="w-full h-12 rounded-lg mt-2" />
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Estatísticas e KPIs -->
+  <Section class="bg-white dark:bg-slate-900/20">
+    <h2 class="text-2xl font-bold mb-6 border-b border-slate-100 dark:border-slate-800 pb-2 text-slate-900 dark:text-white">Estatísticas e KPIs</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <GlassCard class="p-6 text-center">
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Uptime</h3>
+        <span class="text-3xl font-black bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">99.9%</span>
+      </GlassCard>
+      <GlassCard class="p-6 text-center">
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Usuários</h3>
+        <span class="text-3xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">+10k</span>
+      </GlassCard>
+      <GlassCard class="p-6 text-center">
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Satisfação</h3>
+        <span class="text-3xl font-black bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">4.9/5</span>
+      </GlassCard>
+      <GlassCard class="p-6 text-center">
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Respostas</h3>
+        <span class="text-3xl font-black bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">&lt;2h</span>
+      </GlassCard>
+    </div>
+  </Section>
+</PageLayout>

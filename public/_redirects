@@ -1,0 +1,2 @@
+/api/status-heartbeat https://status.suitplus.com.br/api/status-page/heartbeat/template 200
+/api/submit-form https://n8n.suitplus.com.br/webhook/contato-site 200

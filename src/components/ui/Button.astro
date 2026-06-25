@@ -1,0 +1,46 @@
+---
+interface Props {
+  variant?: 'primary' | 'outline' | 'ghost' | 'cyber';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  class?: string;
+  id?: string;
+  [key: string]: any; // Catch-all for extra props like target, rel, disabled, etc.
+}
+
+const { 
+  variant = 'primary', 
+  size = 'md', 
+  href, 
+  class: className = '', 
+  id, 
+  ...rest 
+} = Astro.props;
+
+// Tailwind classes
+const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-4';
+
+const variantClasses = {
+  primary: 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-600/20 focus:ring-indigo-400',
+  outline: 'border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900/50 focus:ring-slate-400',
+  ghost: 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/40 focus:ring-slate-300',
+  cyber: 'bg-cyan-500 hover:bg-cyan-600 text-slate-950 shadow-lg shadow-cyan-500/20 focus:ring-cyan-400'
+};
+
+const sizeClasses = {
+  sm: 'px-3.5 py-1.5 text-xs',
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base'
+};
+
+const Element = href ? 'a' : 'button';
+---
+
+<Element 
+  href={href} 
+  id={id}
+  class:list={[baseClasses, variantClasses[variant], sizeClasses[size], className]} 
+  {...rest}
+>
+  <slot />
+</Element>

@@ -1,0 +1,16 @@
+---
+// Honeypot component to prevent bot spam without visual pollution or heavy captchas
+---
+<div 
+  class="absolute -left-[9999px] -top-[9999px] opacity-0 pointer-events-none" 
+  aria-hidden="true"
+>
+  <label for="form_username">Favor deixar em branco se for humano:</label>
+  <input 
+    type="text" 
+    id="form_username" 
+    name="username" 
+    tabindex="-1" 
+    autocomplete="off" 
+  />
+</div>

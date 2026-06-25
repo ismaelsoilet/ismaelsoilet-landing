@@ -1,0 +1,18 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  container?: boolean;
+}
+const { id, class: className = '', container = true } = Astro.props;
+---
+
+<section id={id} class:list={["py-16 md:py-24 transition-colors duration-300", className]}>
+  {container ? (
+    <div class="max-w-6xl mx-auto px-6">
+      <slot />
+    </div>
+  ) : (
+    <slot />
+  )}
+</section>

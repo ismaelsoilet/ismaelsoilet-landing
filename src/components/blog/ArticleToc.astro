@@ -1,0 +1,105 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+  ariaLabel?: string;
+}
+
+const { headings, ariaLabel = 'Tabela de conteúdos' } = Astro.props;
+const items = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+{
+  items.length > 0 && (
+    <aside
+      aria-label={ariaLabel}
+      class="hidden lg:block sticky top-24 self-start max-h-[calc(100vh-6rem)] overflow-y-auto py-8 pr-2"
+    >
+      <h2 class="px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3">
+        Nesta página
+      </h2>
+      <nav id="article-toc" aria-label="Sumário do artigo">
+        <ol class="relative flex flex-col text-sm border-l border-slate-200/50 dark:border-slate-800/60">
+          {items.map((h) => (
+            <li class="relative">
+              <a
+                href={`#${h.slug}`}
+                data-toc-link={h.slug}
+                class:list={[
+                  'toc-link block py-1.5 pr-3 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors leading-snug border-l-2 -ml-px border-transparent',
+                  h.depth === 3 ? 'pl-8' : 'pl-4 font-medium',
+                ]}
+              >
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </aside>
+  )
+}
+
+<script>
+  function initToc(): void {
+    const links = document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]');
+    if (links.length === 0) return;
+
+    const linkByHash = new Map<string, HTMLAnchorElement>();
+    links.forEach((link) => {
+      const hash = link.getAttribute('data-toc-link') || '';
+      linkByHash.set(hash, link);
+    });
+
+    const headings = Array.from(linkByHash.keys())
+      .map((id) => document.getElementById(decodeURIComponent(id)))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (headings.length === 0) return;
+
+    const activeClasses = [
+      'text-cyan-600',
+      'dark:text-cyan-400',
+      'border-cyan-500',
+      'font-semibold',
+    ];
+    const inactiveClasses = [
+      'text-slate-500',
+      'dark:text-slate-400',
+      'border-transparent',
+    ];
+
+    const setActive = (id: string): void => {
+      links.forEach((link) => {
+        link.classList.remove(...activeClasses);
+        link.classList.add(...inactiveClasses);
+      });
+      const link = linkByHash.get(id);
+      if (link) {
+        link.classList.remove(...inactiveClasses);
+        link.classList.add(...activeClasses);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0 && visible[0].target.id) {
+          setActive(visible[0].target.id);
+        }
+      },
+      { rootMargin: '-80px 0px -70% 0px', threshold: 0 }
+    );
+
+    headings.forEach((h) => observer.observe(h));
+  }
+
+  document.addEventListener('astro:page-load', initToc);
+</script>

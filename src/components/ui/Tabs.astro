@@ -1,0 +1,116 @@
+---
+interface Tab {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  tabs: Tab[];
+  idPrefix: string;
+  class?: string;
+}
+
+const { tabs, idPrefix, class: className = '' } = Astro.props;
+---
+
+<div class:list={["w-full flex flex-col gap-6", className]} data-tabs-container>
+  <!-- Tab List -->
+  <div 
+    class="flex border-b border-slate-200 dark:border-slate-800/80 overflow-x-auto scrollbar-none" 
+    role="tablist" 
+    aria-label="Abas de Navegação"
+  >
+    {tabs.map((tab, index) => (
+      <button
+        role="tab"
+        id={`${idPrefix}-tab-${tab.id}`}
+        aria-selected={index === 0 ? "true" : "false"}
+        aria-controls={`${idPrefix}-panel-${tab.id}`}
+        tabindex={index === 0 ? 0 : -1}
+        class:list={[
+          "px-5 py-3 text-sm font-semibold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all select-none whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cyan-500/50 rounded-t-lg",
+          index === 0 ? "border-cyan-500 dark:border-cyan-400 text-cyan-500 dark:text-cyan-400" : ""
+        ]}
+        data-tab-btn={tab.id}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- Tab Panels -->
+  <div class="relative w-full">
+    {tabs.map((tab, index) => (
+      <div
+        role="tabpanel"
+        id={`${idPrefix}-panel-${tab.id}`}
+        aria-labelledby={`${idPrefix}-tab-${tab.id}`}
+        tabindex={0}
+        class:list={[
+          "focus:outline-none focus:ring-2 focus:ring-indigo-500/50 rounded-xl transition-all duration-300",
+          index === 0 ? "block opacity-100 translate-y-0" : "hidden opacity-0 translate-y-2"
+        ]}
+        data-tab-panel={tab.id}
+        set:html={Astro.slots.render(tab.id)}
+      />
+    ))}
+  </div>
+</div>
+
+<script>
+  // Dynamic Tab Switching script (bundled by Astro)
+  document.querySelectorAll('[data-tabs-container]').forEach(container => {
+    const buttons = container.querySelectorAll('[data-tab-btn]');
+    const panels = container.querySelectorAll('[data-tab-panel]');
+
+    buttons.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab-btn');
+
+        // Update tab buttons
+        buttons.forEach(b => {
+          const isTarget = b.getAttribute('data-tab-btn') === targetId;
+          b.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+          b.setAttribute('tabindex', isTarget ? '0' : '-1');
+          
+          if (isTarget) {
+            b.classList.add('border-cyan-500', 'dark:border-cyan-400', 'text-cyan-500', 'dark:text-cyan-400');
+          } else {
+            b.classList.remove('border-cyan-500', 'dark:border-cyan-400', 'text-cyan-500', 'dark:text-cyan-400');
+          }
+        });
+
+        // Update panels with animation
+        panels.forEach(panel => {
+          const isTarget = panel.getAttribute('data-tab-panel') === targetId;
+          if (isTarget) {
+            panel.classList.remove('hidden');
+            // Allow browser to register display change before animating opacity
+            setTimeout(() => {
+              panel.classList.remove('opacity-0', 'translate-y-2');
+              panel.classList.add('opacity-100', 'translate-y-0');
+            }, 50);
+          } else {
+            panel.classList.add('hidden', 'opacity-0', 'translate-y-2');
+            panel.classList.remove('opacity-100', 'translate-y-0');
+          }
+        });
+      });
+
+      // Keyboard navigation support
+      btn.addEventListener('keydown', (e: any) => {
+        let targetIdx = null;
+        if (e.key === 'ArrowRight') {
+          targetIdx = (idx + 1) % buttons.length;
+        } else if (e.key === 'ArrowLeft') {
+          targetIdx = (idx - 1 + buttons.length) % buttons.length;
+        }
+
+        if (targetIdx !== null) {
+          (buttons[targetIdx] as HTMLButtonElement).focus();
+          (buttons[targetIdx] as HTMLButtonElement).click();
+        }
+      });
+    });
+  });
+</script>

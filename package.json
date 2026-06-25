@@ -1,0 +1,55 @@
+{
+  "name": "template-landing",
+  "type": "module",
+  "version": "2.1.5",
+  "packageManager": "pnpm@11.5.2",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "typecheck": "astro check",
+    "check-icons": "node scripts/check-icons.mjs",
+    "check-tracking": "node scripts/check-tracking.mjs",
+    "check-ai-files": "node scripts/check-ai-files.mjs",
+    "check-a11y": "node scripts/check-a11y.mjs",
+    "smoke-test": "node scripts/smoke-test.mjs",
+    "qa-seo": "node scripts/qa-seo.mjs",
+    "broken-links": "node scripts/broken-links.mjs",
+    "size-limit": "size-limit",
+    "visualize": "node scripts/visualize.mjs",
+    "verify": "pnpm typecheck && pnpm check-icons && pnpm smoke-test && pnpm qa-seo && pnpm size-limit",
+    "ci": "pnpm verify && pnpm build && pnpm broken-links && pnpm check-a11y",
+    "start": "astro dev --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^6.0.2",
+    "@astrojs/partytown": "^2.1.7",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.4",
+    "imask": "^7.6.1",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.3.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "web-vitals": "^5.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@axe-core/cli": "^4.11.3",
+    "@lhci/cli": "^0.15.1",
+    "@size-limit/file": "^12.1.0",
+    "size-limit": "^12.1.0",
+    "typescript": "^5.7.3"
+  },
+  "size-limit": [
+    {
+      "path": "dist/_astro/*.js",
+      "limit": "30 kB"
+    }
+  ]
+}

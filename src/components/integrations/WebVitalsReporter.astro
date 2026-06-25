@@ -1,0 +1,52 @@
+---
+import { site } from '../../content/site';
+
+const endpoint = site.tracking.webVitalsEndpoint;
+---
+
+{endpoint && (
+  <!-- Load self-hosted web-vitals UMD/iife build in Partytown -->
+  <script type="text/partytown" is:inline src="/js/web-vitals.iife.js"></script>
+  
+  <!-- Hook up reporters to send beacon JSON to endpoint -->
+  <script type="text/partytown" is:inline define:vars={{ endpoint }}>
+    (function() {
+      function sendToAnalytics(metric) {
+        const payload = JSON.stringify({
+          name: metric.name,
+          value: metric.value,
+          rating: metric.rating,
+          delta: metric.delta,
+          id: metric.id,
+          url: window.location.href,
+          timestamp: new Date().toISOString()
+        });
+
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(endpoint, payload);
+        } else {
+          fetch(endpoint, {
+            method: 'POST',
+            body: payload,
+            keepalive: true,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).catch(err => console.error('Error reporting web vitals:', err));
+        }
+      }
+
+      // Check if webVitals is loaded
+      const interval = setInterval(() => {
+        if (window.webVitals) {
+          clearInterval(interval);
+          window.webVitals.onLCP(sendToAnalytics);
+          window.webVitals.onCLS(sendToAnalytics);
+          window.webVitals.onINP(sendToAnalytics);
+          window.webVitals.onFCP(sendToAnalytics);
+          window.webVitals.onTTFB(sendToAnalytics);
+        }
+      }, 100);
+    })();
+  </script>
+)}

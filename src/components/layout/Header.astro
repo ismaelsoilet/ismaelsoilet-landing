@@ -1,0 +1,67 @@
+---
+import { site } from '../../content/site';
+---
+
+<header class="w-full border-b border-slate-200/10 dark:border-slate-900 bg-white/70 dark:bg-slate-950/70 backdrop-blur-md sticky top-0 z-40 transition-colors duration-300">
+  <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+    <!-- Brand logo -->
+    <a href="/" class="flex items-center gap-3 active:scale-95 transition" aria-label="Voltar para home">
+      <img src="/logo.svg" alt="" class="w-7 h-7" aria-hidden="true" />
+      <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">
+        {site.org.name}
+      </span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden md:flex gap-8 text-sm font-medium text-slate-600 dark:text-slate-400">
+      <a href="/" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition">Home</a>
+      <a href="/servicos" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition">Serviços</a>
+      <a href="/sobre" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition">Sobre</a>
+      <a href="/blog" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition">Blog</a>
+      <a href="/contato" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition">Contato</a>
+      <a
+        href="/index-exemplo"
+        class="inline-flex items-center gap-1.5 text-cyan-700 dark:text-cyan-300 hover:text-cyan-600 dark:hover:text-cyan-200 transition font-semibold"
+        aria-label="Ver exemplo interativo de Landing Page Premium"
+      >
+        <svg class="w-3.5 h-3.5" aria-hidden="true"><use href="/icons/sprite.svg#icon-sparkle" /></svg>
+        Exemplo
+      </a>
+    </nav>
+
+    <!-- Toolbar: Theme Toggle & Mobile Trigger -->
+    <div class="flex items-center gap-3">
+      <!-- Theme Toggle Button -->
+      <button id="theme-toggle" class="p-2.5 border border-slate-200/20 dark:border-slate-800/80 rounded-lg text-slate-600 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 transition active:scale-95" aria-label="Alternar tema">
+        <!-- Sun Icon (shown in dark mode) -->
+        <svg class="w-5 h-5 hidden dark:block"><use href="/icons/sprite.svg#icon-sun" /></svg>
+        <!-- Moon Icon (shown in light mode) -->
+        <svg class="w-5 h-5 block dark:hidden"><use href="/icons/sprite.svg#icon-moon" /></svg>
+      </button>
+
+      <!-- Mobile Menu Trigger -->
+      <button id="mobile-menu-trigger" class="p-2.5 md:hidden border border-slate-200/20 dark:border-slate-800/80 rounded-lg text-slate-600 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 transition active:scale-95" aria-label="Abrir menu">
+        <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-list" /></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { setTheme, getTheme } from '../../lib/theme';
+
+  document.addEventListener('astro:page-load', () => {
+    const toggleBtn = document.getElementById('theme-toggle');
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const current = getTheme();
+        const next = current === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+        
+        // Dispatch custom event to let other components react (e.g. charts, islands)
+        window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: next } }));
+      });
+    }
+  });
+</script>

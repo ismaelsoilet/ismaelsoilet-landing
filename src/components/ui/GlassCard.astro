@@ -1,0 +1,48 @@
+---
+interface Props {
+  class?: string;
+  [key: string]: any;
+}
+const { class: className = '', ...rest } = Astro.props;
+---
+
+<div 
+  class:list={[
+    "glass-card border border-slate-200/10 dark:border-white/10 rounded-2xl p-6 shadow-xl transition-all duration-300", 
+    className
+  ]} 
+  {...rest}
+>
+  <slot />
+</div>
+
+<style>
+  /* Base fallback (no glass support, or mobile, or reduced transparency) */
+  .glass-card {
+    background-color: var(--color-slate-900); /* solid fallback dark */
+  }
+  
+  :global(html:not(.dark)) .glass-card {
+    background-color: var(--color-white); /* solid fallback light */
+    border-color: var(--color-slate-200);
+  }
+
+  /* Apply glassmorphism on desktop when transparency preference is no-preference */
+  @media (min-width: 769px) {
+    @media (prefers-reduced-transparency: no-preference) {
+      @supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
+        .glass-card {
+          background-color: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+        }
+        :global(html:not(.dark)) .glass-card {
+          background-color: rgba(255, 255, 255, 0.6);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border-color: rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
+  }
+</style>

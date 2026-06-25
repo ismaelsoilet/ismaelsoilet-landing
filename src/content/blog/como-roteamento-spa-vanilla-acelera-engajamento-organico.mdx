@@ -1,0 +1,57 @@
+---
+title: "Roteador SPA Vanilla: Velocidade e Engajamento Orgânico"
+description: "Entenda como as transições de página nativas melhoram a retenção do usuário (CRO) e garantem velocidade máxima sem quebrar a indexação de buscas."
+pubDate: "2026-05-30"
+updated: "2026-06-04"
+author: "Suitplus"
+category: "Performance"
+keywords: ["spa vanilla", "cro", "lighthouse", "view transitions"]
+cover: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+draft: false
+steps: [
+  "Habilite as transições no link de navegação capturando cliques",
+  "Envolva as atualizações de DOM com document.startViewTransition()",
+  "Configure transições customizadas usando as pseudoclasses CSS nativas"
+]
+---
+
+A maioria dos desenvolvedores associa o conceito de SPA (Single Page Application) a frameworks
+reativos como React, Vue ou Svelte. No entanto, é perfeitamente possível construir um roteador
+SPA de alta performance apenas com Vanilla JavaScript, sem build pipeline, sem hidratação e
+sem o overhead de frameworks reativos.
+
+## O que é a View Transitions API
+
+A View Transitions API é um recurso nativo do navegador que permite animar transições entre
+estados do DOM. Diferente de animações CSS tradicionais, ela captura snapshots do estado
+anterior e do novo estado e interpola automaticamente entre eles.
+
+## Implementação em 3 passos
+
+O primeiro passo é habilitar a transição no link de navegação. Em vez de um redirecionamento
+tradicional, você captura o evento de clique, faz fetch do HTML de destino e substitui apenas
+o conteúdo do `<main>` no DOM.
+
+O segundo passo é envolver a atualização do DOM com `document.startViewTransition()`. Isso
+faz o navegador capturar o estado visual atual e preparar a interpolação.
+
+O terceiro passo é configurar classes CSS de animação. Você pode usar `::view-transition-old()`
+e `::view-transition-new()` para definir a duração e o easing da transição.
+
+## Por que isso é melhor para SEO
+
+Diferente de SPAs criados em React clássico, este approach lê arquivos HTML reais e estáticos.
+Cada página é 100% legível por robôs de busca. O JavaScript entra apenas como um acelerador
+de performance de navegação interativa, preservando o SEO intacto.
+
+## Considerações de Acessibilidade
+
+Sempre respeite a preferência `prefers-reduced-motion` do usuário. Usuários com sensibilidade
+a movimento devem ter transições instantâneas. Adicione um media query que desabilita as
+animações quando essa preferência estiver ativa.
+
+## Conclusão
+
+A View Transitions API combinada com Vanilla JS é uma das maiores revoluções silenciosas do
+desenvolvimento web moderno. Você obtém a velocidade percebida de uma SPA nativa sem sacrificar
+a indexabilidade, a semântica ou o tamanho do bundle.

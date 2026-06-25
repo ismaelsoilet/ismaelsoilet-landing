@@ -1,0 +1,550 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Card from '../components/ui/Card.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
+import Button from '../components/ui/Button.astro';
+import Accordion from '../components/ui/Accordion.astro';
+import Badge from '../components/ui/Badge.astro';
+import Tabs from '../components/ui/Tabs.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { buildFaqSchema } from '../lib/seo';
+
+// Fetch FAQs for schema and accordion
+const faqs = await getCollection('faqs');
+const faqSchema = buildFaqSchema(faqs.map(f => ({ question: f.data.question, answer: f.data.answer })));
+
+// Fetch Testimonials
+const testimonials = await getCollection('testimonials');
+
+// Fetch Services
+const allServices = await getCollection('services');
+const serviceData = allServices.find(s => s.id === 'marketing-digital');
+const pricingTiers = serviceData ? serviceData.data.tiers : [];
+
+// Tabs for solutions section
+const solutionTabs = [
+  { id: 'cro', label: 'Conversão (CRO)' },
+  { id: 'seo', label: 'SEO & Performance' },
+  { id: 'automacao', label: 'Integrações & Automação' }
+];
+---
+
+<BaseLayout 
+  title="Home Exemplo - Template Definitivo" 
+  description="Exemplo de landing page ultra-premium reconstruída em Astro 6 e Tailwind CSS v4."
+  noindex={true}
+>
+  <JsonLd schema={faqSchema} />
+  
+  <!-- Hero Section -->
+  <Section class="relative overflow-hidden pt-20 pb-24 md:pt-32 md:pb-36 bg-slate-900 text-slate-100 dark:bg-slate-950">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.06),transparent_45%)]" aria-hidden="true"></div>
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      <div class="lg:col-span-7 flex flex-col gap-6 text-left scroll-reveal opacity-0">
+        <Badge variant="cyber" class="self-start">Nova Versão 2.0</Badge>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-none text-white">
+          Aceleração digital de <br class="hidden sm:inline" />
+          <span class="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">Alta Performance</span>
+        </h1>
+        <p class="text-base sm:text-lg md:text-xl text-slate-200 leading-relaxed max-w-2xl">
+          Construa landing pages ultra-rápidas com Astro 6, Tailwind CSS v4, otimização de mecanismos de pesquisa (SEO) e IA (AIO) e conformidade legal LGPD nativa.
+        </p>
+        <div class="flex flex-wrap gap-4 mt-2">
+          <Button variant="cyber" size="lg" href="/contato">
+            Iniciar Projeto
+          </Button>
+          <Button variant="outline" size="lg" href="#diferenciais" class="bg-white/10 border-slate-700 text-white hover:bg-white/20 hover:border-slate-600 backdrop-blur-sm shadow-xl">
+            Conhecer Diferenciais
+          </Button>
+        </div>
+      </div>
+      
+      <div class="lg:col-span-5 relative mt-8 lg:mt-0 scroll-reveal opacity-0" style="perspective: 1000px;">
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 rounded-2xl blur-3xl pointer-events-none" aria-hidden="true"></div>
+        <GlassCard class="relative border-slate-800/80 bg-slate-900/40 p-8 flex flex-col gap-6 tilt-card" style="transform-style: preserve-3d;">
+          <div style="transform: translateZ(30px);" class="flex flex-col gap-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Status do Sistema</span>
+              <span class="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Ativo (100% Uptime)
+              </span>
+            </div>
+            
+            <div class="flex flex-col gap-4">
+              <div>
+                <h2 class="text-lg font-bold text-white mb-1">Métricas de Performance</h2>
+                <p class="text-xs text-slate-400">Medição em tempo real simulada via Core Web Vitals.</p>
+              </div>
+              
+              <div class="grid grid-cols-3 gap-4 text-center mt-2">
+                <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800/60">
+                  <span class="block text-2xl font-black text-emerald-400">100</span>
+                  <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Performance</span>
+                </div>
+                <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800/60">
+                  <span class="block text-2xl font-black text-emerald-400">100</span>
+                  <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Acessibilidade</span>
+                </div>
+                <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800/60">
+                  <span class="block text-2xl font-black text-emerald-400">100</span>
+                  <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">SEO</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </GlassCard>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Diferenciais (Bento Grid) -->
+  <Section id="diferenciais" class="bg-slate-50 dark:bg-slate-950 border-y border-slate-200/5 dark:border-slate-900">
+    <div class="text-center max-w-3xl mx-auto flex flex-col gap-4 mb-16 scroll-reveal opacity-0">
+      <Badge variant="info" class="self-center">Diferenciais</Badge>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        Infraestrutura moderna e simplificada
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+        Nossos pilares de desenvolvimento garantem resultados expressivos sem complexidade técnica.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <Card class="md:col-span-8 p-8 flex flex-col justify-between scroll-reveal opacity-0">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6"><use href="/icons/sprite.svg#icon-rocket" /></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Arquitetura Totalmente Estática com Astro</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Eliminamos os atrasos de banco de dados e servidores tradicionais. O Astro gera páginas puramente em HTML no build, permitindo que suas páginas carreguem instantaneamente de qualquer lugar do mundo.
+          </p>
+        </div>
+        <div class="mt-8 border-t border-slate-100 dark:border-slate-800/60 pt-4 flex gap-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
+          <span>✓ Zero Banco de Dados</span>
+          <span>✓ CDN Global</span>
+        </div>
+      </Card>
+
+      <Card class="md:col-span-4 p-8 flex flex-col justify-between scroll-reveal opacity-0">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6"><use href="/icons/sprite.svg#icon-paint-brush" /></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Tailwind CSS v4 CSS-First</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+            Estilização moderna e sem arquivos de configuração JS poluídos. Todo o tema vive direto no CSS global, facilitando a customização e mantendo os arquivos leves.
+          </p>
+        </div>
+        <a href="/components" class="mt-6 text-sm font-bold text-cyan-500 dark:text-cyan-400 flex items-center gap-1 hover:underline">
+          Ver catálogo <svg class="w-4 h-4"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
+        </a>
+      </Card>
+
+      <Card class="md:col-span-4 p-8 flex flex-col justify-between scroll-reveal opacity-0">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6"><use href="/icons/sprite.svg#icon-code" /></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">SEO Técnico Imbatível</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+            Geramos esquemas JSON-LD estruturados, sitemaps automáticos e tags Open Graph validadas no build para garantir que os mecanismos de busca entendam seu conteúdo com perfeição.
+          </p>
+        </div>
+        <span class="mt-6 text-xs font-semibold text-slate-400 dark:text-slate-500">JSON-LD & Open Graph nativos</span>
+      </Card>
+
+      <Card class="md:col-span-8 p-8 flex flex-col justify-between scroll-reveal opacity-0">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-6">
+            <svg class="w-6 h-6"><use href="/icons/sprite.svg#icon-shield" /></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Conformidade e Segurança Absoluta</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Protegemos os dados dos seus visitantes com políticas de segurança de cabeçalho rígidas (Content-Security-Policy), formulários assíncronos com sistema anti-spam honeypot e banners de consentimento LGPD integrados.
+          </p>
+        </div>
+        <div class="mt-8 border-t border-slate-100 dark:border-slate-800/60 pt-4 flex gap-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
+          <span>✓ CSP Rigorosa</span>
+          <span>✓ Honeypot Invisível</span>
+        </div>
+      </Card>
+    </div>
+  </Section>
+
+  <!-- Soluções (Interactive Tabs) -->
+  <Section id="solucoes" class="bg-white dark:bg-slate-900/20 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5 flex flex-col gap-6 scroll-reveal opacity-0">
+        <Badge variant="warning" class="self-start">Funcionalidades</Badge>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          Foco total em Conversão e Performance
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+          Alternamos as abas para exibir o impacto que cada módulo técnico traz para o seu negócio de forma visual e simples.
+        </p>
+        <Button variant="outline" href="/servicos" class="self-start">Conhecer Planos</Button>
+      </div>
+
+      <div class="lg:col-span-7 scroll-reveal opacity-0">
+        <Tabs tabs={solutionTabs} idPrefix="solutions">
+          <div slot="cro" class="p-6 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800/60 flex flex-col gap-4">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Otimização da Taxa de Conversão (CRO)</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+              Implementamos elements persuasivos baseados em comportamento de usuário. Layouts limpos, botões de ação proeminentes com feedbacks e redução de atrito na navegação impulsionam suas taxas de conversão de forma orgânica.
+            </p>
+            <ul class="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> CTA acima da dobra</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> Gatilhos de urgência e prova social</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> Menus focados em conversão direta</li>
+            </ul>
+          </div>
+
+          <div slot="seo" class="p-6 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800/60 flex flex-col gap-4">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">SEO Avançado e Preparação para IA</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+              Além do SEO tradicional do Google, preparamos o seu site para a era de buscas por IA (AIO - Artificial Intelligence Optimization) através de metadados semânticos e da disponibilização do arquivo llms.txt na raiz do projeto.
+            </p>
+            <ul class="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> Estruturação semântica em HTML5 pura</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> Geração dinâmica de sitemaps e RSS</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> Formato llms.txt legível por robôs de IA</li>
+            </ul>
+          </div>
+
+          <div slot="automacao" class="p-6 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800/60 flex flex-col gap-4">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Integrações de Formulários & Webhooks</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+              Integramos os dados capturados nos formulários diretamente ao seu CRM ou ferramentas de automação como n8n. O envio é feito de forma assíncrona, rápida e segura sem comprometer a estabilidade do site.
+            </p>
+            <ul class="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> Conexão assíncrona com n8n e CRMs</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> Validação assíncrona de campos</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500"><use href="/icons/sprite.svg#icon-check" /></svg> Sanitização e segurança de input</li>
+            </ul>
+          </div>
+        </Tabs>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Métricas (Stats) -->
+  <Section class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <GlassCard class="p-6 text-center scroll-reveal opacity-0">
+        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Velocidade</h3>
+        <span class="text-3xl md:text-4xl font-black bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">&lt;0.5s</span>
+        <p class="text-[10px] text-slate-400 mt-2 font-medium">Carregamento Inicial</p>
+      </GlassCard>
+      
+      <GlassCard class="p-6 text-center scroll-reveal opacity-0">
+        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Conversão</h3>
+        <span class="text-3xl md:text-4xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">+42%</span>
+        <p class="text-[10px] text-slate-400 mt-2 font-medium">Melhoria de Leads</p>
+      </GlassCard>
+      
+      <GlassCard class="p-6 text-center scroll-reveal opacity-0">
+        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Uptime</h3>
+        <span class="text-3xl md:text-4xl font-black bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">99.99%</span>
+        <p class="text-[10px] text-slate-400 mt-2 font-medium">Garantia Técnica</p>
+      </GlassCard>
+      
+      <GlassCard class="p-6 text-center scroll-reveal opacity-0">
+        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Lighthouse</h3>
+        <span class="text-3xl md:text-4xl font-black bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">100/100</span>
+        <p class="text-[10px] text-slate-400 mt-2 font-medium">LCP & CLS Perfeito</p>
+      </GlassCard>
+    </div>
+  </Section>
+
+  <!-- Depoimentos (Testimonials) -->
+  <Section id="depoimentos" class="bg-white dark:bg-slate-900/20 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="text-center max-w-3xl mx-auto flex flex-col gap-4 mb-16 scroll-reveal opacity-0">
+      <Badge variant="success" class="self-center">Prova Social</Badge>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        O que dizem os nossos parceiros
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+        Resultados reais conquistados por empresas de tecnologia com nosso modelo de landing page.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonials.map(item => (
+        <Card class="flex flex-col justify-between p-6 scroll-reveal opacity-0">
+          <div class="flex flex-col gap-4">
+            <div class="flex gap-1 text-amber-500">
+              {Array.from({ length: item.data.rating }).map(() => (
+                <svg class="w-4 h-4 fill-current"><use href="/icons/sprite.svg#icon-star" /></svg>
+              ))}
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 italic text-sm leading-relaxed">
+              "{item.data.quote}"
+            </p>
+          </div>
+          <div class="flex items-center gap-3 mt-6 border-t border-slate-100 dark:border-slate-800/60 pt-4">
+            <img 
+              src={item.data.avatar} 
+              alt={item.data.clientName} 
+              class="w-10 h-10 rounded-full object-cover bg-slate-100"
+              loading="lazy"
+            />
+            <div>
+              <h3 class="font-bold text-sm text-slate-900 dark:text-white">{item.data.clientName}</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">{item.data.clientRole}, {item.data.company}</p>
+            </div>
+          </div>
+        </Card>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Showcase -->
+  <Section class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="flex flex-col gap-6 scroll-reveal opacity-0">
+        <Badge variant="info" class="self-start">Modelos</Badge>
+        <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          Showcase de Sucesso
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm md:text-base">
+          Oferecemos modelos dinâmicos que se adaptam a qualquer necessidade operacional. Sejam funis de vendas de múltiplos passos, páginas de captura direta de leads, ou portfólios institucionais complexos.
+        </p>
+        <div class="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-400">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-500"><use href="/icons/sprite.svg#icon-check" /></svg>
+            <span>Landing Page Corporativa de Conversão</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-500"><use href="/icons/sprite.svg#icon-check" /></svg>
+            <span>Funis de Vendas Multietapas</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-500"><use href="/icons/sprite.svg#icon-check" /></svg>
+            <span>Páginas de Captura de Leads Rápidas</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="relative scroll-reveal opacity-0">
+        <div class="absolute inset-0 bg-indigo-500/5 rounded-2xl blur-3xl" aria-hidden="true"></div>
+        <div class="relative border border-slate-200/10 dark:border-slate-800 p-8 rounded-2xl bg-white dark:bg-slate-900/30">
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-4">Acessibilidade Integrada</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+            Cumprimos rigorosamente as diretrizes WCAG 2.1 nível AA. Isso significa que as suas páginas possuem contraste visual correto, navegação por teclado fluida e descritivos em todas as tags para leitores de tela.
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse"></div>
+            <span class="text-xs font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Livre de barreiras de navegação</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Planos (Pricing) -->
+  <Section id="planos" class="bg-white dark:bg-slate-900/20 border-b border-slate-200/5 dark:border-slate-900">
+    <div class="text-center max-w-3xl mx-auto flex flex-col gap-4 mb-16 scroll-reveal opacity-0">
+      <Badge variant="warning" class="self-center">Planos</Badge>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        Nossos planos sob medida
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+        Escolha o tier de serviço ideal para as demandas de crescimento do seu negócio.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+      {pricingTiers.map((tier, idx) => (
+        <Card class={`flex flex-col justify-between p-8 border ${idx === 1 ? 'border-indigo-500 dark:border-indigo-400 shadow-2xl relative' : 'border-slate-200 dark:border-slate-800/80'} bg-white dark:bg-slate-900/30 scroll-reveal opacity-0`}>
+          {idx === 1 && (
+            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white bg-indigo-600 rounded-full">
+              Mais Recomendado
+            </span>
+          )}
+          <div>
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">{tier.name}</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Plano de aceleração com SLA dedicado.</p>
+            
+            <div class="flex items-baseline gap-1 my-6 border-y border-slate-100 dark:border-slate-800/40 py-4">
+              <span class="text-4xl font-black text-slate-900 dark:text-white">{tier.price}</span>
+            </div>
+
+            <ul class="flex flex-col gap-3.5 text-sm text-slate-600 dark:text-slate-400 mb-8">
+              {tier.features.map(feat => (
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-emerald-500 shrink-0"><use href="/icons/sprite.svg#icon-check" /></svg>
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Button variant={idx === 1 ? 'cyber' : 'outline'} class="w-full font-bold" href="/contato">
+            Contratar {tier.name}
+          </Button>
+        </Card>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Mid-page CTA -->
+  <Section class="bg-indigo-600 dark:bg-indigo-950 text-white rounded-3xl my-16 px-8 py-12 md:py-16 md:px-12 relative overflow-hidden scroll-reveal opacity-0" container={true}>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(6,182,212,0.15),transparent_40%)]"></div>
+    <div class="relative z-10 max-w-3xl flex flex-col gap-6 text-left">
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight leading-tight">
+        Pronto para otimizar suas operações digitais e conversões?
+      </h2>
+      <p class="text-indigo-100 text-sm md:text-base leading-relaxed max-w-2xl">
+        Entre em contato com nossos consultores técnicos e receba um diagnóstico gratuito da velocidade e acessibilidade do seu site atual.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-2">
+        <Button variant="cyber" size="lg" href="/contato">
+          Falar com Especialista
+        </Button>
+        <Button variant="outline" size="lg" href="/contato" class="border-indigo-400 text-white hover:bg-indigo-500 dark:hover:bg-indigo-900">
+          Diagnóstico Grátis
+        </Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- FAQ (Accordion) -->
+  <Section id="faq" class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200/5 dark:border-slate-900">
+    <div class="text-center max-w-3xl mx-auto flex flex-col gap-4 mb-16 scroll-reveal opacity-0">
+      <Badge variant="info" class="self-center">FAQ</Badge>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        Perguntas Frequentes
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+        Respostas rápidas para dúvidas sobre nossa infraestrutura técnica.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto flex flex-col gap-4 scroll-reveal opacity-0">
+      {faqs.map(item => (
+        <Accordion question={item.data.question}>
+          {item.data.answer}
+        </Accordion>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Final CTA -->
+  <Section class="bg-white dark:bg-slate-955 text-center border-t border-slate-200/5 dark:border-slate-900 pb-20">
+    <div class="max-w-2xl mx-auto flex flex-col gap-6 items-center scroll-reveal opacity-0">
+      <Badge variant="success">Fale Conosco</Badge>
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+        Descubra o poder da alta performance
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-sm md:text-base">
+        Nossos projetos integram o design de ponta e engenharia de alta performance para impulsionar suas métricas corporativas.
+      </p>
+      <Button variant="cyber" size="lg" href="/contato" class="mt-2">
+        Iniciar Aceleração
+      </Button>
+    </div>
+  </Section>
+
+  <style>
+    /* Local styles for the scroll reveal animations and spotlight effects */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .animate-fade-in-up {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* Glass Spotlight Hover effect styles */
+    .glass-card {
+      position: relative;
+    }
+    
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: radial-gradient(
+        600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+        rgba(255, 255, 255, 0.08),
+        transparent 40%
+      );
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+    
+    .glass-card:hover::before {
+      opacity: 1;
+    }
+
+    :global(html:not(.dark)) .glass-card::before {
+      background: radial-gradient(
+        600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+        rgba(99, 102, 241, 0.04),
+        transparent 40%
+      );
+    }
+  </style>
+
+  <script>
+    document.addEventListener('astro:page-load', () => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // Glass Spotlight Hover effect
+      document.querySelectorAll(".glass-card").forEach((card: any) => {
+        card.onmousemove = (e: MouseEvent) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        };
+      });
+
+
+      // Scroll Reveal Intersection Observer
+      // @ts-ignore
+      if (!prefersReducedMotion) {
+        // @ts-ignore
+        if (!window.__revealObserver) {
+          const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+          // @ts-ignore
+          window.__revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in-up');
+                entry.target.classList.remove('opacity-0', 'scroll-reveal');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, observerOptions);
+        }
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+          // @ts-ignore
+          window.__revealObserver.observe(el);
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            el.classList.add('animate-fade-in-up');
+            el.classList.remove('opacity-0', 'scroll-reveal');
+            // @ts-ignore
+            window.__revealObserver.unobserve(el);
+          }
+        });
+      } else {
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+          el.classList.remove('opacity-0', 'scroll-reveal');
+        });
+      }
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,33 @@
+# Coding Rules for AI Coding Assistants (v2.1.1)
+
+You are assisting with the maintenance and development of this high-performance, premium Astro 6 landing page template. You must follow these principles strictly:
+
+## 🧠 Behavioral Principles
+1. **Cautious over fast**: Do not make assumptions. Stop and ask the user if requirements are ambiguous.
+2. **Surgical changes**: Touch only what is necessary. Preserve unrelated formatting, logic, and comments.
+3. **Simplicity first**: Write the minimum code needed to solve the problem. Avoid over-engineering.
+
+## 🏗️ Architecture & Component Conventions
+1. **Astro 6 + Tailwind v4**: Follow Astro 6 components, layouts, and Zod content collections standards.
+2. **Zero JS by default**: Avoid hydration (`client:load`, etc.) unless absolutely necessary. Rely on native browser features (like `<details>` for accordions) or extremely light lazy-loaded scripts.
+3. **Local assets**: All fonts must be self-hosted via `@fontsource-variable/*` packages (no Google Fonts CDNs). All icons must be loaded locally via `/icons/sprite.svg#icon-name` references. The root `<svg>` in `sprite.svg` MUST NOT have `display: none;`, preloads for it MUST use `as="fetch"`, and all paths inside `<symbol>` MUST have `fill="currentColor"` (or be wrapped in `<g fill="currentColor">`) to ensure visibility in dark mode. No third-party stylesheets or script CDNs. Unused legacy scripts must be deleted.
+4. **Theme script**: The FOUC-prevention script in `BaseHead.astro` must remain an inline `<script is:inline>` block under 1KB.
+
+## 🤖 SEO & AIO Rules
+1. **JSON-LD**: Always ensure pages render compliant JSON-LD using builders in `src/lib/seo.ts`. Organization schema goes to all pages, WebSite to home, FAQPage to FAQ routes, BlogPosting to articles.
+2. **Sitemaps**: Generated automatically by `@astrojs/sitemap` (emits `/sitemap-index.xml`). **Do NOT create a manual `src/pages/sitemap.xml.ts`**. `robots.txt` points to `/sitemap-index.xml`. The `filter` in `astro.config.mjs` excludes `noindex` pages via `new URL(page).pathname` against an `excludedPaths` constant (privacy, terms, components, quickstart, index-exemplo). `site` in `astro.config.mjs` is the single source of truth for the domain and must match `url` in `src/content/site.ts`.
+3. **Feed & LLM**: Preserve `/feed.xml` and AI crawling support `/llms.txt` and `/llms-full.txt` text endpoints.
+
+## ⚡ Budgets & Quality Gates
+1. **Size Budgets**: Main-thread initial JS payload ≤ 30KB gzipped (excluding Partytown-loaded scripts).
+2. **Accessibility**: Zero critical or serious axe violations. Visible focus indicators. Skip-to-content link in layout. Use `inert` for visually hidden interactive elements. Maintain strict heading hierarchy (no skipped levels).
+3. **Lighthouse**: Mobile performance ≥ 90, desktop performance ≥ 95.
+
+## 📋 Implementation Reality (v2.1.1, June 2026)
+- **Astro 6.4.4** is the runtime; static-output API is identical to v5 for our use.
+- **Tailwind v4.3.0** is the styling system; CSS-first config in `src/styles/global.css` (no `tailwind.config.mjs`).
+- **10 home sections** (hero, diferenciais, solucoes, metricas, depoimentos, showcase, planos, mid-CTA banner, faq, cta-final). When adding a new section, follow the `<Section id="...">` pattern.
+- **7 blog posts** in `src/content/blog/`. Follow the existing frontmatter shape (title ≤ 60, description 140-160, category enum, keywords 1-8).
+- **No `safelist`** — Tailwind v4 eliminates the concept. If you find yourself reaching for a safelist, you're doing it wrong.
+- **Accessibility Fixes (v2.0.1)**: Remediated 38 accessibility issues across the codebase (strict heading hierarchy, form labels, keyboard focus indicators, inert hidden menus, and WCAG AA contrast compliance).
+- **Sitemap cleanup (v2.1.1)**: Removed manual `sitemap.xml.ts`; `robots.txt` now points to `@astrojs/sitemap`'s `/sitemap-index.xml`. Filter hardened with `URL.pathname` + `excludedPaths` constant; `index-exemplo.astro` added to noindex + exclusion list.
