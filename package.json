@@ -44,7 +44,7 @@
     "@lhci/cli": "^0.15.1",
     "@size-limit/file": "^12.1.0",
     "size-limit": "^12.1.0",
-    "typescript": "^5.7.3"
+    "typescript": "^6.0.3"
   },
   "size-limit": [
     {
