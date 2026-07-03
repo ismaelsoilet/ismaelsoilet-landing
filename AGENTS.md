@@ -232,14 +232,14 @@ pnpm check-a11y     # audits accessibility errors (axe)
 - **7 blog posts** (6 planned + 1 bonus: `arquitetura-css-tailwind-escalavel-para-landing-pages.mdx`).
 - **Accessibility Fixes (v2.0.1)**: Remediated 38 accessibility issues across index.astro, Footer.astro, index-exemplo.astro, components.astro (strict heading hierarchy, form labels, keyboard focus indicators, inert hidden menus, and WCAG AA contrast compliance).
 - **Sitemap cleanup (v2.1.1)**: Removed the manual `src/pages/sitemap.xml.ts` that shadowed `@astrojs/sitemap`. `robots.txt` now points to the integration's `/sitemap-index.xml`. The `filter` was hardened to use `new URL(page).pathname` with an `excludedPaths` constant, and `index-exemplo.astro` was added to the noindex + exclusion list.
-- **Palette & dark-default (personal-portfolio fork)**: `sobre.astro` and `servicos.astro` were removed (about content folded into the home `#about` bento; no services catalog). The palette is **cyan (`cyber`, technology) + amber (`primary`, public-authority)** on a deep-navy `--color-navy` (`#0a0f1e`) base, defined as perceptually-uniform oklch scales in `@theme`. The site is **dark-by-default**: the FOUC script in `src/lib/theme.ts` adds `.dark` to `<html>` unless `localStorage.theme === "light"`. The home page respects the toggle (no longer forces `!important` dark); cards use the `<GlassCard>` component for progressive glassmorphism with `prefers-reduced-transparency` + `@supports` guards.
+- **Palette & dark-default (personal-portfolio fork)**: `sobre.astro` and `servicos.astro` were removed (about content folded into the home `#about` bento; no services catalog). The palette is the **Hybrid profile (tech + public administration)**: dominant `cyber` cyan (technology) + accent `primary` emerald (humanizing, modern) on a deep-navy `--color-navy` (`#0a0f1e`) base, defined as perceptually-uniform oklch scales in `@theme`. The site is **dark-by-default**: the FOUC script in `src/lib/theme.ts` adds `.dark` to `<html>` unless `localStorage.theme === "light"`. The home page respects the toggle (no longer forces `!important` dark); cards use the `<GlassCard>` component for progressive glassmorphism with `prefers-reduced-transparency` + `@supports` guards.
 
 ### Reusable Patterns from the Implementation
 1. **CSS-first Tailwind tokens** in `src/styles/global.css`:
    ```css
    @import "tailwindcss";
    @theme {
-     --color-primary-500: oklch(0.769 0.188 70.08); /* amber — public-authority accent */
+     --color-primary-500: oklch(0.696 0.17 162.48); /* emerald — humanizing, modern accent */
      --color-cyber-500: oklch(0.715 0.143 194.76);  /* cyan — technology accent */
      --color-navy: #0a0f1e;
      --font-sans: "Inter Variable", system-ui, sans-serif;
