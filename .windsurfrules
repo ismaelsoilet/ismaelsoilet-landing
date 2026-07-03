@@ -26,8 +26,9 @@ You are assisting with the maintenance and development of this high-performance,
 ## 📋 Implementation Reality (v2.1.1, June 2026)
 - **Astro 6.4.4** is the runtime; static-output API is identical to v5 for our use.
 - **Tailwind v4.3.0** is the styling system; CSS-first config in `src/styles/global.css` (no `tailwind.config.mjs`).
-- **10 home sections** (hero, diferenciais, solucoes, metricas, depoimentos, showcase, planos, mid-CTA banner, faq, cta-final). When adding a new section, follow the `<Section id="...">` pattern.
+- **9 home sections** (hero, about, impact, projects, timeline, skills, authority, qualifications, contact). When adding a new section, follow the `<Section id="...">` pattern.
 - **7 blog posts** in `src/content/blog/`. Follow the existing frontmatter shape (title ≤ 60, description 140-160, category enum, keywords 1-8).
 - **No `safelist`** — Tailwind v4 eliminates the concept. If you find yourself reaching for a safelist, you're doing it wrong.
+- **Palette & dark-default**: cyan (`cyber`, technology) + amber (`primary`, public-authority) on deep-navy `--color-navy` (`#0a0f1e`), defined as oklch scales in `@theme`. The site is **dark-by-default** — the FOUC script in `src/lib/theme.ts` adds `.dark` to `<html>` unless `localStorage.theme === "light"`. Cards use `<GlassCard>` for progressive glassmorphism with `prefers-reduced-transparency` + `@supports` guards.
 - **Accessibility Fixes (v2.0.1)**: Remediated 38 accessibility issues across the codebase (strict heading hierarchy, form labels, keyboard focus indicators, inert hidden menus, and WCAG AA contrast compliance).
 - **Sitemap cleanup (v2.1.1)**: Removed manual `sitemap.xml.ts`; `robots.txt` now points to `@astrojs/sitemap`'s `/sitemap-index.xml`. Filter hardened with `URL.pathname` + `excludedPaths` constant; `index-exemplo.astro` added to noindex + exclusion list.

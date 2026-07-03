@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { site } from '../content/site';
+import profilePhoto from '../assets/ISMAEL PERFIL_COMPLETA.png';
 import ogImage from '../assets/og-image.png';
 
 const escapeXml = (s: string) =>
@@ -15,19 +16,8 @@ export const GET: APIRoute = async () => {
       page: '',
       images: [
         { loc: '/logo.svg', title: site.org.name },
-        { loc: ogImage.src, title: `${site.org.name} Hero` }
-      ]
-    },
-    {
-      page: '/sobre',
-      images: [
-        { loc: '/logo.svg', title: site.org.name }
-      ]
-    },
-    {
-      page: '/servicos',
-      images: [
-        { loc: '/logo.svg', title: site.org.name }
+        { loc: ogImage.src, title: `${site.org.name} Hero` },
+        { loc: profilePhoto.src, title: site.person?.name || site.org.name }
       ]
     },
     {

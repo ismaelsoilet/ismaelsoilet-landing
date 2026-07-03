@@ -15,7 +15,7 @@ import Badge from '../components/ui/Badge.astro';
     <div class="max-w-3xl mx-auto text-center flex flex-col gap-6">
       <Badge variant="success" class="self-center">Passo a Passo</Badge>
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        Lançamento em <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">30 Minutos</span>
+        Lançamento em <span class="bg-gradient-to-r from-cyber-400 to-primary-500 bg-clip-text text-transparent">30 Minutos</span>
       </h1>
       <p class="text-lg text-slate-400 leading-relaxed">
         Siga as 5 etapas a seguir para reconfigurar o template, atualizar o design visual e publicar a página de destino do seu novo cliente.
@@ -29,13 +29,13 @@ import Badge from '../components/ui/Badge.astro';
       
       <!-- Step 1 -->
       <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
-        <div class="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0 text-xl font-bold">1</div>
+        <div class="w-12 h-12 rounded-full bg-cyber-500/10 flex items-center justify-center text-cyber-500 shrink-0 text-xl font-bold">1</div>
         <div>
           <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Editar Configurações Básicas</h2>
           <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
             Abra o arquivo `src/content/site.ts` e atualize as informações da organização, e-mails de contato, link do WhatsApp corporativo, chaves de webhooks e IDs opcionais de monitoramento.
           </p>
-          <pre class="bg-slate-100 dark:bg-slate-905 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+          <pre class="bg-slate-100 dark:bg-slate-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
 export const site: SiteConfig = &#123;
   org: &#123;
     name: "Nome do Cliente",
@@ -48,13 +48,13 @@ export const site: SiteConfig = &#123;
 
       <!-- Step 2 -->
       <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
-        <div class="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0 text-xl font-bold">2</div>
+        <div class="w-12 h-12 rounded-full bg-primary-500/10 flex items-center justify-center text-primary-500 shrink-0 text-xl font-bold">2</div>
         <div>
           <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Substituir Arquivo do Logo</h2>
           <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
             Salve o arquivo de logotipo oficial do seu cliente em formato SVG na pasta `public/logo.svg`. Certifique-se de que ele esteja devidamente limpo e otimizado para que carregue instantaneamente.
           </p>
-          <p class="text-xs text-indigo-500 dark:text-indigo-400 font-semibold">Dica: O favicon.ico e apple-touch-icon.png também podem ser substituídos na pasta public/.</p>
+          <p class="text-xs text-primary-500 dark:text-primary-400 font-semibold">Dica: O favicon.ico e apple-touch-icon.png também podem ser substituídos na pasta public/.</p>
         </div>
       </Card>
 
@@ -66,10 +66,11 @@ export const site: SiteConfig = &#123;
           <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
             Altere as cores principais nas declarações de tema. O Tailwind v4 utiliza variáveis CSS no arquivo de estilos principal `src/styles/global.css`. Altere o `@theme` principal do projeto para as cores do manual de marca do seu cliente.
           </p>
-          <pre class="bg-slate-100 dark:bg-slate-905 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+          <pre class="bg-slate-100 dark:bg-slate-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
 @theme &#123;
-  --color-primary: #4f46e5;
-  --color-cyber: #06b6d4;
+  --color-primary-500: oklch(0.769 0.188 70.08);
+  --color-cyber-500: oklch(0.715 0.143 194.76);
+  --color-navy: #0a0f1e;
   --font-sans: 'Inter Variable', sans-serif;
 &#125;</pre>
         </div>
@@ -94,7 +95,7 @@ export const site: SiteConfig = &#123;
           <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
             Execute a compilação local ou configure sua plataforma de hospedagem preferida (Nginx, Vercel ou Cloudflare Pages). Todos os arquivos de configuração necessários já vêm integrados ao template.
           </p>
-          <pre class="bg-slate-100 dark:bg-slate-905 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+          <pre class="bg-slate-100 dark:bg-slate-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
 # Instalar dependências e realizar build
 pnpm install
 pnpm build</pre>

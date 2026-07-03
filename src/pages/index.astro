@@ -1,2034 +1,831 @@
 ---
-import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import GlassCard from '../components/ui/GlassCard.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
-import { buildFaqSchema } from '../lib/seo';
+import { buildPersonSchema } from '../lib/seo';
+import { site } from '../content/site';
 
-const faqsCollection = await getCollection('faqs');
-const faqData = faqsCollection.map(faq => faq.data);
-const faqSchema = buildFaqSchema(faqData);
+// Import real profile photos and case assets uploaded by the user
+import profilePhoto from '../assets/ISMAEL PERFIL_COMPLETA.png';
+import codingPhoto from '../assets/ismael-codificando.png';
+import notebookPhoto from '../assets/ismael-notebook.png';
+import futurePhoto from '../assets/ismael-observando-futuro.png';
+
+const personSchema = buildPersonSchema();
 ---
 
-<BaseLayout title="Template Definitivo — Guia Interativo de CRO, SEO e Alta Performance" description="O template definitivo de Landing Page em HTML5 e Tailwind CSS.">
-  <JsonLd schema={faqSchema} />
-  <!-- Estilos Legados e customizados da Home -->
-  <style>
-    /* 
-================================================================================
-   CSS DESIGN SYSTEM DEFINITIVO — TEMPLATE LANDING (VANILLA CSS)
-   Objetivo: Fornecer um framework visual ultra-premium, de alta velocidade,
-   100% responsivo, com suporte a temas (claro/escuro) e micro-animações.
-   
-   COMO USAR ESTE TEMPLATE:
-   - Modifique as variáveis no bloco :root para alterar a paleta de cores global.
-   - Use as classes utilitárias para layouts rápidos (ex: .grid-2, .flex-between).
-   - Mantenha a nomenclatura semântica para fins de acessibilidade e SEO.
-================================================================================
-*/
+<BaseLayout 
+  title="Ismael Soilet | Product Owner, Developer & Gestor Público" 
+  description="Portfolio profissional de Ismael Hosni Soilet de Lima. Especialista em Transformação Digital, Ciência de Dados, Gestão Estratégica e Criador do FiscalizaPlus."
+>
+  {personSchema && <JsonLd schema={personSchema} />}
 
+  <div class="home-wrapper">
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section flex items-center justify-center relative overflow-hidden min-h-[90vh]">
+      <div class="hero-bg absolute inset-0 -z-10"></div>
+      <div class="hero-glow absolute w-[500px] h-[500px] rounded-full bg-cyber-500/10 blur-[120px] top-1/4 left-1/4 animate-pulse"></div>
+      <div class="hero-glow absolute w-[400px] h-[400px] rounded-full bg-primary-500/10 blur-[100px] bottom-1/4 right-1/4 animate-pulse-slow"></div>
 
+      <div class="max-w-5xl mx-auto px-6 py-20 text-center flex flex-col items-center gap-8 relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyber-500/30 bg-cyber-500/5 text-cyber-600 dark:text-cyber-400 text-xs font-semibold tracking-wider uppercase animate-fade-in">
+          <svg class="w-3.5 h-3.5 animate-spin-slow" aria-hidden="true"><use href="/icons/sprite.svg#icon-sparkle" /></svg>
+          Tecnologia & Gestão Pública
+        </div>
 
-/* 2. VARIÁVEIS DO SISTEMA DE DESIGN (CSS Variables)
-   Permite alterar a identidade visual de todo o site modificando apenas estes valores.
-   Temos duas versões: Light Mode (Padrão) e Dark Mode (:global(.dark)).
-*/
-:root {
-    /* Cores de Marca (Claras) */
-    --primary: var(--color-indigo-500);         /* Indigo Intenso */
-    --primary-hover: var(--color-indigo-600);
-    --primary-rgb: 99, 102, 241;
-    --secondary: var(--color-pink-500);       /* Rosa Vibrante */
-    --secondary-hover: var(--color-pink-600);
-    --accent: var(--color-teal-500);          /* Teal Moderno */
-    
-    /* Cores de Fundo e Texto (Light Mode) */
-    --bg-main: var(--color-slate-50);         /* Fundo sutilmente cinza */
-    --bg-card: var(--color-white);         /* Fundo de cartões */
-    --bg-glass: rgba(255, 255, 255, 0.7);
-    --border-color: var(--color-slate-200);    /* Bordas suaves */
-    --border-glass: rgba(255, 255, 255, 0.4);
-    
-    --text-title: var(--color-slate-900);      /* Slate 900 */
-    --text-body: var(--color-slate-700);       /* Slate 700 */
-    --text-muted: var(--color-slate-500);      /* Slate 500 */
-    
-    /* Sombras e Efeitos */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
-    --shadow-premium: 0 20px 25px -5px rgba(99, 102, 241, 0.05), 0 10px 10px -5px rgba(99, 102, 241, 0.02);
-    
-    /* Configurações Gerais */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-    --radius-full: 9999px;
-    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    --font-title: var(--font-sans);
-    --font-body: var(--font-sans);
-    --container-width: 1280px;
-}
+        <h1 class="text-5xl md:text-8xl font-black tracking-tight leading-none uppercase text-slate-900 dark:text-white">
+          <span class="bg-gradient-to-r from-cyber-400 via-teal-300 to-primary-400 bg-clip-text text-transparent">
+            Ismael Soilet
+          </span>
+        </h1>
 
-/* Override para Tema Escuro (Dark Mode)
-   Ativado adicionando a classe '.dark' na tag <html> ou <body>
-*/
-:global(.dark) {
-    --bg-main: var(--color-slate-950);         /* Deep Space Blue */
-    --bg-card: var(--color-slate-900);         /* Slate 900 */
-    --bg-glass: rgba(15, 23, 42, 0.7);
-    --border-color: var(--color-slate-800);    /* Slate 800 */
-    --border-glass: rgba(255, 255, 255, 0.08);
-    
-    --text-title: var(--color-slate-50);      /* Slate 50 */
-    --text-body: var(--color-slate-400);       /* Slate 400 */
-    --text-muted: var(--color-slate-500);      /* Slate 500 */
-    
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
-    --shadow-premium: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-}
+        <div class="ticker-wrapper h-12 overflow-hidden flex items-center justify-center text-xl md:text-3xl font-bold text-slate-700 dark:text-slate-300">
+          <div class="ticker-track">
+            {site.person?.roles.map((role) => (
+              <div class="ticker-item py-1">{role}</div>
+            ))}
+          </div>
+        </div>
 
-.home-wrapper {
-    background-color: var(--bg-main);
-    color: var(--text-body);
-    font-family: var(--font-body);
-    line-height: 1.6;
-    overflow-x: hidden;
-    width: 100%;
-    position: relative;
-    transition: background-color var(--transition-normal), color var(--transition-normal);
-}
+        <p class="max-w-2xl text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+          Transformo regras de negócio complexas em soluções digitais de alto impacto. Unindo Tecnologia da Informação, Ciência de Dados e Gestão Estratégica para gerar economia milionária e desburocratização.
+        </p>
 
-/* 4. TIPOGRAFIA SEMÂNTICA
-   Estilos focados em hierarquia de cabeçalhos de alta conversão.
-*/
-h1, h2, h3, h4, h5, h6 {
-    color: var(--text-title);
-    font-family: var(--font-title);
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-}
+        <div class="flex flex-col sm:flex-row gap-4 mt-4">
+          <a href="#about" class="px-8 py-4 bg-gradient-to-r from-cyber-500 to-primary-600 hover:from-cyber-600 hover:to-primary-700 text-white font-bold rounded-xl shadow-lg shadow-cyber-500/10 transition duration-300 active:scale-95 text-center">
+            Conhecer Trajetória
+          </a>
+          <a href="#contact" class="px-8 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-xl transition duration-300 active:scale-95 text-center backdrop-blur-sm">
+            Entrar em Contato
+          </a>
+        </div>
 
-h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; }
-h2 { font-size: clamp(2rem, 4vw, 2.75rem); }
-h3 { font-size: clamp(1.5rem, 3vw, 1.875rem); }
-h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+        <div class="scroll-indicator absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer">
+          <a href="#about" aria-label="Rolar para baixo">
+            <svg class="w-6 h-6 text-slate-400 dark:text-slate-500 hover:text-cyber-600 dark:hover:text-cyber-400 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
 
-p {
-    margin-bottom: 1.25rem;
-}
+    <!-- ABOUT BENTO GRID -->
+    <section id="about" class="py-24 border-t border-slate-200 dark:border-slate-900 bg-slate-50 dark:bg-slate-950/20 reveal">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Perfil Multidisciplinar</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Uma combinação estratégica de competências para resolver problemas complexos em grande escala.</p>
+        </div>
 
-a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: color var(--transition-fast);
-}
-a:hover {
-    color: var(--primary-hover);
-}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Photo Card -->
+          <div class="md:row-span-2 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800/80 bg-slate-100 dark:bg-slate-900/40 backdrop-blur-md relative group">
+            <Image src={profilePhoto} alt="Ismael Soilet" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent p-6 flex flex-col justify-end">
+              <span class="text-xs font-semibold text-cyber-400 uppercase tracking-widest mb-1">Origem</span>
+              <h3 class="text-xl font-bold text-white">Peruíbe - SP, Brasil</h3>
+            </div>
+          </div>
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
+          <!-- Bio Narrative Card -->
+          <GlassCard class="md:col-span-2 rounded-3xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-semibold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest block mb-4">Minha História</span>
+              <h3 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">Como Gestor, Desenvolvedor, Líder e Empreendedor</h3>
+              <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                Minha história é abrangente e repleta de desafios superados. Atuo integrando a liderança de equipes com a escrita de códigos e análise de dados para transformar governos e organizações. Lidero iniciativas paperless, modernização tributária e desenvolvimento de softwares de estado da arte para desatar nós burocráticos.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Liderança de TI</span>
+              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Desenvolvimento Backend</span>
+              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Data Science</span>
+              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Governança Pública</span>
+            </div>
+          </GlassCard>
 
-/* 5. CLASSES DE LAYOUT & CONTAINER */
-.container {
-    width: 100%;
-    max-width: var(--container-width);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-}
+          <!-- Quote Card -->
+          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between">
+            <svg class="w-8 h-8 text-cyber-500/40 mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-4.765 2.627-5.023 5.424.301-.15.688-.225 1.054-.225 1.761 0 3.208 1.447 3.208 3.208.001 1.761-1.447 3.208-3.208 3.208-1.76 0-3.023-1.189-3.023-3.208v-1.558c0-3.328 1.956-6.113 4.542-7.505l-.995-2.151C14.07 4.908 9.571 8.8 9.571 14.156v6.844h4.446zm-10 0v-7.391c0-5.704 3.73-9.57 8.983-10.609l.994 2.151c-2.432.917-4.764 2.627-5.023 5.424.302-.15.688-.225 1.054-.225 1.761 0 3.208 1.447 3.208 3.208.001 1.761-1.447 3.208-3.208 3.208-1.76 0-3.024-1.189-3.024-3.208v-1.558c0-3.328 1.956-6.113 4.542-7.505l-.995-2.151C4.07 4.908.571 8.8.571 14.156v6.844h4.446z"/></svg>
+            <p class="text-slate-700 dark:text-slate-300 font-medium italic text-lg leading-relaxed mb-4">
+              "Construo ecossistemas ágeis que desburocratizam serviços, aumentam a performance da equipe e geram economia milionária."
+            </p>
+            <span class="text-xs text-slate-600 dark:text-slate-500 font-bold uppercase tracking-wider">— Filosofia de Trabalho</span>
+          </GlassCard>
 
-.section {
-    padding-top: clamp(4rem, 10vw, 8rem);
-    padding-bottom: clamp(4rem, 10vw, 8rem);
-    position: relative;
-}
+          <!-- Experience Card -->
+          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between">
+            <span class="text-xs font-semibold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest block mb-4">Tempo</span>
+            <div class="flex items-baseline gap-2">
+              <span class="text-6xl font-black text-slate-900 dark:text-white bg-gradient-to-r from-cyber-400 to-primary-400 bg-clip-text text-transparent">10+</span>
+              <span class="text-lg font-bold text-slate-700 dark:text-slate-300">Anos</span>
+            </div>
+            <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">
+              De experiência atuando como elo estratégico entre equipes técnicas e regras de negócio complexas de administração pública.
+            </p>
+          </GlassCard>
+        </div>
+      </div>
+    </section>
 
-/* Grids Responsivos Universais */
-.grid {
-    display: grid;
-    gap: 2rem;
-}
-.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    <!-- IMPACT DASHBOARD -->
+    <section id="impact" class="py-24 border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-900/10 reveal">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Retorno de Investimento (ROI)</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Resultados tangíveis e economia direta gerada por meio de liderança tecnológica e inovação estratégica.</p>
+        </div>
 
-/* Bento Grid assimétrico moderno */
-.bento-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1.5rem;
-}
-.bento-item {
-    grid-column: span 12;
-}
-@media (min-width: 768px) {
-    .bento-col-4 { grid-column: span 4; }
-    .bento-col-8 { grid-column: span 8; }
-    .bento-col-6 { grid-column: span 6; }
-}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Metric Card 1 -->
+          <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between relative group hover:border-cyber-500/30">
+            <div>
+              <div class="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">Paperless</div>
+              <div class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="350000">0</div>
+            </div>
+            <div class="mt-4">
+              <div class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-1">Processos Digitais</div>
+              <p class="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">Legado físico de 350.000 processos migrado com sucesso para formato digital.</p>
+            </div>
+          </GlassCard>
 
-/* Flexbox Helpers */
-.flex { display: flex; }
-.flex-v { flex-direction: column; }
-.flex-center { display: flex; align-items: center; justify-content: center; }
-.flex-between { display: flex; align-items: center; justify-content: space-between; }
-.flex-wrap { flex-wrap: wrap; }
-.gap-1 { gap: 0.5rem; }
-.gap-2 { gap: 1rem; }
-.gap-3 { gap: 1.5rem; }
-.gap-4 { gap: 2rem; }
+          <!-- Metric Card 2 -->
+          <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between relative group hover:border-cyber-500/30">
+            <div>
+              <div class="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">IPTU & ISS</div>
+              <div class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="300000">R$ 0</div>
+            </div>
+            <div class="mt-4">
+              <div class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-1">Economia / Ano</div>
+              <p class="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">Graças à implantação do IPTU e ISS 100% digitais e Portal Cidadão.</p>
+            </div>
+          </GlassCard>
 
-/* 6. BOTÕES ULTRA-PREMIUM (CRO E ENGAJAMENTO) */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.875rem 2rem;
-    font-family: var(--font-title);
-    font-weight: 600;
-    font-size: 1rem;
-    border-radius: var(--radius-md);
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    gap: 0.5rem;
-    position: relative;
+          <!-- Metric Card 3 -->
+          <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between relative group hover:border-cyber-500/30">
+            <div>
+              <div class="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">FiscalizaPlus</div>
+              <div class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="25000">R$ 0</div>
+            </div>
+            <div class="mt-4">
+              <div class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-1">Economia / Mês</div>
+              <p class="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">Redução direta de custos com licença de softwares de terceiros.</p>
+            </div>
+          </GlassCard>
+
+          <!-- Metric Card 4 -->
+          <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between relative group hover:border-cyber-500/30">
+            <div>
+              <div class="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">Eficiência</div>
+              <div class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="78">0%</div>
+            </div>
+            <div class="mt-4">
+              <div class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-1">Aumento de Capacidade</div>
+              <p class="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">Escala de 18k para 32k processos anuais sem aumentar funcionários.</p>
+            </div>
+          </GlassCard>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES (PROJECTS) -->
+    <section id="projects" class="py-24 border-t border-slate-200 dark:border-slate-900 reveal">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Casos de Sucesso</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Projetos reais detalhados através do formato clássico de Desafio, Solução e Impacto gerado.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Case 1: FiscalizaPlus -->
+          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 group">
+            <div class="h-64 overflow-hidden relative">
+              <Image src={codingPhoto} alt="FiscalizaPlus Codificando" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              <div class="absolute inset-0 bg-slate-950/70 p-6 flex flex-col justify-between">
+                <span class="px-3 py-1 rounded bg-cyber-500/20 text-cyber-600 dark:text-cyber-400 text-xs font-bold self-start uppercase tracking-wider">Inovação em Produto</span>
+                <span class="text-2xl font-black text-white">FiscalizaPlus</span>
+              </div>
+            </div>
+            <div class="p-8 flex-grow flex flex-col justify-between">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <h4 class="text-sm font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-1">Desafio</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Custo recorrente de R$ 25.000 mensais com licenças de softwares terceirizados ineficientes na fiscalização tributária.</p>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest mb-1">Solução</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Liderança e desenvolvimento de software próprio customizado, orquestrado e integrado para a fiscalização da fazenda pública municipal.</p>
+                </div>
+              </div>
+              <div class="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                <span class="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold">Impacto Direto</span>
+                <span class="text-lg font-black text-slate-900 dark:text-white">R$ 25.000 / mês salvos</span>
+              </div>
+            </div>
+          </GlassCard>
+
+          <!-- Case 2: Paperless Peruíbe -->
+          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 group">
+            <div class="h-64 overflow-hidden relative">
+              <Image src={notebookPhoto} alt="Processos Digitais" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              <div class="absolute inset-0 bg-slate-950/70 p-6 flex flex-col justify-between">
+                <span class="px-3 py-1 rounded bg-primary-500/20 text-primary-600 dark:text-primary-400 text-xs font-bold self-start uppercase tracking-wider">Desburocratização</span>
+                <span class="text-2xl font-black text-white">Paperless (Prefeitura de Peruíbe)</span>
+              </div>
+            </div>
+            <div class="p-8 flex-grow flex flex-col justify-between">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <h4 class="text-sm font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-1">Desafio</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Um legado de 350.000 processos físicos que geravam gastos com sulfite, logística, arquivos físicos e limitação de processamento anual.</p>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest mb-1">Solução</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Liderança estratégica para a migração para processos 100% digitais, eliminando o papel e desburocratizando as rotinas públicas.</p>
+                </div>
+              </div>
+              <div class="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                <span class="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold">Resultado</span>
+                <span class="text-lg font-black text-slate-900 dark:text-white">+78% Capacidade de Processamento</span>
+              </div>
+            </div>
+          </GlassCard>
+
+          <!-- Case 3: IPTU e ISS 100% Digitais -->
+          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 group">
+            <div class="h-64 overflow-hidden relative">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary-950/80 to-slate-950 p-6 flex flex-col justify-between">
+                <span class="px-3 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold self-start uppercase tracking-wider">Eficiência Tributária</span>
+                <span class="text-2xl font-black text-white">IPTU & ISS Digitais + Portal Cidadão</span>
+              </div>
+            </div>
+            <div class="p-8 flex-grow flex flex-col justify-between">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <h4 class="text-sm font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-1">Desafio</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Custos altos e burocracia desnecessária no envio físico de carnês de tributos e atendimento presencial lento.</p>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest mb-1">Solução</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Desenvolvimento e coordenação do Portal Cidadão com emissões e pagamentos em ambiente seguro 100% online.</p>
+                </div>
+              </div>
+              <div class="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                <span class="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold">Impacto</span>
+                <span class="text-lg font-black text-slate-900 dark:text-white">R$ 300.000 / ano economizados</span>
+              </div>
+            </div>
+          </GlassCard>
+
+          <!-- Case 4: E-SUS Saúde Digital -->
+          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 group">
+            <div class="h-64 overflow-hidden relative">
+              <Image src={futurePhoto} alt="E-SUS Saúde" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              <div class="absolute inset-0 bg-slate-950/70 p-6 flex flex-col justify-between">
+                <span class="px-3 py-1 rounded bg-cyber-500/20 text-cyber-600 dark:text-cyber-400 text-xs font-bold self-start uppercase tracking-wider">Saúde Digital</span>
+                <span class="text-2xl font-black text-white">Implantação E-SUS Custo Zero</span>
+              </div>
+            </div>
+            <div class="p-8 flex-grow flex flex-col justify-between">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <h4 class="text-sm font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-1">Desafio</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Grandes custos (estimados em R$ 20.000/mês) para contratar empresas intermediadoras para implantar o prontuário eletrônico na rede municipal.</p>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary-600 dark:text-primary-400 uppercase tracking-widest mb-1">Solução</h4>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Implantação e customização da infraestrutura do e-SUS usando exclusivamente servidores e equipe própria de servidores municipais.</p>
+                </div>
+              </div>
+              <div class="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                <span class="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold">Impacto Contínuo</span>
+                <span class="text-lg font-black text-slate-900 dark:text-white">R$ 20.000 / mês economizados</span>
+              </div>
+            </div>
+          </GlassCard>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE SECTION -->
+    <section id="timeline" class="py-24 border-t border-slate-200 dark:border-slate-900 reveal">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Trajetória Profissional</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Milestones marcantes e conquistas construídas ao longo dos últimos anos de carreira.</p>
+        </div>
+
+        <div class="relative">
+          <!-- Timeline Central Line -->
+          <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyber-500 via-primary-500 to-teal-500"></div>
+
+          <!-- Milestones Grid -->
+          <div class="flex flex-col gap-12 relative">
+            <!-- Milestone 1 -->
+            <div class="flex flex-col md:flex-row md:justify-between items-stretch">
+              <div class="md:w-1/2 flex md:justify-end items-center px-6 md:px-12 order-2 md:order-1">
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 max-w-md w-full hover:border-cyber-500/20">
+                  <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Saúde Digital Custo Zero (E-SUS)</h3>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Implantação pioneira do sistema e-SUS na rede municipal usando infraestrutura própria, gerando economia mensal de R$20.000.</p>
+                </GlassCard>
+              </div>
+              <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-950 border-4 border-cyber-500 flex items-center justify-center z-10 font-bold text-xs text-cyber-600 dark:text-cyber-400">
+                2016
+              </div>
+              <div class="md:w-1/2 order-3 md:order-2 hidden md:block"></div>
+            </div>
+
+            <!-- Milestone 2 -->
+            <div class="flex flex-col md:flex-row md:justify-between items-stretch">
+              <div class="md:w-1/2 order-1 hidden md:block"></div>
+              <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-950 border-4 border-primary-500 flex items-center justify-center z-10 font-bold text-xs text-primary-600 dark:text-primary-400">
+                2018
+              </div>
+              <div class="md:w-1/2 flex justify-start items-center px-6 md:px-12 order-2">
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 max-w-md w-full hover:border-primary-500/20">
+                  <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Processo 100% Digital & Tributário</h3>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Liderança na migração de 350.000 processos físicos para digitais e lançamento do IPTU/ISS Digital.</p>
+                </GlassCard>
+              </div>
+            </div>
+
+            <!-- Milestone 3 -->
+            <div class="flex flex-col md:flex-row md:justify-between items-stretch">
+              <div class="md:w-1/2 flex md:justify-end items-center px-6 md:px-12 order-2 md:order-1">
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 max-w-md w-full hover:border-teal-500/20">
+                  <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Conselho de Contribuintes & CRA</h3>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Consolidação da governança como Vice-Presidente do Conselho de Contribuintes e registro no Conselho Regional de Administração (CRA-SP).</p>
+                </GlassCard>
+              </div>
+              <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-950 border-4 border-teal-500 flex items-center justify-center z-10 font-bold text-xs text-teal-600 dark:text-teal-400">
+                2020
+              </div>
+              <div class="md:w-1/2 order-3 md:order-2 hidden md:block"></div>
+            </div>
+
+            <!-- Milestone 4 -->
+            <div class="flex flex-col md:flex-row md:justify-between items-stretch">
+              <div class="md:w-1/2 order-1 hidden md:block"></div>
+              <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-950 border-4 border-cyber-500 flex items-center justify-center z-10 font-bold text-xs text-cyber-600 dark:text-cyber-400">
+                2023
+              </div>
+              <div class="md:w-1/2 flex justify-start items-center px-6 md:px-12 order-2">
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 max-w-md w-full hover:border-cyber-500/20">
+                  <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Conselho PeruíbePrev & Sebrae</h3>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Nomeação para o Conselho de Administração da Autarquia Previdenciária e atuação como Agente de Desenvolvimento Local vinculado ao Sebrae.</p>
+                </GlassCard>
+              </div>
+            </div>
+
+            <!-- Milestone 5 -->
+            <div class="flex flex-col md:flex-row md:justify-between items-stretch">
+              <div class="md:w-1/2 flex md:justify-end items-center px-6 md:px-12 order-2 md:order-1">
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 max-w-md w-full hover:border-primary-500/20">
+                  <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Criação do FiscalizaPlus</h3>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Desenvolvimento completo e liderança de produto do software FiscalizaPlus, eliminando custos de terceiros de R$25.000 mensais.</p>
+                </GlassCard>
+              </div>
+              <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-950 border-4 border-primary-500 flex items-center justify-center z-10 font-bold text-xs text-primary-600 dark:text-primary-400">
+                2025
+              </div>
+              <div class="md:w-1/2 order-3 md:order-2 hidden md:block"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION (BENTO GRID) -->
+    <section id="skills" class="py-24 border-t border-slate-200 dark:border-slate-900 reveal">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Habilidades & Expertise</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Domínios técnicos e teóricos que sustentam meus resultados profissionais.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Skill Card 1: AI -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-cyber-500/20">
+            <div>
+              <svg class="w-8 h-8 text-cyber-500 mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">AI Orchestration</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Orquestração avançada de agentes de IA, fluxos autônomos, integrações com LLMs (GPT, Claude, Gemini) e prompts avançados.</p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-200/40 dark:border-slate-800/40">
+              <span class="text-[10px] uppercase font-bold text-cyber-600 dark:text-cyber-400">Agentic Workflows</span>
+              <span class="text-[10px] uppercase font-bold text-cyber-600 dark:text-cyber-400">LLM Integration</span>
+            </div>
+          </GlassCard>
+
+          <!-- Skill Card 2: Backend -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-primary-500/20">
+            <div>
+              <svg class="w-8 h-8 text-primary-500 mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Backend & Cloud</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Banco de dados robustos (Oracle, PostgreSQL, MySQL), desenvolvimento de APIs estruturadas, Node.js, e infraestrutura em nuvem Oracle Cloud (OCI).</p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-200/40 dark:border-slate-800/40">
+              <span class="text-[10px] uppercase font-bold text-primary-600 dark:text-primary-400">Oracle / SQL</span>
+              <span class="text-[10px] uppercase font-bold text-primary-600 dark:text-primary-400">Oracle Cloud OCI</span>
+            </div>
+          </GlassCard>
+
+          <!-- Skill Card 3: Project Management -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-teal-500/20">
+            <div>
+              <svg class="w-8 h-8 text-teal-500 mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Project Management</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Gestão ágil de produtos como Product Owner (PO), metodologias Scrum, governança de TI e liderança de equipes multidisciplinares.</p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-200/40 dark:border-slate-800/40">
+              <span class="text-[10px] uppercase font-bold text-teal-600 dark:text-teal-400">Product Owner</span>
+              <span class="text-[10px] uppercase font-bold text-teal-600 dark:text-teal-400">Scrum / Agile</span>
+            </div>
+          </GlassCard>
+
+          <!-- Skill Card 4: Governance -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-cyber-500/20">
+            <div>
+              <svg class="w-8 h-8 text-cyber-500 mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Public Administration</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Registro Profissional CRA-SP, profundo conhecimento em legislações públicas, processos administrativos, eficiência fiscal e arrecadação tributária municipal.</p>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-200/40 dark:border-slate-800/40">
+              <span class="text-[10px] uppercase font-bold text-cyber-600 dark:text-cyber-400">CRA-SP 6-2962</span>
+              <span class="text-[10px] uppercase font-bold text-cyber-600 dark:text-cyber-400">Direito Tributário</span>
+            </div>
+          </GlassCard>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTHORITY & GOVERNANCE -->
+    <section id="authority" class="py-24 border-t border-slate-200 dark:border-slate-900 bg-slate-50 dark:bg-slate-900/10 reveal">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Autoridade & Governança</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Conselhos oficiais e representações institucionais onde atuo ativamente.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 text-center">
+          <!-- CRA-SP -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-cyber-500/20">
+            <span class="text-xs font-semibold text-cyber-600 dark:text-cyber-400 uppercase tracking-wider mb-2">Administração</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">CRA-SP</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-500">Membro registrado (Registro 6-2962)</p>
+          </GlassCard>
+
+          <!-- PeruíbePrev -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-primary-500/20">
+            <span class="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider mb-2">Previdência</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">PeruíbePrev</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-500">Conselheiro de Administração da Autarquia</p>
+          </GlassCard>
+
+          <!-- Conselho de Contribuintes -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-teal-500/20">
+            <span class="text-xs font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wider mb-2">Fazenda</span>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 leading-snug">Conselho de Contribuintes</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-500">Vice-Presidente da Secretaria Municipal</p>
+          </GlassCard>
+
+          <!-- Câmara de Preços -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-cyber-500/20">
+            <span class="text-xs font-semibold text-cyber-600 dark:text-cyber-400 uppercase tracking-wider mb-2">Estratégia</span>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1 leading-snug">Câmara de Preços</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-500">Membro da Câmara de Gerenciamento de Preços</p>
+          </GlassCard>
+
+          <!-- Sebrae -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-primary-500/20">
+            <span class="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider mb-2">Negócios</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">Sebrae</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-500">Agente de Desenvolvimento Local</p>
+          </GlassCard>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUALIFICATIONS -->
+    <section id="qualifications" class="py-24 border-t border-slate-200 dark:border-slate-900 reveal">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Qualificações Acadêmicas</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Capacitações, graduações e pós-graduações que enriquecem minha atuação profissional.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Pós-Graduações -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-cyber-500/20">
+            <div>
+              <span class="text-xs font-semibold text-cyber-600 dark:text-cyber-400 uppercase tracking-wider block mb-4">Pós-Graduação</span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-snug">Ciência de Dados / Gestão Estratégica</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-500">Capacitações avançadas integrando estatística, business intelligence e modelagem matemática.</p>
+            </div>
+            <!-- TODO: confirmar nome real da instituição -->
+            <span class="text-[10px] text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold mt-4">Placeholder para Instituição</span>
+          </GlassCard>
+
+          <!-- Graduações -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-primary-500/20">
+            <div>
+              <span class="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider block mb-4">Graduação</span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-snug">Administração / TI</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-500">Base sólida em administração estratégica e governança com tecnologia e segurança de dados.</p>
+            </div>
+            <!-- TODO: confirmar nome real da instituição -->
+            <span class="text-[10px] text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold mt-4">Placeholder para Instituição</span>
+          </GlassCard>
+
+          <!-- Certificações -->
+          <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-teal-500/20">
+            <div>
+              <span class="text-xs font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wider block mb-4">Certificações</span>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-snug">Agile, Cloud & IA</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-500">Metodologias ágeis (Scrum), ferramentas de cloud infrastructure (OCI) e desenvolvimento de agentes inteligentes.</p>
+            </div>
+            <span class="text-[10px] text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold mt-4">Múltiplas Certificações</span>
+          </GlassCard>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA & FORM -->
+    <section id="contact" class="py-24 border-t border-slate-200 dark:border-slate-900 bg-slate-50 dark:bg-slate-900/10 reveal">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Iniciar um Projeto</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4">Entre em contato para consultorias de desburocratização, engenharia de software ou parcerias estratégicas.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+          <!-- Direct Channels -->
+          <div class="md:col-span-1 flex flex-col gap-4">
+            <a href={`mailto:${site.contact.email}`} class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 p-6 flex flex-col gap-2 hover:border-cyber-500/20 transition">
+              <svg class="w-6 h-6 text-cyber-600 dark:text-cyber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              <span class="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">E-mail</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-white break-all">{site.contact.email}</span>
+            </a>
+
+            <a href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 p-6 flex flex-col gap-2 hover:border-emerald-500/20 transition">
+              <svg class="w-6 h-6 text-emerald-500 dark:text-emerald-400"><use href="/icons/sprite.svg#icon-whatsapp-logo" /></svg>
+              <span class="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">WhatsApp</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-white">{site.contact.phone}</span>
+            </a>
+          </div>
+
+          <!-- Contact Form with Honeypot -->
+          <GlassCard class="md:col-span-2 rounded-3xl border border-slate-200 dark:border-slate-800 p-8">
+            <form id="contact-form" action={site.webhook.contact} method="POST" class="flex flex-col gap-4">
+              <!-- Honeypot Field for Spam Prevention (Hidden visually but available to bots) -->
+              <div class="absolute -left-[9999px] h-0 overflow-hidden" tabindex="-1">
+                <label for="honeypot_field">Se você é humano, deixe este campo em branco</label>
+                <input type="text" id="honeypot_field" name="honeypot_field" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-1.5">
+                  <label for="name" class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Nome</label>
+                  <input type="text" id="name" name="name" required class="px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-cyber-500 transition" placeholder="Seu nome" />
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <label for="email" class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">E-mail</label>
+                  <input type="email" id="email" name="email" required class="px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-cyber-500 transition" placeholder="seu@email.com" />
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-1.5">
+                <label for="message" class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Mensagem</label>
+                <textarea id="message" name="message" required rows="4" class="px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-cyber-500 transition" placeholder="Como posso ajudar você?"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-cyber-500 to-primary-600 hover:from-cyber-600 hover:to-primary-700 text-white font-bold rounded-lg shadow-lg shadow-cyber-500/10 transition active:scale-[0.99] flex items-center justify-center gap-2">
+                Enviar Mensagem
+                <svg class="w-4 h-4"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
+              </button>
+            </form>
+            <div id="form-feedback" class="mt-4 text-sm text-center font-bold hidden"></div>
+          </GlassCard>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<!-- CUSTOM SCOPED STYLE FOR PREMIUM AESTHETIC (dark-default, light-aware) -->
+<style is:global>
+  /* 3D animate hero radial background */
+  .hero-bg {
+    background:
+      radial-gradient(ellipse 60% 40% at 30% 20%, rgba(6, 182, 212, 0.10), transparent),
+      radial-gradient(ellipse 50% 50% at 70% 80%, rgba(217, 119, 6, 0.08), transparent),
+      var(--color-slate-50);
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+  }
+  html.dark .hero-bg {
+    background:
+      radial-gradient(ellipse 60% 40% at 30% 20%, rgba(6, 182, 212, 0.15), transparent),
+      radial-gradient(ellipse 50% 50% at 70% 80%, rgba(217, 119, 6, 0.12), transparent),
+      var(--color-navy);
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+  }
+
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Animated Role Ticker */
+  .ticker-wrapper {
+    mask-image: linear-gradient(to bottom, transparent, white 20%, white 80%, transparent);
     overflow: hidden;
-}
+  }
 
-.btn-primary {
-    background-color: var(--primary);
-    color: #ffffff;
-    box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.4);
-}
-.btn-primary:hover {
-    background-color: var(--primary-hover);
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px 0 rgba(99, 102, 241, 0.5);
-}
+  .ticker-track {
+    animation: ticker 15s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  }
 
-.btn-secondary {
-    background-color: transparent;
-    border-color: var(--border-color);
-    color: var(--text-title);
-}
-.btn-secondary:hover {
-    background-color: var(--border-color);
-    transform: translateY(-2px);
-}
+  @keyframes ticker {
+    0%, 15% { transform: translateY(0); }
+    20%, 35% { transform: translateY(-20%); }
+    40%, 55% { transform: translateY(-40%); }
+    60%, 75% { transform: translateY(-60%); }
+    80%, 95% { transform: translateY(-80%); }
+    100% { transform: translateY(0); }
+  }
 
-.btn-glow {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: #ffffff;
-    box-shadow: 0 4px 20px 0 rgba(236, 72, 153, 0.3);
-}
-.btn-glow:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px 0 rgba(236, 72, 153, 0.5);
-}
+  .animate-pulse-slow {
+    animation: pulseSlow 6s ease-in-out infinite;
+  }
 
-/* 7. GLASSMORPHISM & CARTÕES PREMIUM */
-.glass-card {
-    background: var(--bg-glass);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-glass);
-    border-radius: var(--radius-lg);
-    padding: 2.5rem;
-    box-shadow: var(--shadow-premium);
-    position: relative;
-    overflow: hidden;
-    transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
-}
+  @keyframes pulseSlow {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
 
-.glass-card:hover {
-    border-color: rgba(99, 102, 241, 0.2);
-    box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.12);
-}
+  /* Scroll-driven Reveal Animations */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        animation: revealUp 1s ease-out both;
+        animation-timeline: view();
+        animation-range: entry 5% entry 30%;
+      }
+    }
+  }
 
-/* Spotlight Effect: Iluminação dinâmica controlada via JS mousemove */
-.glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(99, 102, 241, 0.06), transparent 40%);
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* 8. ANIMAÇÕES & ELEMENTOS DE SUPORTE */
-.blob {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(236, 72, 153, 0.05) 70%, transparent 100%);
-    filter: blur(50px);
-    z-index: -1;
-    pointer-events: none;
-}
-
-.blob-1 {
-    top: 10%;
-    right: -10%;
-    animation: float-blob 20s infinite alternate;
-}
-
-.blob-2 {
-    bottom: 20%;
-    left: -10%;
-    animation: float-blob 25s infinite alternate-reverse;
-}
-
-@keyframes float-blob {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(40px, -60px) scale(1.1); }
-    100% { transform: translate(-20px, 20px) scale(0.95); }
-}
-
-
-
-/* 10. COMPONENTES: TRUST BAR INFINITO
-   Carrossel infinito de logos com renderização acelerada por GPU.
-*/
-.logo-carousel-container {
-    overflow: hidden;
-    width: 100%;
-    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-}
-
-.logo-carousel {
-    display: flex;
-    width: max-content;
-    gap: 4rem;
-    animation: scroll-carousel 30s linear infinite;
-}
-
-.logo-carousel img {
-    height: 28px;
-    filter: grayscale(1) opacity(0.5);
-    transition: filter var(--transition-fast);
-}
-
-.logo-carousel img:hover {
-    filter: grayscale(0) opacity(1);
-}
-
-@keyframes scroll-carousel {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* 11. COMPONENTES: CAROUSEL / ABAS DE SOLUÇÕES (TABS - SUITPLUS STYLE) */
-#solutions-carousel {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: stretch;
-}
-
-.solutions-tabs-container {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 0.5rem;
-    width: 100%;
-}
-.solutions-tabs-container::-webkit-scrollbar {
-    display: none;
-}
-.solutions-tabs-container [role="tablist"] {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.solutions-tab {
-    cursor: pointer;
-    white-space: nowrap;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-full);
-    border: 1px solid transparent;
-    transition: all var(--transition-fast);
-    font-weight: 600;
-    color: var(--text-muted);
-    background: transparent;
-    flex-shrink: 0;
-    scroll-snap-align: center;
-}
-
-.solutions-tab:hover {
-    color: var(--text-title);
-    background-color: rgba(99, 102, 241, 0.05);
-}
-
-.solutions-tab.active {
-    background-color: rgba(99, 102, 241, 0.08);
-    border-bottom: 3px solid var(--system-color, var(--primary));
-    color: var(--text-title) !important;
-    border-radius: var(--radius-sm);
-}
-
-.solutions-card-container {
-    height: 340px;
-    position: relative;
-    width: 100%;
-}
-
-.solutions-panel.hidden {
-    display: none !important;
-}
-
-.solutions-panel:not(.hidden) {
-    animation: solutionFadeIn var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes solutionFadeIn {
+  @keyframes revealUp {
     from {
-        opacity: 0;
-        transform: scale(0.98);
+      opacity: 0;
+      transform: translateY(40px);
     }
     to {
-        opacity: 1;
-        transform: scale(1);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
+  }
 
-/* Layout Desktop: abas verticais à esquerda, cartão visual 3D ao centro, descrições à direita */
-@media (min-width: 1024px) {
-    #solutions-carousel {
-        display: grid;
-        grid-template-columns: 260px 1.1fr 1fr;
-        gap: 3rem;
-        align-items: start;
+  /* Accessibility: prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-delay: 0s !important;
+      animation-duration: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0s !important;
+      scroll-behavior: auto !important;
     }
-
-    .solutions-card-container {
-        height: 450px;
+    .ticker-track {
+      animation: none !important;
     }
-
-    .solutions-tabs-container {
-        overflow-x: visible;
-        scroll-snap-type: none;
-        padding-bottom: 0;
+    .hero-bg {
+      animation: none !important;
     }
-
-    .solutions-tabs-container [role="tablist"] {
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-
-    .solutions-tab {
-        border-bottom: none;
-        border-left: 3px solid transparent;
-        white-space: normal;
-        scroll-snap-align: unset;
-        border-radius: var(--radius-md);
-        text-align: left;
-    }
-
-    .solutions-tab.active {
-        border-left-color: var(--system-color, var(--primary));
-        border-bottom-color: transparent;
-        background-color: rgba(99, 102, 241, 0.08);
-    }
-}
-
-@keyframes fade-in-scale {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* 12. COMPONENTES: TABELAS DE PREÇO (PRICING TABLES) */
-.pricing-card {
-    transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
-}
-.pricing-card.featured {
-    border: 2px solid var(--primary);
-    transform: scale(1.03);
-}
-@media (max-width: 768px) {
-    .pricing-card.featured {
-        transform: scale(1);
-    }
-}
-.pricing-features-list {
-    list-style: none;
-}
-.pricing-features-list li {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.8rem;
-    font-size: 0.95rem;
-}
-
-/* 13. COMPONENTES: FAQ RETRÁTIL SEMÂNTICO (ACCORDION) */
-.faq-item {
-    border-bottom: 1px solid var(--border-color);
-    padding: 1.5rem 0;
-}
-.faq-question {
-    width: 100%;
-    background: transparent;
-    border: none;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--text-title);
-    padding: 0;
-    gap: 1rem;
-}
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height var(--transition-normal), margin var(--transition-normal);
-    color: var(--text-body);
-    font-size: 1rem;
-}
-.faq-item.open .faq-answer {
-    max-height: 300px;
-    margin-top: 1rem;
-}
-.faq-icon {
-    transition: transform var(--transition-fast);
-    color: var(--primary);
-}
-.faq-item.open .faq-icon {
-    transform: rotate(45deg);
-}
-
-/* 14. COMPONENTES: BLOG INDEX & ARTIGO */
-.blog-card {
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-}
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.blog-tag {
-    background: rgba(99, 102, 241, 0.08);
-    color: var(--primary);
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-full);
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-/* Estilos Específicos da Página do Artigo */
-.blog-toc {
-    position: sticky;
-    top: 100px;
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
-}
-
-.blog-toc-link {
-    display: block;
-    padding: 0.35rem 0;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    border-left: 2px solid transparent;
-    padding-left: 0.75rem;
-    transition: all var(--transition-fast);
-}
-
-.blog-toc-link.active, .blog-toc-link:hover {
-    color: var(--primary);
-    border-left-color: var(--primary);
-}
-
-.progress-bar-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: transparent;
-    z-index: 101;
-}
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-}
-
-/* 15. INTERACTION & SCROLL REVEAL (Micro-animações) */
-.scroll-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.animate-fade-in-up {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Transições SPA (View Transitions API Support)
-   Estas animações dão o efeito "App nativo" sedoso e profissional.
-*/
-::view-transition-old(root) {
-    animation: 250ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
-}
-::view-transition-new(root) {
-    animation: 300ms cubic-bezier(0, 0, 0.2, 1) both fade-in;
-}
-
-@keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-@keyframes fade-in {
-    from { opacity: 0; transform: scale(0.99); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* 16. MODO PREFERES REDUCED MOTION (Acessibilidade) */
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-    .scroll-reveal {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-    .blob {
-        animation: none !important;
-    }
-    /* Trust bar (logo carousel) is content, not decorative motion (WCAG 2.2.2) */
-    .logo-carousel {
-        animation: scroll-carousel 30s linear infinite !important;
-    }
-}
-
-/* 17. COMPONENTES DE DEPOIMENTOS E AVALIAÇÕES DO GOOGLE (PROVA SOCIAL) */
-.google-reviews-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-}
-
-.google-review-card {
-    background: var(--bg-card);
-    border: 2px solid var(--primary);
-    border-radius: var(--radius-lg);
-    padding: 2.5rem;
-    position: relative;
-    box-shadow: var(--shadow-premium);
-}
-
-.google-review-header {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.google-logo-text {
-    font-family: var(--font-title);
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text-title);
-}
-
-.google-score {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.google-score-number {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--text-title);
-    line-height: 1;
-}
-
-.google-stars {
-    color: #fbbf24;
-    letter-spacing: 2px;
-    font-size: 1.25rem;
-}
-
-.google-rating-text {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.google-review-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-}
-
-.google-review-link {
-    background: var(--primary);
-    color: #ffffff;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-full);
-    font-weight: 700;
-    font-size: 0.9rem;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-    transition: all var(--transition-fast);
-}
-
-.google-review-link:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
-}
-
-.google-write-review {
-    background: var(--bg-main);
-    color: var(--text-title);
-    border: 1px solid var(--border-color);
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-full);
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: all var(--transition-fast);
-}
-
-.google-write-review:hover {
-    background: var(--border-color);
-    transform: translateY(-2px);
-}
-
-.testimonial-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 2.5rem;
-    position: relative;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-normal);
-}
-
-.testimonial-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(99, 102, 241, 0.2);
-}
-
-.quote-icon {
-    font-size: 3.5rem;
-    color: rgba(99, 102, 241, 0.1);
-    line-height: 1;
-    font-family: serif;
-    font-weight: bold;
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-}
-
-.testimonial-card blockquote {
-    color: var(--text-body);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-style: italic;
-}
-
-.testimonial-stars {
-    color: #fbbf24;
-    letter-spacing: 2px;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
-.testimonial-author {
-    font-weight: 800;
-    color: var(--text-title);
-    font-size: 1rem;
-}
-
-.testimonial-location {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-}
-
-@media (min-width: 768px) {
-    .google-reviews-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .google-review-card {
-        grid-column: span 2;
-    }
-}
-
-@media (min-width: 1024px) {
-    .google-reviews-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .google-review-card {
-        grid-column: span 3;
-    }
-}
-
-/* 18. FEEDBACK / ALERT MESSAGES (PREMIUM STYLES) */
-.feedback-message {
-    padding: 1rem 1.25rem;
-    border-radius: var(--radius-md);
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    border: 1px solid transparent;
-    animation: alert-slide-in 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    box-shadow: var(--shadow-sm);
-}
-
-.feedback-message::before {
-    font-size: 1.2rem;
-    flex-shrink: 0;
-}
-
-/* Success State (Teal Moderno / Accent) */
-.feedback-message.success {
-    background-color: rgba(20, 184, 166, 0.08);
-    border-color: rgba(20, 184, 166, 0.3);
-    color: #0d9488;
-}
-:global(.dark) .feedback-message.success {
-    background-color: rgba(20, 184, 166, 0.12);
-    border-color: rgba(20, 184, 166, 0.2);
-    color: #2dd4bf;
-}
-.feedback-message.success::before {
-    content: "✓";
-    font-weight: 900;
-}
-
-/* Error State (Rosa/Vermelho Vibrante / Secondary) */
-.feedback-message.error {
-    background-color: rgba(236, 72, 153, 0.08);
-    border-color: rgba(236, 72, 153, 0.3);
-    color: #db2777;
-}
-:global(.dark) .feedback-message.error {
-    background-color: rgba(236, 72, 153, 0.12);
-    border-color: rgba(236, 72, 153, 0.2);
-    color: #f472b6;
-}
-.feedback-message.error::before {
-    content: "⚠️";
-}
-
-/* Info State (Indigo / Primary) */
-.feedback-message.info {
-    background-color: rgba(99, 102, 241, 0.08);
-    border-color: rgba(99, 102, 241, 0.3);
-    color: #4f46e5;
-}
-:global(.dark) .feedback-message.info {
-    background-color: rgba(99, 102, 241, 0.12);
-    border-color: rgba(99, 102, 241, 0.2);
-    color: #818cf8;
-}
-.feedback-message.info::before {
-    content: "ℹ️";
-}
-
-@keyframes alert-slide-in {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 19. FLOATING WHATSAPP BUTTON (PREMIUM & PULSING) */
-.whatsapp-float {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 60px;
-    height: 60px;
-    background-color: #25d366;
-    color: #ffffff !important;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.2rem;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-    z-index: 999;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.1) translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
-    color: #ffffff !important;
-}
-
-.whatsapp-float::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 2px solid #25d366;
-    animation: whatsapp-pulse 1.8s infinite;
-    pointer-events: none;
-    box-sizing: border-box;
-}
-
-@keyframes whatsapp-pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1.4);
-        opacity: 0;
-    }
-}
-
-/* 20. EPICENTRO CAROUSEL TABS */
-.epicentro-tabs-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    padding: 0.5rem 0;
-}
-.epicentro-tabs-container::-webkit-scrollbar {
-    display: none;
-}
-.epicentro-tabs-container [role="tablist"] {
-    display: flex;
-    flex-direction: row !important; /* Force horizontal even on desktop */
-    align-items: center;
-    background: rgba(99, 102, 241, 0.03);
-    padding: 0.4rem;
-    border-radius: 9999px;
-    border: 1px solid var(--border-color);
-    gap: 0.25rem;
-    white-space: nowrap;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: all var(--transition-normal);
-}
-:global(.dark) .epicentro-tabs-container [role="tablist"] {
-    background: rgba(99, 102, 241, 0.05);
-    border-color: rgba(255, 255, 255, 0.08);
-}
-.epicentro-tab {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 9999px !important;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    background: transparent;
-    cursor: pointer;
-    transition: all var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
-    white-space: nowrap;
-    outline: none;
-}
-.epicentro-tab i {
-    font-size: 1.2rem;
-    transition: transform var(--transition-fast) ease;
-}
-.epicentro-tab:hover {
-    color: var(--text-title);
-    background: rgba(99, 102, 241, 0.05);
-}
-.epicentro-tab:hover i {
-    transform: scale(1.1);
-}
-.epicentro-tab.active {
-    background: var(--bg-main) !important;
-    color: var(--primary) !important;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.12), var(--shadow-sm) !important;
-}
-:global(.dark) .epicentro-tab.active {
-    background: rgba(255, 255, 255, 0.08) !important;
-    color: #fff !important;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2), var(--shadow-md) !important;
-}
-
-.epicentro-panel.hidden {
-    display: none !important;
-}
-
-.epicentro-panel:not(.hidden) {
-    animation: epicentroFadeIn var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes epicentroFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* 21. FOOTER SOCIAL ICON LINKS */
-.social-icon-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: rgba(99, 102, 241, 0.03);
-    border: 1px solid var(--border-color);
-    color: var(--text-muted) !important;
-    font-size: 1.2rem;
-    transition: all var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
-}
-:global(.dark) .social-icon-link {
-    background: rgba(255, 255, 255, 0.03);
-}
-.social-icon-link:hover {
-    color: #fff !important;
-    background: var(--primary);
-    border-color: var(--primary);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
-}
-:global(.dark) .social-icon-link:hover {
-    background: var(--primary);
-    border-color: var(--primary);
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
-}
-
-/* WCAG 2.3.3 - Animation from Interactions */
-@media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-    /* Trust bar (logo carousel) is content, not decorative motion (WCAG 2.2.2) */
-    .logo-carousel {
-        animation: scroll-carousel 30s linear infinite !important;
-    }
-}
-
+  }
 </style>
 
-  
-<div class="home-wrapper">
-<section class="section" id="hero">
-<div class="container">
-<div class="grid grid-2" style="align-items: center;">
-<div class="scroll-reveal opacity-0">
-<span style="font-family: var(--font-title); font-weight: 700; text-transform: uppercase; color: #4f46e5; font-size: 0.875rem; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
-🚀 Seção Hero: A Primeira Impressão do Usuário
-</span>
-<h1>Hero Section: O Título Deve Conter Sua Principal Proposta de Valor</h1>
-<p style="font-size: 1.15rem; color: var(--text-body); margin-bottom: 2rem;">
-Este parágrafo da dobra de entrada deve quebrar objeções imediatas. Use-o para explicar de forma direta
-o maior benefício do seu produto ou serviço. Mantenha a H1 limpa, curta e rica em SEO.
-</p>
-<div class="flex flex-wrap gap-2">
-<a href="/contato/" class="btn btn-primary btn-glow">
-<span>Ação Primária (Foco em CRO)</span>
-<svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
-</a>
-<a href="#solucoes" class="btn btn-secondary">
-<span>Ação Secundária</span>
-</a>
-</div>
-</div>
-<div class="scroll-reveal opacity-0" style="perspective: 1000px;">
-<div class="glass-card tilt-card" style="border-radius: var(--radius-lg); transform-style: preserve-3d;">
-<div style="transform: translateZ(30px);">
-<span style="font-size: 0.75rem; font-weight: 800; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Didática Visual</span>
-<h2 class="mb-4">Otimização de Layout 3D</h2>
-<p style="font-size: 0.95rem; margin-bottom: 1.5rem;">
-Este painel usa efeitos físicos tridimensionais (Vanilla Tilt) para reter a atenção ocular do visitante.
-Gráficos interativos evitam que o usuário abandone a página imediatamente (Bounce Rate reduzido).
-</p>
-<div class="flex gap-2" style="align-items: center; background: rgba(99, 102, 241, 0.05); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
-<svg class="w-[1em] h-[1em] text-accent" style="font-size: 2rem;"><use href="/icons/sprite.svg#icon-shield-check-fill" /></svg>
-<div>
-<h3 style="margin-bottom: 0px; font-size: 0.95rem;">Certificado de Velocidade</h3>
-<p style="font-size: 0.8rem; margin: 0px; color: var(--text-muted);">Pontuação máxima 100/100 no Lighthouse.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="trust-bar" style="padding-top: 2rem; padding-bottom: 2rem; background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-<div class="container">
-<p style="text-align: center; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 1.5rem;">
-Trust Bar: Prova Social Instantânea (Logos de Clientes e Parceiros)
-</p>
-<div class="logo-carousel-container">
-<div class="logo-carousel">
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">💻 ONLINE COMPUTERS</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">📈 DIGITAL AGENCY</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">👔 SUITPLUS ENTERPRISE</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">⚡ ANTIGRAVITY ENGINE</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">🛡️ SECURIFY CORE</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">💻 ONLINE COMPUTERS</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">📈 DIGITAL AGENCY</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">👔 SUITPLUS ENTERPRISE</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">⚡ ANTIGRAVITY ENGINE</strong></span>
-<span><strong style="color: var(--text-muted); font-size: 1.15rem; font-family: var(--font-title); margin-right: 4rem;">🛡️ SECURIFY CORE</strong></span>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="funcionalidades">
-<div class="container">
-<div style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto;" class="scroll-reveal opacity-0">
-<span style="font-weight: 700; color: var(--primary); font-size: 0.85rem; text-transform: uppercase;">Apresentação Premium</span>
-<h2>Bento Grid de Diferenciais</h2>
-<p class="text-body">
-Esta estrutura assimétrica permite destacar recursos com diferentes níveis de peso visual, prendendo a leitura dos blocos.
-</p>
-</div>
-<div class="bento-grid">
-<div class="bento-item bento-col-8 glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="justify-content: space-between;">
-<div>
-<svg class="w-[1em] h-[1em] text-primary" style="font-size: 2.5rem; margin-bottom: 1rem;"><use href="/icons/sprite.svg#icon-file-text" /></svg>
-<h3>Card Expandido (Destaque Principal)</h3>
-<p style="font-size: 0.95rem;">
-Use este bloco mais largo (span 8) para explicar o recurso mais impactante do seu negócio. O tamanho proeminente
-do card captura imediatamente o fluxo natural de leitura horizontal (da esquerda para a direita).
-</p>
-</div>
-<div class="flex gap-2" style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
-<span style="font-size: 0.8rem; font-weight: 700;"><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check-circle" /></svg> Espaço para Módulos</span>
-<span style="font-size: 0.8rem; font-weight: 700;"><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check-circle" /></svg> Captura Visual Imediata</span>
-</div>
-</div>
-<div class="bento-item bento-col-4 glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="justify-content: space-between; background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05));">
-<div>
-<svg class="w-[1em] h-[1em] text-secondary" style="font-size: 2.5rem; margin-bottom: 1rem;"><use href="/icons/sprite.svg#icon-gauge" /></svg>
-<h3>Performance Crítica</h3>
-<p style="font-size: 0.9rem;">
-Cards menores servem para listar recursos secundários mas valiosos, como velocidade bruta ou infraestrutura.
-</p>
-</div>
-<a href="/servicos/" style="font-size: 0.85rem; font-weight: 700; color: var(--secondary);">Ver métricas <svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-arrow-right" /></svg></a>
-</div>
-<div class="bento-item bento-col-4 glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="justify-content: space-between;">
-<div>
-<svg class="w-[1em] h-[1em] text-accent" style="font-size: 2.5rem; margin-bottom: 1rem;"><use href="/icons/sprite.svg#icon-shield-check" /></svg>
-<h3>Segurança LGPD</h3>
-<p style="font-size: 0.9rem;">
-Destaque certificações e garantias legais essenciais para mitigar medos do cliente.
-</p>
-</div>
-<span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">100% Criptografado</span>
-</div>
-<div class="bento-item bento-col-8 glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="justify-content: space-between;">
-<div>
-<svg class="w-[1em] h-[1em] text-primary" style="font-size: 2.5rem; margin-bottom: 1rem;"><use href="/icons/sprite.svg#icon-layout" /></svg>
-<h3>Interface Modulável Sem Dependências pesadas</h3>
-<p style="font-size: 0.95rem;">
-Explique como o design limpo em Vanilla CSS garante portabilidade total para qualquer outro ecossistema técnico.
-O desenvolvedor do futuro agradecerá ao herdar um código limpo e semanticamente intocável.
-</p>
-</div>
-<div class="flex gap-2" style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
-<span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">Zero Framework Bloat</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="epicentro" style="background-color: var(--bg-card); border-bottom: 1px solid var(--border-color);">
-<div class="container">
-<div style="text-align: center; max-width: 700px; margin: 0 auto 3rem auto;" class="scroll-reveal opacity-0">
-<h2 style="font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 900;">O epicentro das suas <span style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">operações digitais</span>.</h2>
-<p style="color: var(--text-body); font-size: 1.05rem; margin-top: 1rem;">
-Desenvolvemos desde Landing Pages cirúrgicas para campanhas de conversão focada até Sites Institucionais robustos que funcionam como o HUB principal da sua empresa — permitindo integração nativa com sistemas, CRMs, ferramentas modulares e canais de atendimento.
-</p>
-</div>
-<div class="epicentro-tabs-wrapper flex flex-v gap-3" id="epicentro-carousel">
-<div class="epicentro-tabs-container flex-center scroll-reveal opacity-0">
-<div role="tablist" aria-label="Serviços oferecidos">
-<button role="tab" id="epi-tab-landing" aria-selected="true" aria-controls="epi-panel-landing" data-target="epi-landing" class="epicentro-tab active">
-<svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-target-bold" /></svg>
-<span>Landing Pages</span>
-</button>
-<button role="tab" id="epi-tab-hubs" aria-selected="false" aria-controls="epi-panel-hubs" data-target="epi-hubs" class="epicentro-tab">
-<svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-globe-bold" /></svg>
-<span>HUBs Digitais</span>
-</button>
-<button role="tab" id="epi-tab-consultoria" aria-selected="false" aria-controls="epi-panel-consultoria" data-target="epi-consultoria" class="epicentro-tab">
-<svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-lightbulb-bold" /></svg>
-<span>Consultoria Estratégica</span>
-</button>
-</div>
-</div>
-<div class="epicentro-content-container" style="margin-top: 2rem; position: relative; width: 100%;">
-<div class="epicentro-panel grid grid-2" id="epi-panel-landing" data-panel="epi-landing" role="tabpanel" aria-labelledby="epi-tab-landing" style="align-items: center; gap: 4rem;">
-<div class="scroll-reveal opacity-0" style="perspective: 1000px;">
-<div class="glass-card tilt-card p-10 text-center" >
-<div style="width: 70px; height: 70px; background: rgba(99, 102, 241, 0.08); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin: 0 auto 1.5rem auto;">
-<svg class="w-[1em] h-[1em]" style="font-size: 2.2rem;"><use href="/icons/sprite.svg#icon-target-bold" /></svg>
-</div>
-<h3 class="mb-2">Landing Page Premium</h3>
-<p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Foco Total em Vendas & Conversões Rápidas</p>
-<div class="flex flex-v gap-2" style="background: var(--bg-main); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: left;">
-<span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--accent);">Status: Ativo</span>
-<span style="font-size: 0.85rem; font-weight: 600;"><svg class="w-[1em] h-[1em] text-accent"><use href="/icons/sprite.svg#icon-check" /></svg> Taxa de conversão: +24%</span>
-<span style="font-size: 0.85rem; font-weight: 600;"><svg class="w-[1em] h-[1em] text-accent"><use href="/icons/sprite.svg#icon-check" /></svg> Velocidade LCP: 420ms</span>
-</div>
-</div>
-</div>
-<div class="scroll-reveal opacity-0 flex flex-v gap-2">
-<span style="background: rgba(20, 184, 166, 0.08); color: #0d9488; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; width: fit-content; margin-bottom: 0.5rem;"><svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-shield-check" /></svg> CONVERSÃO EXTREMA</span>
-<h3>Páginas de Alta Conversão</h3>
-<p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-body);">
-Landing Pages projetadas sob medida com foco exclusivo em campanhas de tráfego pago (Google Ads, Meta Ads). Estrutura enxuta, sem links de distração, com copywriting estratégico desenhado para guiar o olhar do lead diretamente até o clique de conversão.
-</p>
-<ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> Eliminação de pontos de fuga para otimizar conversões</li>
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> Integração instantânea com CRM e webhooks</li>
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> A/B Testing ready com código semântico estruturado</li>
-</ul>
-</div>
-</div>
-<div class="epicentro-panel grid grid-2 hidden" id="epi-panel-hubs" data-panel="epi-hubs" role="tabpanel" aria-labelledby="epi-tab-hubs" style="align-items: center; gap: 4rem;">
-<div class="scroll-reveal opacity-0" style="perspective: 1000px;">
-<div class="glass-card tilt-card p-10 text-center" >
-<div style="width: 70px; height: 70px; background: rgba(99, 102, 241, 0.08); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin: 0 auto 1.5rem auto;">
-<svg class="w-[1em] h-[1em]" style="font-size: 2.2rem;"><use href="/icons/sprite.svg#icon-globe-bold" /></svg>
-</div>
-<h3 class="mb-2">HUB Digital Corporativo</h3>
-<p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Sua Marca Unificada em Plataforma Própria</p>
-<div class="flex flex-v gap-2" style="background: var(--bg-main); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: left;">
-<span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--accent);">Status: Integrado</span>
-<span style="font-size: 0.85rem; font-weight: 600;"><svg class="w-[1em] h-[1em] text-accent"><use href="/icons/sprite.svg#icon-check" /></svg> Segurança SSL: 100% ativa</span>
-<span style="font-size: 0.85rem; font-weight: 600;"><svg class="w-[1em] h-[1em] text-accent"><use href="/icons/sprite.svg#icon-check" /></svg> Painéis unificados: Ativos</span>
-</div>
-</div>
-</div>
-<div class="scroll-reveal opacity-0 flex flex-v gap-2">
-<span style="background: rgba(20, 184, 166, 0.08); color: #0d9488; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; width: fit-content; margin-bottom: 0.5rem;"><svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-shield-check" /></svg> HUB CENTRALIZADO</span>
-<h3>Sistemas e HUBs Digitais</h3>
-<p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-body);">
-Centralize suas operações sob um único domínio proprietário. O HUB Digital permite unificar páginas institucionais, blogs informativos, portais de clientes e catálogos interativos, integrando-se nativamente a qualquer sistema de API do seu ecossistema corporativo.
-</p>
-<ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> Arquitetura SPA veloz com transições de tela fluidas</li>
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> Painéis dedicados que aumentam o LTV do cliente</li>
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> Otimização de dados para relatórios e BI</li>
-</ul>
-</div>
-</div>
-<div class="epicentro-panel grid grid-2 hidden" id="epi-panel-consultoria" data-panel="epi-consultoria" role="tabpanel" aria-labelledby="epi-tab-consultoria" style="align-items: center; gap: 4rem;">
-<div class="scroll-reveal opacity-0" style="perspective: 1000px;">
-<div class="glass-card tilt-card p-10 text-center" >
-<div style="width: 60px; height: 60px; background: rgba(20, 184, 166, 0.08); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin: 0 auto 1.5rem auto;">
-<svg class="w-[1em] h-[1em]" style="font-size: 2rem;"><use href="/icons/sprite.svg#icon-lightbulb-bold" /></svg>
-</div>
-<h3 class="mb-1">Consultoria Digital</h3>
-<p style="font-size: 0.85rem; color: var(--accent); font-weight: 700; margin-bottom: 1.5rem;">Mapeamento & Estratégia Comercial</p>
-<div class="flex flex-v gap-2" style="background: var(--bg-main); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: left; font-family: monospace;">
-<span style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">MODELAGEM DE FUNIL • <span style="color: var(--accent);">Ativo</span></span>
-<div style="font-size: 0.75rem; margin-bottom: 0.25rem;">
-<div class="flex flex-between" style="margin-bottom: 0.15rem;"><span>Jornada do Usuário</span><span>100%</span></div>
-<div style="width: 100%; height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;"><div style="width: 100%; height: 100%; background: var(--accent);"></div></div>
-</div>
-<div style="font-size: 0.75rem; margin-bottom: 0.25rem;">
-<div class="flex flex-between" style="margin-bottom: 0.15rem;"><span>Modelagem de Atração</span><span>85%</span></div>
-<div style="width: 100%; height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;"><div style="width: 85%; height: 100%; background: var(--primary);"></div></div>
-</div>
-<div style="font-size: 0.75rem;">
-<div class="flex flex-between" style="margin-bottom: 0.15rem;"><span>Qualificação MQL/SQL</span><span>95%</span></div>
-<div style="width: 100%; height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;"><div style="width: 95%; height: 100%; background: var(--secondary);"></div></div>
-</div>
-</div>
-</div>
-</div>
-<div class="scroll-reveal opacity-0 flex flex-v gap-2">
-<span style="background: rgba(20, 184, 166, 0.08); color: #0d9488; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; width: fit-content; margin-bottom: 0.5rem;"><svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-shield-check" /></svg> ESTRATÉGIA PURA</span>
-<h3>Consultoria Estratégica Digital</h3>
-<p style="font-size: 1.05rem; line-height: 1.6; color: var(--text-body);">
-Mergulho profundo na operação e funil de vendas corporativo. Desenhamos a engenharia ideal de aquisição, retenção e nutrição de leads, integrando tecnologia à estratégia prática.
-</p>
-<ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> Auditoria completa da infraestrutura digital e performance de páginas atual</li>
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> Estruturação de funil de aquisição digital ponta a ponta</li>
-<li style="font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.1rem;"><use href="/icons/sprite.svg#icon-check-bold" /></svg> Mapeamento de jornada do cliente e pontos de conversão</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="solucoes" style="background-color: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-<div style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto;" class="scroll-reveal opacity-0">
-<span style="font-weight: 700; color: var(--primary); font-size: 0.85rem; text-transform: uppercase;">Abas Interativas</span>
-<h2>Nossos Módulos de Soluções</h2>
-<p class="text-body">
-Clique abaixo para alternar os sistemas instantaneamente sem recarregar a tela, demonstrando dinamismo.
-</p>
-</div>
-<div class="container" id="solutions-carousel">
-<div class="solutions-tabs-container w-full scroll-reveal opacity-0">
-<div role="tablist" aria-label="Módulos de soluções">
-<button role="tab" aria-selected="true" id="tab-modulo-a" aria-controls="panel-modulo-a" data-system="modulo-a" style="--system-color: var(--primary);"
-class="solutions-tab active flex items-center gap-3 px-6 py-4 rounded-xl text-left font-bold transition-all">
-<svg class="w-[1em] h-[1em] text-2xl"><use href="/icons/sprite.svg#icon-lightning-fill" /></svg>
-<span>Módulo de Conversão (CRO)</span>
-</button>
-<button role="tab" aria-selected="false" id="tab-modulo-b" aria-controls="panel-modulo-b" data-system="modulo-b" style="--system-color: var(--accent);"
-class="solutions-tab flex items-center gap-3 px-6 py-4 rounded-xl text-left font-bold transition-all">
-<svg class="w-[1em] h-[1em] text-2xl"><use href="/icons/sprite.svg#icon-gauge-fill" /></svg>
-<span>Módulo de Desempenho</span>
-</button>
-<button role="tab" aria-selected="false" id="tab-modulo-c" aria-controls="panel-modulo-c" data-system="modulo-c" style="--system-color: var(--secondary);"
-class="solutions-tab flex items-center gap-3 px-6 py-4 rounded-xl text-left font-bold transition-all">
-<svg class="w-[1em] h-[1em] text-2xl"><use href="/icons/sprite.svg#icon-plugs-fill" /></svg>
-<span>Módulo de Automação</span>
-</button>
-</div>
-</div>
-<div class="solutions-card-container w-full relative scroll-reveal opacity-0">
-<div class="solutions-panel glass-card absolute inset-0 rounded-[2.5rem] p-10 flex flex-col items-center justify-center text-center tilt-card" data-system="modulo-a">
-<div class="w-24 h-24 bg-primary/10 dark:bg-primary/20 rounded-3xl flex items-center justify-center text-primary mb-8 shadow-xl shadow-primary/20" style="margin-left: auto; margin-right: auto;">
-<svg class="w-[1em] h-[1em] text-6xl"><use href="/icons/sprite.svg#icon-lightning-fill" /></svg>
-</div>
-<h3 class="text-3xl font-black mb-2">Módulo CRO</h3>
-<p class="text-primary font-bold mb-6">Conversão Estrutural Prática</p>
-<div class="flex flex-wrap justify-center gap-3">
-<span class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold border border-slate-200 dark:border-slate-700">Fricção Zero</span>
-<span class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold border border-slate-200 dark:border-slate-700">Acessível</span>
-</div>
-</div>
-<div class="solutions-panel glass-card absolute inset-0 rounded-[2.5rem] p-10 flex flex-col items-center justify-center text-center hidden tilt-card" data-system="modulo-b">
-<div class="w-24 h-24 bg-accent/10 dark:bg-accent/20 rounded-3xl flex items-center justify-center text-accent mb-8 shadow-xl shadow-accent/20" style="margin-left: auto; margin-right: auto;">
-<svg class="w-[1em] h-[1em] text-6xl"><use href="/icons/sprite.svg#icon-gauge-fill" /></svg>
-</div>
-<h3 class="text-3xl font-black mb-2">Performance</h3>
-<p class="text-accent font-bold mb-6">Core Web Vitals Otimizados</p>
-<div class="flex flex-wrap justify-center gap-3">
-<span class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold border border-slate-200 dark:border-slate-700">100/100 Lighth.</span>
-<span class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold border border-slate-200 dark:border-slate-700">Mobile First</span>
-</div>
-</div>
-<div class="solutions-panel glass-card absolute inset-0 rounded-[2.5rem] p-10 flex flex-col items-center justify-center text-center hidden tilt-card" data-system="modulo-c">
-<div class="w-24 h-24 bg-secondary/10 dark:bg-secondary/20 rounded-3xl flex items-center justify-center text-secondary mb-8 shadow-xl shadow-secondary/20" style="margin-left: auto; margin-right: auto;">
-<svg class="w-[1em] h-[1em] text-6xl"><use href="/icons/sprite.svg#icon-plugs-fill" /></svg>
-</div>
-<h3 class="text-3xl font-black mb-2">Webhooks</h3>
-<p class="text-secondary font-bold mb-6">CRM & Lead Capture</p>
-<div class="flex flex-wrap justify-center gap-3">
-<span class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold border border-slate-200 dark:border-slate-700">Honeypot Shield</span>
-<span class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold border border-slate-200 dark:border-slate-700">JSON Payload</span>
-</div>
-</div>
-</div>
-<div class="w-full flex flex-col justify-center min-h-[300px] scroll-reveal opacity-0">
-<div class="solutions-panel space-y-6" id="panel-modulo-a" data-system="modulo-a" role="tabpanel" aria-labelledby="tab-modulo-a">
-<h3 class="text-2xl font-bold">Otimização para Alta Conversão (CRO)</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed text-lg mb-6" >
-Reduzimos a fricção cognitiva e guiamos a atenção do visitante para as zonas de maior relevância temática e conversão rápida.
-</p>
-<ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; padding: 0;">
-<li class="flex items-center gap-3">
-<svg class="w-[1em] h-[1em] text-primary" style="font-size: 1.5rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-fill" /></svg>
-<span style="font-size: 0.95rem; color: var(--text-body);"><strong>Fricção Reduzida:</strong> Formulários com poucas etapas e feedbacks visuais em tempo real.</span>
-</li>
-<li class="flex items-center gap-3">
-<svg class="w-[1em] h-[1em] text-primary" style="font-size: 1.5rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-fill" /></svg>
-<span style="font-size: 0.95rem; color: var(--text-body);"><strong>Padrões de Leitura:</strong> Elementos de alto valor alinhados às zonas quentes (F-pattern).</span>
-</li>
-</ul>
-<div class="pt-4">
-<a href="/servicos/" class="btn btn-primary">
-Explorar CRO <svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
-</a>
-</div>
-</div>
-<div class="solutions-panel space-y-6 hidden" id="panel-modulo-b" data-system="modulo-b" role="tabpanel" aria-labelledby="tab-modulo-b">
-<h3 class="text-2xl font-bold">Performance Extrema (Core Web Vitals)</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed text-lg mb-6" >
-Um atraso de apenas 1 segundo no carregamento mobile pode cortar suas conversões em 20%. Garantimos velocidade total.
-</p>
-<ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; padding: 0;">
-<li class="flex items-center gap-3">
-<svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.5rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-fill" /></svg>
-<span style="font-size: 0.95rem; color: var(--text-body);"><strong>Lighthouse 100/100:</strong> Código estruturado que carrega em menos de 400ms no servidor de origem.</span>
-</li>
-<li class="flex items-center gap-3">
-<svg class="w-[1em] h-[1em] text-accent" style="font-size: 1.5rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-fill" /></svg>
-<span style="font-size: 0.95rem; color: var(--text-body);"><strong>CSS Não-Bloqueante:</strong> Todo o design system unificado em uma única folha de estilos rápida.</span>
-</li>
-</ul>
-<div class="pt-4">
-<a href="/servicos/" class="btn btn-primary" style="background-color: var(--accent); box-shadow: 0 4px 14px rgba(20, 184, 166, 0.4);">
-Verificar Métricas <svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
-</a>
-</div>
-</div>
-<div class="solutions-panel space-y-6 hidden" id="panel-modulo-c" data-system="modulo-c" role="tabpanel" aria-labelledby="tab-modulo-c">
-<h3 class="text-2xl font-bold">Automação de Webhooks Assíncronos</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed text-lg mb-6" >
-Os formulários do template estão configurados para enviar requisições diretas para seu sistema de CRM sem recarregar a tela.
-</p>
-<ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; padding: 0;">
-<li class="flex items-center gap-3">
-<svg class="w-[1em] h-[1em] text-secondary" style="font-size: 1.5rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-fill" /></svg>
-<span style="font-size: 0.95rem; color: var(--text-body);"><strong>Honeypot Anti-Spam:</strong> Filtra submissões de robôs maliciosos sem atrapalhar a experiência humana.</span>
-</li>
-<li class="flex items-center gap-3">
-<svg class="w-[1em] h-[1em] text-secondary" style="font-size: 1.5rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-fill" /></svg>
-<span style="font-size: 0.95rem; color: var(--text-body);"><strong>Payload Estruturado:</strong> O script `main.js` higieniza e envia os dados organizados em formato JSON.</span>
-</li>
-</ul>
-<div class="pt-4">
-<a href="/contato/" class="btn btn-primary" style="background-color: var(--secondary); box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);">
-Testar Envio <svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
-</a>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="otimizacao-operacao" style="background-color: var(--bg-main); border-bottom: 1px solid var(--border-color);">
-<div class="container">
-<div style="text-align: center; max-width: 700px; margin: 0 auto 4rem auto;" class="scroll-reveal opacity-0">
-<span style="font-size: 0.85rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">Inteligência Operacional</span>
-<h2 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 900;">Como um site de alta performance <span style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">otimiza a sua operação</span>?</h2>
-<p style="color: var(--text-body); font-size: 1.05rem; margin-top: 1rem;">
-Um HUB digital não é apenas institucional. Ele é uma ferramenta ativa que reduz o esforço do time de atendimento, automatiza processos e alavanca o faturamento do seu nicho.
-</p>
-</div>
-<div class="grid grid-3" style="gap: 1.5rem;">
-<div class="glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="padding: 2.25rem; justify-content: space-between; border-radius: var(--radius-lg); background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div>
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1.5rem;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.6rem;"><use href="/icons/sprite.svg#icon-handshake-bold" /></svg>
-</div>
-<h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Vendas & B2B</h3>
-<p style="font-size: 0.925rem; color: var(--text-body); line-height: 1.6;">
-Qualificação automatizada de leads (MQL/SQL). Captação estruturada integrada diretamente com o seu CRM (HubSpot, Pipedrive), permitindo que o vendedor receba o lead com perfil completo pronto para o fechamento.
-</p>
-</div>
-<span style="font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
-✓ ACELERAÇÃO DE FUNIL COMERCIAL
-</span>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="padding: 2.25rem; justify-content: space-between; border-radius: var(--radius-lg); background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div>
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1.5rem;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.6rem;"><use href="/icons/sprite.svg#icon-fork-knife-bold" /></svg>
-</div>
-<h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Comida & Delivery</h3>
-<p style="font-size: 0.925rem; color: var(--text-body); line-height: 1.6;">
-Cardápio digital inteligente e sistema de pedidos direto. Livre-se das altas taxas de comissão cobradas por marketplaces de entrega e construa seu próprio banco de dados de clientes recorrentes.
-</p>
-</div>
-<span style="font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
-✓ AUTONOMIA E FATURAMENTO DIRETO
-</span>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="padding: 2.25rem; justify-content: space-between; border-radius: var(--radius-lg); background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div>
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1.5rem;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.6rem;"><use href="/icons/sprite.svg#icon-factory-bold" /></svg>
-</div>
-<h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Indústria & Manufatura</h3>
-<p style="font-size: 0.925rem; color: var(--text-body); line-height: 1.6;">
-Catálogos técnicos robustos com filtros de alta precisão. Mapeamento de distribuidores por região, área dedicada a cotações automatizadas com tabelas integradas que geram requisições automáticas.
-</p>
-</div>
-<span style="font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
-✓ CAPTAÇÃO DE DISTRIBUIDORES
-</span>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="padding: 2.25rem; justify-content: space-between; border-radius: var(--radius-lg); background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div>
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1.5rem;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.6rem;"><use href="/icons/sprite.svg#icon-stethoscope-bold" /></svg>
-</div>
-<h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Saúde & Médicos</h3>
-<p style="font-size: 0.925rem; color: var(--text-body); line-height: 1.6;">
-Agendamento integrado de consultas e triagem inteligente de pacientes. Apresentação ética de especialidades médicas com carregamento imediato para campanhas de anúncios de alta conversão.
-</p>
-</div>
-<span style="font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
-✓ CAPTAÇÃO E AGENDAMENTO 24/7
-</span>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="padding: 2.25rem; justify-content: space-between; border-radius: var(--radius-lg); background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div>
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1.5rem;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.6rem;"><use href="/icons/sprite.svg#icon-paw-print-bold" /></svg>
-</div>
-<h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Clínicas Veterinárias</h3>
-<p style="font-size: 0.925rem; color: var(--text-body); line-height: 1.6;">
-Apresentação de planos de saúde pet, serviços e corpo clínico. Formulários otimizados de agendamento de banho, tosa e consultas de urgência para conversões locais eficientes.
-</p>
-</div>
-<span style="font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
-✓ CONVERSÃO LOCAL EFICIENTE
-</span>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="padding: 2.25rem; justify-content: space-between; border-radius: var(--radius-lg); background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div>
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1.5rem;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.6rem;"><use href="/icons/sprite.svg#icon-briefcase-bold" /></svg>
-</div>
-<h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Serviços Especializados</h3>
-<p style="font-size: 0.925rem; color: var(--text-body); line-height: 1.6;">
-Landing pages cirúrgicas para advogados, consultores e agências. Posicionamento de autoridade com seções de depoimentos integradas e botões de chamada rápida para negociações de alto ticket.
-</p>
-</div>
-<span style="font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
-✓ CONVERSÃO DE ALTO TICKET
-</span>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="estatisticas">
-<div class="container">
-<div class="grid grid-3 scroll-reveal opacity-0 text-center" >
-<div class="glass-card p-8" >
-<span style="font-size: 3.5rem; font-weight: 800; font-family: var(--font-title); color: var(--primary); display: block; line-height: 1; margin-bottom: 0.5rem;">
-100/100
-</span>
-<h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Pontuação de Velocidade</h3>
-<p style="font-size: 0.875rem; color: var(--text-muted); margin: 0px;">
-Velocidade de renderização ideal no Google PageSpeed Insights.
-</p>
-</div>
-<div class="glass-card" style="padding: 2rem; border-color: rgba(236, 72, 153, 0.2);">
-<span style="font-size: 3.5rem; font-weight: 800; font-family: var(--font-title); color: var(--secondary); display: block; line-height: 1; margin-bottom: 0.5rem;">
-10x
-</span>
-<h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Mais Otimizado para IAs</h3>
-<p style="font-size: 0.875rem; color: var(--text-muted); margin: 0px;">
-Integração nativa de tags de clusters e `llms.txt` para buscadores generativos.
-</p>
-</div>
-<div class="glass-card p-8" >
-<span style="font-size: 3.5rem; font-weight: 800; font-family: var(--font-title); color: var(--accent); display: block; line-height: 1; margin-bottom: 0.5rem;">
-0.3s
-</span>
-<h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Tempo de Resposta SPA</h3>
-<p style="font-size: 0.875rem; color: var(--text-muted); margin: 0px;">
-Substituição de páginas ultra-rápida usando View Transitions nativas.
-</p>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="comparativo-proprietario" style="background-color: var(--bg-card); border-bottom: 1px solid var(--border-color);">
-<div class="container">
-<div style="text-align: center; max-width: 700px; margin: 0 auto 4rem auto;" class="scroll-reveal opacity-0">
-<span style="font-size: 0.85rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">Patrimônio de Conversão</span>
-<h2 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 900;">A ilusão do <span class="text-secondary">"Terreno Alugado"</span> vs <span style="color: var(--accent);">HUB Proprietário</span></h2>
-<p style="color: var(--text-body); font-size: 1.05rem; margin-top: 1rem;">
-Apoiar toda a sua estratégia digital em plataformas de terceiros é como construir uma casa incrível no deserto. O site proprietário moderno é o verdadeiro epicentro da sua marca.
-</p>
-</div>
-<div class="grid grid-2" style="gap: 3rem; align-items: stretch;">
-<div class="glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="padding: 3rem; justify-content: space-between; border-radius: var(--radius-lg); border-color: rgba(236, 72, 153, 0.15);">
-<div>
-<div style="width: 50px; height: 50px; background-color: rgba(236, 72, 153, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--secondary); margin-bottom: 1.5rem;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.6rem;"><use href="/icons/sprite.svg#icon-trend-down-bold" /></svg>
-</div>
-<h3 style="font-size: 1.5rem; margin-bottom: 1rem;">A ilusão do "Terreno Alugado"</h3>
-<p style="font-size: 0.95rem; color: var(--text-body); line-height: 1.6; margin-bottom: 2rem;">
-Apoiar toda a sua estratégia digital apenas no Instagram, LinkedIn ou TikTok é extremamente arriscado. Nessas plataformas, você está sujeito a:
-</p>
-<ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
-<li style="font-size: 0.95rem; font-weight: 600; color: #db2777; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em]" style="font-size: 1.2rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-x-circle-bold" /></svg> Quedas constantes de engajamento orgânico</li>
-<li style="font-size: 0.95rem; font-weight: 600; color: #db2777; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em]" style="font-size: 1.2rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-x-circle-bold" /></svg> Mudanças repentinas e inexplicáveis de algoritmo</li>
-<li style="font-size: 0.95rem; font-weight: 600; color: #db2777; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em]" style="font-size: 1.2rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-x-circle-bold" /></svg> Bloqueios arbitrários que paralisam suas vendas</li>
-<li style="font-size: 0.95rem; font-weight: 600; color: #db2777; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em]" style="font-size: 1.2rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-x-circle-bold" /></svg> Leilão agressivo e encarecimento de anúncios</li>
-</ul>
-</div>
-<span style="font-size: 0.8rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.05em; display: block; border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 2rem;">
-DEPENDÊNCIA EXTREMA DE TERCEIROS
-</span>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex flex-v gap-2" style="padding: 3rem; justify-content: space-between; border-radius: var(--radius-lg); border-color: rgba(20, 184, 166, 0.15); background: linear-gradient(135deg, rgba(20, 184, 166, 0.01), rgba(99, 102, 241, 0.03));">
-<div>
-<div style="width: 50px; height: 50px; background-color: rgba(20, 184, 166, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 1.5rem;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.6rem;"><use href="/icons/sprite.svg#icon-sparkle-bold" /></svg>
-</div>
-<h3 style="font-size: 1.5rem; margin-bottom: 1rem;">A Liberdade do HUB Digital Proprietário</h3>
-<p style="font-size: 0.95rem; color: var(--text-body); line-height: 1.6; margin-bottom: 2rem;">
-O seu HUB é o epicentro das suas operações de marketing e comercial. É um ativo digital escalável e sob seu total controle:
-</p>
-<ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
-<li style="font-size: 0.95rem; font-weight: 600; color: #0d9488; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em]" style="font-size: 1.2rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-bold" /></svg> Controle absoluto de dados de captação e cookies</li>
-<li style="font-size: 0.95rem; font-weight: 600; color: #0d9488; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em]" style="font-size: 1.2rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-bold" /></svg> Alta velocidade de carregamento otimizada para anúncios</li>
-<li style="font-size: 0.95rem; font-weight: 600; color: #0d9488; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em]" style="font-size: 1.2rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-bold" /></svg> Jornada de compra ilimitada e fluxos integrados</li>
-<li style="font-size: 0.95rem; font-weight: 600; color: #0d9488; display: flex; align-items: center; gap: 0.5rem;"><svg class="w-[1em] h-[1em]" style="font-size: 1.2rem; flex-shrink: 0;"><use href="/icons/sprite.svg#icon-check-circle-bold" /></svg> Captação automatizada rodando 24 horas por dia</li>
-</ul>
-</div>
-<span style="font-size: 0.8rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; display: block; border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 2rem;">
-PATRIMÔNIO DIGITAL VALIOSO
-</span>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="depoimentos" style="background-color: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-<div class="container">
-<div style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto;" class="scroll-reveal opacity-0">
-<span style="font-weight: 700; color: var(--primary); font-size: 0.85rem; text-transform: uppercase;">Prova Social Real</span>
-<h2>O Que Nossos Clientes Dizem</h2>
-<p class="text-body">
-Confira as avaliações reais integradas ao Google de quem já conhece nosso trabalho. Sua opinião é muito importante para nós!
-</p>
-</div>
-<div class="google-reviews-grid">
-<div class="google-review-card scroll-reveal opacity-0">
-<div class="google-review-header">
-<span class="google-logo-text"><svg class="w-[1em] h-[1em] text-primary" style="font-size: 2rem; vertical-align: middle; margin-right: 0.5rem;"><use href="/icons/sprite.svg#icon-google-logo-bold" /></svg>Google</span>
-<div class="google-score">
-<span class="google-score-number">4,9</span>
-<div class="google-stars" aria-label="4.9 de 5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<span class="google-rating-text">198 avaliações no Google</span>
-</div>
-</div>
-<div class="google-review-actions">
-<a href="https://google.com" target="_blank" rel="noopener noreferrer" class="google-review-link" aria-label="Ver todas as avaliações no Google">
-<svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-arrow-right" /></svg> Ver Todas as Avaliações
-</a>
-<a href="https://google.com" target="_blank" rel="noopener noreferrer" class="google-write-review" aria-label="Deixar uma avaliação no Google">
-<svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-pencil-simple" /></svg> Deixe Sua Avaliação
-</a>
-</div>
-</div>
-<div class="testimonial-card scroll-reveal opacity-0">
-<div class="quote-icon" aria-hidden="true">&ldquo;</div>
-<div class="testimonial-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<blockquote>"A equipe da Template Landing superou todas as expectativas. O roteador SPA em Vanilla JS salvou o nosso notebook de desenvolvimento e o nosso deploy no Coolify. Todo o suporte técnico foi super acolhedor e atencioso. Conseguimos botar a landing page no ar e atingir 100/100 no Lighthouse em tempo recorde!"</blockquote>
-<div class="testimonial-author">Katerine Daza</div>
-<div class="testimonial-location">São Paulo, SP</div>
-</div>
-<div class="testimonial-card scroll-reveal opacity-0">
-<div class="quote-icon" aria-hidden="true">&ldquo;</div>
-<div class="testimonial-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<blockquote>"Atendimento de excelência e código extremamente limpo. Confiança 100% no design system em Vanilla CSS Variables. Podem contratar as soluções sem medo de falhas."</blockquote>
-<div class="testimonial-author">João Victor Marquezim</div>
-<div class="testimonial-location">Campinas, SP</div>
-</div>
-<div class="testimonial-card scroll-reveal opacity-0">
-<div class="quote-icon" aria-hidden="true">&ldquo;</div>
-<div class="testimonial-stars" aria-label="5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-<blockquote>"Durante o deploy o consultor foi me atualizando no WhatsApp com prints, vídeos e áudios do andamento no Coolify! Coisa boa a gente tem que elogiar, as landing pages carregam instantaneamente e o visual é fantástico."</blockquote>
-<div class="testimonial-author">Marcela Zane</div>
-<div class="testimonial-location">Rio de Janeiro, RJ</div>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="showcase" style="background-color: var(--bg-main); border-bottom: 1px solid var(--border-color);">
-<div class="container">
-<div style="text-align: center; max-width: 700px; margin: 0 auto 4rem auto;" class="scroll-reveal opacity-0">
-<span style="font-size: 0.85rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">Formatos de Sucesso</span>
-<h2 style="font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 900;">Modelos de <span style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Landing Pages Campeãs</span></h2>
-<p style="color: var(--text-body); font-size: 1.05rem; margin-top: 1rem;">
-Escolher a estrutura correta para seu objetivo comercial é o primeiro passo para maximizar seu Retorno sobre Investimento (ROI).
-</p>
-</div>
-<div class="grid grid-2" style="gap: 2rem;">
-<div class="glass-card scroll-reveal opacity-0 flex gap-3" style="padding: 2rem; border-radius: var(--radius-lg); align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.5rem;"><use href="/icons/sprite.svg#icon-book-open-bold" /></svg>
-</div>
-<div>
-<h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Landing Page para Infoprodutos</h3>
-<p style="font-size: 0.9rem; color: var(--text-body); line-height: 1.5; margin: 0px;">
-Foco em cursos, e-books e mentorias. Possui cabeçalhos impactantes, quebra profunda de objeções (FAQ), depoimentos estruturados e checkout de pagamento integrado na mesma tela.
-</p>
-</div>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex gap-3" style="padding: 2rem; border-radius: var(--radius-lg); align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.5rem;"><use href="/icons/sprite.svg#icon-funnel-bold" /></svg>
-</div>
-<div>
-<h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Página de Captura (Squeeze Page)</h3>
-<p style="font-size: 0.9rem; color: var(--text-body); line-height: 1.5; margin: 0px;">
-Fricção cognitiva zero. Criada para captação massiva de leads, oferecendo uma recompensa digital (como PDF ou webinar) em troca de um único campo de e-mail ou WhatsApp do visitante.
-</p>
-</div>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex gap-3" style="padding: 2rem; border-radius: var(--radius-lg); align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.5rem;"><use href="/icons/sprite.svg#icon-map-pin-bold" /></svg>
-</div>
-<div>
-<h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Página de Conversão Local</h3>
-<p style="font-size: 0.9rem; color: var(--text-body); line-height: 1.5; margin: 0px;">
-Ideal para clínicas, escritórios e serviços locais. Integração explícita de mapas, dados estruturados de `LocalBusiness` e chamadas diretas com rotas integradas ou botão de WhatsApp rápido.
-</p>
-</div>
-</div>
-<div class="glass-card scroll-reveal opacity-0 flex gap-3" style="padding: 2rem; border-radius: var(--radius-lg); align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color);">
-<div style="width: 50px; height: 50px; background-color: rgba(99, 102, 241, 0.08); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;">
-<svg class="w-[1em] h-[1em]" style="font-size: 1.5rem;"><use href="/icons/sprite.svg#icon-buildings-bold" /></svg>
-</div>
-<div>
-<h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">HUB Digital e Portfólio Corporativo</h3>
-<p style="font-size: 0.9rem; color: var(--text-body); line-height: 1.5; margin: 0px;">
-Roteamento SPA nativo e páginas dedicadas para serviços, produtos, blog integrado e página institucional. Garante SEO robusto para palavras-chave corporativas complexas.
-</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="planos">
-<div class="container">
-<div style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto;" class="scroll-reveal opacity-0">
-<span style="font-weight: 700; color: var(--primary); font-size: 0.85rem; text-transform: uppercase;">Decisão Econômica</span>
-<h2>Tabela de Preços e Ofertas</h2>
-<p class="text-body">
-Apresentamos planos didáticos para mostrar como o design deve guiar os olhos do consumidor para a escolha desejada.
-</p>
-</div>
-<div class="grid grid-3" style="align-items: stretch;">
-<div class="glass-card pricing-card scroll-reveal opacity-0 flex flex-v" style="justify-content: space-between;">
-<div>
-<span style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Bronze</span>
-<div style="font-family: var(--font-title); margin-bottom: 1.5rem;">
-<span style="font-size: 1.5rem; font-weight: 500;">R$</span>
-<span style="font-size: 3rem; font-weight: 800; color: var(--text-title);">49</span>
-<span style="font-size: 0.9rem; color: var(--text-muted);">/mês</span>
-</div>
-<p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 1.5rem;">
-Ideal para testar validações iniciais de mercado sem suporte avançado.
-</p>
-<ul class="pricing-features-list">
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> 1 Domínio Próprio</li>
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Hospedagem Estática Básica</li>
-<li><svg class="w-[1em] h-[1em] text-muted" style="opacity: 0.5;"><use href="/icons/sprite.svg#icon-x" /></svg> Sem Roteamento SPA</li>
-<li><svg class="w-[1em] h-[1em] text-muted" style="opacity: 0.5;"><use href="/icons/sprite.svg#icon-x" /></svg> Suporte por e-mail básico</li>
-</ul>
-</div>
-<a href="/contato/" class="btn btn-secondary" style="width: 100%; margin-top: 2rem;">Começar Agora</a>
-</div>
-<div class="glass-card pricing-card featured scroll-reveal opacity-0 flex flex-v" style="justify-content: space-between; background-color: var(--bg-card); position: relative; overflow: visible;">
-<span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 0.25rem 1rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);">
-MAIS VENDIDO (Efeito CRO)
-</span>
-<div>
-<span style="font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; display: block; margin-bottom: 0.5rem; margin-top: 0.5rem;">Ouro Premium</span>
-<div style="font-family: var(--font-title); margin-bottom: 1.5rem;">
-<span style="font-size: 1.5rem; font-weight: 500;">R$</span>
-<span style="font-size: 3rem; font-weight: 800; color: var(--text-title);">99</span>
-<span style="font-size: 0.9rem; color: var(--text-muted);">/mês</span>
-</div>
-<p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 1.5rem;">
-Recomendado para empresas consolidadas buscando conversão de nível corporativo.
-</p>
-<ul class="pricing-features-list">
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Domínios Ilimitados</li>
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Roteamento SPA view transition</li>
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Métricas SEO & Analytics Avançado</li>
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Suporte Prioritário 24/7</li>
-</ul>
-</div>
-<a href="/contato/" class="btn btn-primary btn-glow" style="width: 100%; margin-top: 2rem;">Assinar Plano Premium</a>
-</div>
-<div class="glass-card pricing-card scroll-reveal opacity-0 flex flex-v" style="justify-content: space-between;">
-<div>
-<span style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 0.5rem;">Platina</span>
-<div style="font-family: var(--font-title); margin-bottom: 1.5rem;">
-<span style="font-size: 1.5rem; font-weight: 500;">R$</span>
-<span style="font-size: 3rem; font-weight: 800; color: var(--text-title);">199</span>
-<span style="font-size: 0.9rem; color: var(--text-muted);">/mês</span>
-</div>
-<p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 1.5rem;">
-customizações personalizadas e engenharia dedicada para marcas globais.
-</p>
-<ul class="pricing-features-list">
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Toda a infraestrutura Ouro</li>
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Integrações via Webhooks Customizados</li>
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Aconselhamento Dedicado de SEO/AIO</li>
-<li><svg class="w-[1em] h-[1em] text-primary"><use href="/icons/sprite.svg#icon-check" /></svg> Garantia de SLA de 99.99%</li>
-</ul>
-</div>
-<a href="/contato/" class="btn btn-secondary" style="width: 100%; margin-top: 2rem;">Contatar Consultores</a>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="cta-intermediario" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1)); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-<div class="container">
-<div class="grid grid-2" style="align-items: center;">
-<div class="scroll-reveal opacity-0">
-<h2>Gostou Deste Modelo Didático de Engenharia de Conversão?</h2>
-<p style="font-size: 1.1rem; margin-bottom: 0px;">
-Esta faixa é uma chamada intermediária estratégica para capturar cadastros ou vendas rápidas. Ela interrompe
-o rolamento passivo e induz o usuário a tomar atitudes dinâmicas imediatamente.
-</p>
-</div>
-<div class="scroll-reveal opacity-0 flex flex-center" style="justify-content: flex-end;">
-<a href="/contato/" class="btn btn-primary btn-glow" style="padding: 1rem 2.5rem; font-size: 1.1rem;">
-<span>Contate-nos Agora</span>
-<svg class="w-[1em] h-[1em]"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
-</a>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="faq">
-<div class="container">
-<div style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto;" class="scroll-reveal opacity-0">
-<span style="font-weight: 700; color: var(--primary); font-size: 0.85rem; text-transform: uppercase;">Dúvidas Frequentes</span>
-<h2>Perguntas Frequentes (FAQ)</h2>
-<p class="text-body">
-Cada resposta abaixo explica didaticamente a engenharia por trás do componente.
-</p>
-</div>
-<div style="max-width: 800px; margin: 0 auto;" class="scroll-reveal opacity-0">
-<div class="faq-item">
-<button class="faq-question" aria-expanded="false" aria-controls="faq-ans-1">
-<span>Como esta FAQ ajuda no ranqueamento orgânico de SEO?</span>
-<svg class="w-[1em] h-[1em] faq-icon"><use href="/icons/sprite.svg#icon-plus" /></svg>
-</button>
-<div id="faq-ans-1" class="faq-answer">
-<p style="margin: 0px; padding-bottom: 1rem;">
-Esta FAQ está mapeada diretamente no script de dados estruturados JSON-LD na tag &lt;head&gt; do HTML.
-Quando o robô do Google lê este documento, ele identifica as perguntas e respostas e pode exibi-las
-diretamente na página de resultados de buscas, aumentando a visibilidade e cliques da sua marca sem custos de tráfego.
-</p>
-</div>
-</div>
-<div class="faq-item">
-<button class="faq-question" aria-expanded="false" aria-controls="faq-ans-2">
-<span>Como o roteamento SPA Vanilla mantém a indexabilidade tradicional?</span>
-<svg class="w-[1em] h-[1em] faq-icon"><use href="/icons/sprite.svg#icon-plus" /></svg>
-</button>
-<div id="faq-ans-2" class="faq-answer">
-<p style="margin: 0px; padding-bottom: 1rem;">
-Diferente de SPAs criados em React clássico que geram uma tela em branco para o servidor e montam o DOM somente via JS,
-o nosso router SPA Vanilla lê arquivos HTML reais e estáticos. Cada página (servicos.html, sobre.html, contato.html)
-é 100% legível por robôs de busca. O JS entra apenas como um acelerador de performance de navegação interativa,
-preservando o SEO intacto.
-</p>
-</div>
-</div>
-<div class="faq-item">
-<button class="faq-question" aria-expanded="false" aria-controls="faq-ans-3">
-<span>O que significa 'AIO Ready' e por que isso importa hoje?</span>
-<svg class="w-[1em] h-[1em] faq-icon"><use href="/icons/sprite.svg#icon-plus" /></svg>
-</button>
-<div id="faq-ans-3" class="faq-answer">
-<p style="margin: 0px; padding-bottom: 1rem;">
-AIO significa Artificial Intelligence Optimization. Hoje, cada vez mais pessoas pesquisam no Perplexity, ChatGPT e Claude
-em vez do Google tradicional. Para ser citado e recomendado por essas inteligências artificiais, seu site deve possuir
-metadados semânticos puros e um arquivo manifesto `llms.txt` na raiz, facilitando a extração exata das informações corporativas.
-</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
+<script>
+  // Simple Counter Animation trigger
+  function animateCounters() {
+    const cards = document.querySelectorAll('.metric-card');
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const options = {
+      threshold: 0.2,
+      rootMargin: '0px'
+    };
 
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const numberEl = entry.target.querySelector('[data-target]');
+          if (numberEl) {
+            const target = parseInt(numberEl.getAttribute('data-target') || '0', 10);
+            
+            if (prefersReducedMotion) {
+              // Set final value immediately
+              if (target === 350000) numberEl.textContent = '350.000+';
+              else if (target === 300000) numberEl.textContent = 'R$ 300K/ano';
+              else if (target === 25000) numberEl.textContent = 'R$ 25K/mês';
+              else if (target === 78) numberEl.textContent = '78%';
+            } else {
+              let count = 0;
+              const duration = 1500; // ms
+              const stepTime = 16; // ms (approx 60fps)
+              const steps = duration / stepTime;
+              const increment = target / steps;
 
-  <script is:inline>
-    // Lógica interativa da Home portadas de main.js
-    document.addEventListener('astro:page-load', () => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      // Spotlight effect para os cards
-      document.querySelectorAll(".glass-card").forEach(card => {
-        card.onmousemove = e => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-        };
-      });
-
-
-      // Scroll Reveal
-      if (!prefersReducedMotion) {
-        if (!window.__revealObserver) {
-          const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-          window.__revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in-up');
-                entry.target.classList.remove('opacity-0', 'scroll-reveal');
-                observer.unobserve(entry.target);
-              }
-            });
-          }, observerOptions);
-        }
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
-          window.__revealObserver.observe(el);
-          if (el.getBoundingClientRect().top < window.innerHeight) {
-            el.classList.add('animate-fade-in-up');
-            el.classList.remove('opacity-0', 'scroll-reveal');
-            window.__revealObserver.unobserve(el);
+              const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                  clearInterval(timer);
+                  // Final formats
+                  if (target === 350000) numberEl.textContent = '350.000+';
+                  else if (target === 300000) numberEl.textContent = 'R$ 300K/ano';
+                  else if (target === 25000) numberEl.textContent = 'R$ 25K/mês';
+                  else if (target === 78) numberEl.textContent = '78%';
+                } else {
+                  if (target === 350000) {
+                    numberEl.textContent = Math.floor(count).toLocaleString('pt-BR') + '+';
+                  } else if (target === 300000 || target === 25000) {
+                    numberEl.textContent = 'R$ ' + Math.floor(count).toLocaleString('pt-BR');
+                  } else {
+                    numberEl.textContent = Math.floor(count) + '%';
+                  }
+                }
+              }, stepTime);
+            }
           }
-        });
-      } else {
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
-          el.classList.remove('opacity-0', 'scroll-reveal');
-        });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  // Handle Form Submission via Webhook
+  function handleFormSubmission() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const feedback = document.getElementById('form-feedback');
+    if (!form || !feedback) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // HoneyPot check
+      const honeypot = (document.getElementById('honeypot_field') as HTMLInputElement)?.value;
+      if (honeypot) {
+        console.warn('Spam detected via honeypot.');
+        feedback.textContent = 'Mensagem enviada com sucesso (filtro anti-spam ativo).';
+        feedback.className = 'mt-4 text-sm text-center font-bold text-emerald-600 dark:text-emerald-400 block';
+        form.reset();
+        return;
       }
 
-      // Solutions Carousel
-      const initSolutionsCarousel = () => {
-        const carousel = document.getElementById("solutions-carousel");
-        if (!carousel) return;
-        const tabs = carousel.querySelectorAll(".solutions-tab");
-        const switchTab = (targetSystem) => {
-          tabs.forEach(tab => {
-            const isActive = tab.dataset.system === targetSystem;
-            tab.classList.toggle("active", isActive);
-            tab.setAttribute("aria-selected", isActive ? "true" : "false");
-          });
-          carousel.querySelectorAll(".solutions-panel").forEach(panel => {
-            if (panel.dataset.system === targetSystem) {
-              panel.classList.remove("hidden");
-            } else {
-              panel.classList.add("hidden");
-            }
-          });
-        };
-        const tabList = carousel.querySelector('[role="tablist"]');
-        if (tabList) {
-          tabList.addEventListener("click", (e) => {
-            const tab = e.target.closest(".solutions-tab");
-            if (!tab) return;
-            switchTab(tab.dataset.system);
-            if (window.innerWidth < 1024) {
-              const container = carousel.querySelector('.solutions-tabs-container');
-              if (container) {
-                const scrollLeft = tab.offsetLeft - (container.clientWidth / 2) + (tab.clientWidth / 2);
-                container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-              }
-            }
-          });
-        }
-      };
+      feedback.textContent = 'Enviando...';
+      feedback.className = 'mt-4 text-sm text-center font-bold text-cyber-600 dark:text-cyber-400 block';
 
-      // Epicentro Carousel
-      const initEpicentroCarousel = () => {
-        const carousel = document.getElementById("epicentro-carousel");
-        if (!carousel) return;
-        const tabs = carousel.querySelectorAll(".epicentro-tab");
-        const switchTab = (targetPanel) => {
-          tabs.forEach(tab => {
-            const isActive = tab.dataset.target === targetPanel;
-            tab.classList.toggle("active", isActive);
-            tab.setAttribute("aria-selected", isActive ? "true" : "false");
-          });
-          carousel.querySelectorAll(".epicentro-panel").forEach(panel => {
-            if (panel.dataset.panel === targetPanel) {
-              panel.classList.remove("hidden");
-            } else {
-              panel.classList.add("hidden");
-            }
-          });
-        };
-        const tabList = carousel.querySelector('[role="tablist"]');
-        if (tabList) {
-          tabList.addEventListener("click", (e) => {
-            const tab = e.target.closest(".epicentro-tab");
-            if (!tab) return;
-            switchTab(tab.dataset.target);
-            if (window.innerWidth < 1024) {
-              const container = carousel.querySelector('.epicentro-tabs-container');
-              if (container) {
-                const scrollLeft = tab.offsetLeft - (container.clientWidth / 2) + (tab.clientWidth / 2);
-                container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-              }
-            }
-          });
-        }
-      };
-
-      // FAQ Accordion
-      const initFaqAccordion = () => {
-        document.querySelectorAll(".faq-item").forEach(item => {
-          const questionBtn = item.querySelector(".faq-question");
-          if (!questionBtn) return;
-          const newQuestionBtn = questionBtn.cloneNode(true);
-          questionBtn.parentNode.replaceChild(newQuestionBtn, questionBtn);
-          newQuestionBtn.addEventListener("click", () => {
-            const isCurrentlyOpen = item.classList.contains("open");
-            document.querySelectorAll(".faq-item").forEach(otherItem => {
-              otherItem.classList.remove("open");
-              otherItem.querySelector(".faq-question").setAttribute("aria-expanded", "false");
-            });
-            if (!isCurrentlyOpen) {
-              item.classList.add("open");
-              newQuestionBtn.setAttribute("aria-expanded", "true");
-            }
-          });
+      try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
         });
-      };
 
-      initSolutionsCarousel();
-      initEpicentroCarousel();
-      initFaqAccordion();
+        if (response.ok) {
+          feedback.textContent = 'Mensagem enviada com sucesso! Em breve entrarei em contato.';
+          feedback.className = 'mt-4 text-sm text-center font-bold text-emerald-600 dark:text-emerald-400 block';
+          form.reset();
+        } else {
+          throw new Error('Falha no envio.');
+        }
+      } catch (err) {
+        feedback.textContent = 'Erro ao enviar mensagem. Por favor, utilize o WhatsApp ou e-mail.';
+        feedback.className = 'mt-4 text-sm text-center font-bold text-red-600 dark:text-red-400 block';
+      }
     });
-  </script>
-</BaseLayout>
+  }
+
+  // Bind JS on Astro transitions and initial load
+  document.addEventListener('astro:page-load', () => {
+    animateCounters();
+    handleFormSubmission();
+  });
+</script>

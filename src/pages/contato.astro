@@ -15,7 +15,7 @@ import { site } from '../content/site';
     <div class="max-w-3xl mx-auto text-center flex flex-col gap-6">
       <Badge variant="success" class="self-center">Fale Conosco</Badge>
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        Como podemos ajudar a acelerar o seu <span class="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">negócio?</span>
+        Como podemos ajudar a acelerar o seu <span class="bg-gradient-to-r from-cyber-400 to-primary-500 bg-clip-text text-transparent">negócio?</span>
       </h1>
       <p class="text-lg text-slate-400 leading-relaxed">
         Preencha o formulário abaixo ou utilize um de nossos canais de atendimento direto. Nossa equipe responderá em até 24 horas úteis.
@@ -34,24 +34,24 @@ import { site } from '../content/site';
 
         <div class="flex flex-col gap-6">
           <Card class="p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 flex gap-4 items-start">
-            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0">
+            <div class="w-10 h-10 rounded-lg bg-cyber-500/10 flex items-center justify-center text-cyber-500 shrink-0">
               <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-file-text" /></svg>
             </div>
             <div>
               <h3 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider mb-1">E-mail Comercial</h3>
-              <a href={`mailto:${site.contact.email}`} class="text-sm text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition">
+              <a href={`mailto:${site.contact.email}`} class="text-sm text-slate-600 dark:text-slate-400 hover:text-cyber-500 transition">
                 {site.contact.email}
               </a>
             </div>
           </Card>
 
           <Card class="p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30 flex gap-4 items-start">
-            <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0">
+            <div class="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center text-primary-500 shrink-0">
               <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-whatsapp-logo" /></svg>
             </div>
             <div>
               <h3 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider mb-1">Telefone / WhatsApp</h3>
-              <a href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="text-sm text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition">
+              <a href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer" class="text-sm text-slate-600 dark:text-slate-400 hover:text-cyber-500 transition">
                 {site.contact.phone}
               </a>
             </div>

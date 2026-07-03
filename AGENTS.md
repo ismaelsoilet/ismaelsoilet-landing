@@ -98,14 +98,12 @@ template-landing/
 │   │   └── BlogPostLayout.astro # blog post wrapper with JSON-LD schema
 │   ├── components/         # ── Modular Astro components ──
 │   │   ├── ui/             # Button, Card, GlassCard, Section, Accordion, Badge, Tabs
-│   │   ├── seo/            # JsonLd, Breadcrumb, FaqSchema
+│   │   ├── seo/            # JsonLd, Breadcrumb
 │   │   ├── layout/         # Header, Footer, MobileMenu, WhatsAppFloat
 │   │   └── integrations/   # ConsentBanner, PartytownScripts, WebVitalsReporter
 │   └── pages/              # ── Page routing paths ──
-│       ├── index.astro     # Home page (composes 10 sections)
+│       ├── index.astro     # Home page (composes 9 sections)
 │       ├── index-exemplo.astro # Demo home variant (noindex, excluded from sitemap)
-│       ├── sobre.astro     # About us page
-│       ├── servicos.astro  # Services catalog
 │       ├── contato.astro   # Contact form page
 │       ├── privacidade.astro# Privacy Policy (noindex, excluded from sitemap)
 │       ├── termos.astro     # Terms of Use (noindex, excluded from sitemap)
@@ -173,8 +171,8 @@ template-landing/
 ### Schemas
 - Every page has Organization + WebPage JSON-LD.
 - Blog articles have BlogPosting schema; `como-` guides additionally build a HowTo schema.
-- FAQ sections generate a matching FAQPage schema.
-- Services page has Service schema.
+- FAQ sections generate a matching FAQPage schema (built ad hoc via `buildFaqSchema()` in `src/lib/seo.ts`; no `FaqSchema.astro` wrapper component exists).
+- The home page emits a `ProfilePage` JSON-LD when `site.person` is configured (personal-portfolio fork).
 
 ### Sitemaps (Canonical)
 - **Sitemap is generated automatically by `@astrojs/sitemap`** (configured in `astro.config.mjs`). It emits `/sitemap-index.xml` + `/sitemap-0.xml` at build time. **Do NOT create a manual `src/pages/sitemap.xml.ts`** — that would shadow the integration's output.
@@ -232,19 +230,22 @@ pnpm check-a11y     # audits accessibility errors (axe)
 - **Tailwind v4.3.0** (not Tailwind 3.4) with **CSS-first configuration**. There is intentionally **no `tailwind.config.mjs`** in the repo — theme tokens live in `src/styles/global.css` via `@import "tailwindcss"` and `@theme {}` blocks. This eliminates the legacy `safelist` concept entirely.
 - **10 home sections** (not 12). The merged/dropped sections are documented in the drift section of `openspec/changes/definitive-2026-template/design.md`.
 - **7 blog posts** (6 planned + 1 bonus: `arquitetura-css-tailwind-escalavel-para-landing-pages.mdx`).
-- **Accessibility Fixes (v2.0.1)**: Remediated 38 accessibility issues across index.astro, Footer.astro, index-exemplo.astro, components.astro, sobre.astro, and servicos.astro (strict heading hierarchy, form labels, keyboard focus indicators, inert hidden menus, and WCAG AA contrast compliance).
+- **Accessibility Fixes (v2.0.1)**: Remediated 38 accessibility issues across index.astro, Footer.astro, index-exemplo.astro, components.astro (strict heading hierarchy, form labels, keyboard focus indicators, inert hidden menus, and WCAG AA contrast compliance).
 - **Sitemap cleanup (v2.1.1)**: Removed the manual `src/pages/sitemap.xml.ts` that shadowed `@astrojs/sitemap`. `robots.txt` now points to the integration's `/sitemap-index.xml`. The `filter` was hardened to use `new URL(page).pathname` with an `excludedPaths` constant, and `index-exemplo.astro` was added to the noindex + exclusion list.
+- **Palette & dark-default (personal-portfolio fork)**: `sobre.astro` and `servicos.astro` were removed (about content folded into the home `#about` bento; no services catalog). The palette is **cyan (`cyber`, technology) + amber (`primary`, public-authority)** on a deep-navy `--color-navy` (`#0a0f1e`) base, defined as perceptually-uniform oklch scales in `@theme`. The site is **dark-by-default**: the FOUC script in `src/lib/theme.ts` adds `.dark` to `<html>` unless `localStorage.theme === "light"`. The home page respects the toggle (no longer forces `!important` dark); cards use the `<GlassCard>` component for progressive glassmorphism with `prefers-reduced-transparency` + `@supports` guards.
 
 ### Reusable Patterns from the Implementation
 1. **CSS-first Tailwind tokens** in `src/styles/global.css`:
    ```css
    @import "tailwindcss";
    @theme {
-     --color-primary: oklch(0.65 0.25 264);
+     --color-primary-500: oklch(0.769 0.188 70.08); /* amber — public-authority accent */
+     --color-cyber-500: oklch(0.715 0.143 194.76);  /* cyan — technology accent */
+     --color-navy: #0a0f1e;
      --font-sans: "Inter Variable", system-ui, sans-serif;
    }
    ```
-2. **The `index.astro` Monolith (100/100 PageSpeed)**: The `index.astro` home page is intentionally structured as a large monolithic file rather than splitting its 10 sections into separate components. This serves as a pedagogical template showing how a single file can manage layout, scoped CSS, and data. Despite its size, the site achieves a near 100/100 score on Google PageSpeed Insights due to Astro's zero-JS-by-default architecture and static generation, proving that monolithic components are perfectly viable and performant when following Astro best practices (e.g., self-hosting fonts, inlining critical CSS, avoiding unnecessary client-side JavaScript, and using modern image optimization).
+2. **The `index.astro` Monolith (100/100 PageSpeed)**: The `index.astro` home page is intentionally structured as a large monolithic file rather than splitting its 9 sections into separate components. This serves as a pedagogical template showing how a single file can manage layout, scoped CSS, and data. Despite its size, the site achieves a near 100/100 score on Google PageSpeed Insights due to Astro's zero-JS-by-default architecture and static generation, proving that monolithic components are perfectly viable and performant when following Astro best practices (e.g., self-hosting fonts, inlining critical CSS, avoiding unnecessary client-side JavaScript, and using modern image optimization).
 3. **The `[...slug].astro` pattern** in `src/pages/blog/` is the canonical way to do dynamic content collection routes.
 4. **The `site.tracking` empty-default pattern** in `src/content/site.ts` makes Partytown emit zero code unless a client developer opts in. This is the design's "zero-JS-by-default" invariant in practice.
 

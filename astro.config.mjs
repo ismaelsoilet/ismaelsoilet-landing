@@ -7,7 +7,7 @@ import partytown from '@astrojs/partytown';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://template.suitplus.com.br',
+  site: 'https://ismaelsoilet.com.br',
   output: 'static',
   // Disable the Astro DevTools toolbar: it injects a client entrypoint that
   // Firefox can fail to load with NS_ERROR_CORRUPTED_CONTENT in dev mode,

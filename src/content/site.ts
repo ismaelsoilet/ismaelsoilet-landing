@@ -25,8 +25,8 @@ export interface SiteConfig {
   };
   theme: {
     colors: {
-      light: string; // e.g. hex color for theme-color meta in light mode
-      dark: string;  // e.g. hex color for theme-color meta in dark mode
+      light: string;
+      dark: string;
     };
   };
   tracking: {
@@ -36,48 +36,86 @@ export interface SiteConfig {
     clarityId?: string;
     webVitalsEndpoint?: string;
   };
+  person?: {
+    name: string;
+    firstName: string;
+    lastName: string;
+    jobTitle: string;
+    roles: string[];
+    description: string;
+    image: string;
+    url: string;
+    sameAs: string[];
+    credentials: Array<{
+      name: string;
+      category: string;
+      recognizedBy: string;
+    }>;
+  };
 }
 
 export const site: SiteConfig = {
   org: {
-    name: "Suitplus",
-    url: "https://template.suitplus.com.br",
-    logo: "https://template.suitplus.com.br/logo.svg",
-    description: "Plataforma premium de aceleração de resultados e soluções corporativas inteligentes.",
+    name: "Ismael Soilet",
+    url: "https://ismaelsoilet.com.br",
+    logo: "/logo.svg",
+    description: "Líder em Transformação Digital, Gestão Pública, Ciência de Dados e Desenvolvimento de Software.",
     sameAs: [
-      "https://www.linkedin.com/company/suitplus",
-      "https://www.instagram.com/suitplus",
-      "https://github.com/suitplus"
+      "https://www.linkedin.com/in/ismael-soilet/",
+      "https://github.com/ismaelsoilet"
     ]
   },
   contact: {
-    email: "contato@suitplus.com.br",
-    phone: "+55 (11) 99999-9999",
-    whatsapp: "https://wa.me/5513996603357"
+    email: "ismael.soilet@hotmail.com",
+    phone: "+55 (13) 99796-1799",
+    whatsapp: "https://wa.me/5513997961799"
   },
   social: {
-    linkedin: "https://www.linkedin.com/company/suitplus",
-    instagram: "https://www.instagram.com/suitplus",
-    github: "https://github.com/suitplus",
-    facebook: "https://facebook.com/suitplus",
-    threads: "https://threads.net/@suitplus",
-    twitter: "https://x.com/suitplus"
+    linkedin: "https://www.linkedin.com/in/ismael-soilet/",
+    github: "https://github.com/ismaelsoilet"
   },
   webhook: {
-    contact: "/api/submit-form" // Relative path matches proxy configured in Nginx/Vercel/CF
+    contact: "/api/submit-form"
   },
   theme: {
     colors: {
       light: "#ffffff",
-      dark: "#020617" // tailwind slate-950
+      dark: "#0a0f1e" // Deep Navy base
     }
   },
   tracking: {
-    // Left empty for default zero-JS, but can be set for testing/client rebrand
     gtmId: "",
     metaPixelId: "",
     hotjarId: "",
     clarityId: "",
     webVitalsEndpoint: ""
+  },
+  person: {
+    name: "Ismael Hosni Soilet de Lima",
+    firstName: "Ismael",
+    lastName: "Soilet",
+    jobTitle: "Product Owner & Tech Leader",
+    roles: [
+      "Product Owner",
+      "Desenvolvedor Full-Stack",
+      "Gestor Público",
+      "Cientista de Dados",
+      "Empreendedor"
+    ],
+    description: "Transformo regras de negócio complexas em soluções digitais de alto impacto, unindo Tecnologia da Informação, Ciência de Dados e Gestão Estratégica.",
+    image: "/src/assets/photo.jpg", // Real/placeholder path
+    url: "https://ismaelsoilet.com.br",
+    sameAs: [
+      "https://www.linkedin.com/in/ismael-soilet/",
+      "https://github.com/ismaelsoilet"
+    ],
+    credentials: [
+      {
+        name: "CRA-SP 6-2962",
+        category: "Professional Registration",
+        recognizedBy: "Conselho Regional de Administração de São Paulo"
+      }
+    ]
   }
 };
+

@@ -31,7 +31,7 @@ const items = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
                 href={`#${h.slug}`}
                 data-toc-link={h.slug}
                 class:list={[
-                  'toc-link block py-1.5 pr-3 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors leading-snug border-l-2 -ml-px border-transparent',
+                  'toc-link block py-1.5 pr-3 text-slate-500 dark:text-slate-400 hover:text-cyber-600 dark:hover:text-cyber-400 transition-colors leading-snug border-l-2 -ml-px border-transparent',
                   h.depth === 3 ? 'pl-8' : 'pl-4 font-medium',
                 ]}
               >
@@ -63,9 +63,9 @@ const items = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
     if (headings.length === 0) return;
 
     const activeClasses = [
-      'text-cyan-600',
-      'dark:text-cyan-400',
-      'border-cyan-500',
+      'text-cyber-600',
+      'dark:text-cyber-400',
+      'border-cyber-500',
       'font-semibold',
     ];
     const inactiveClasses = [

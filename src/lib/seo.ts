@@ -180,3 +180,52 @@ export function buildServiceSchema(services: ServiceItem[]) {
     }
   };
 }
+
+export function buildPersonSchema() {
+  if (!site.person) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${site.org.url}/#person`,
+    "name": site.person.name,
+    "jobTitle": site.person.jobTitle,
+    "description": site.person.description,
+    "url": site.person.url,
+    "image": {
+      "@type": "ImageObject",
+      "@id": `${site.org.url}/#person-image`,
+      "url": `${site.org.url}/photo.jpg`,
+      "caption": site.person.name
+    },
+    "sameAs": site.person.sameAs,
+    "hasCredential": site.person.credentials.map(c => ({
+      "@type": "EducationalOccupationalCredential",
+      "name": c.name,
+      "credentialCategory": c.category,
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": c.recognizedBy
+      }
+    }))
+  };
+}
+
+export function buildProfilePageSchema(path: string, title: string, description: string) {
+  const canonicalUrl = `${site.org.url}${path.startsWith('/') ? path : '/' + path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${canonicalUrl}/#webpage`,
+    "url": canonicalUrl,
+    "name": title,
+    "description": description,
+    "mainEntity": {
+      "@id": `${site.org.url}/#person`
+    },
+    "isPartOf": {
+      "@id": `${site.org.url}/#website`
+    },
+    "inLanguage": "pt-BR"
+  };
+}
+

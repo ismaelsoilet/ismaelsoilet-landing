@@ -68,9 +68,12 @@ function scanHtml(dir) {
         hasError = true;
       }
 
-      // Assert WebPage JSON-LD exists on all pages
-      if (!content.includes('"@type": "WebPage"') && !content.includes('"@type":"WebPage"')) {
-        console.error(`QA Error: ${relativePath} is missing WebPage JSON-LD.`);
+      // Assert WebPage or ProfilePage JSON-LD exists on all pages
+      const hasWebPage = content.includes('"@type": "WebPage"') || content.includes('"@type":"WebPage"') ||
+                         content.includes('"@type": "ProfilePage"') || content.includes('"@type":"ProfilePage"') ||
+                         content.includes('"ProfilePage"');
+      if (!hasWebPage) {
+        console.error(`QA Error: ${relativePath} is missing WebPage or ProfilePage JSON-LD.`);
         hasError = true;
       }
 
@@ -87,22 +90,6 @@ function scanHtml(dir) {
             console.error(`QA Error: "como-" blog post ${relativePath} is missing HowTo JSON-LD.`);
             hasError = true;
           }
-        }
-      }
-
-      // Service schemas on services page
-      if (relativePath === 'servicos/index.html') {
-        if (!content.includes('"@type": "Service"') && !content.includes('"@type":"Service"')) {
-          console.error(`QA Error: Services page is missing Service JSON-LD.`);
-          hasError = true;
-        }
-      }
-
-      // FAQ Page schemas (Home has faq collection, services has FAQs, etc.)
-      if (relativePath === 'index.html' || relativePath === 'servicos/index.html') {
-        if (!content.includes('"@type": "FAQPage"') && !content.includes('"@type":"FAQPage"')) {
-          console.error(`QA Error: Page ${relativePath} is missing FAQPage JSON-LD.`);
-          hasError = true;
         }
       }
     }

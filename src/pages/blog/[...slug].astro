@@ -22,13 +22,12 @@ const relatedPosts = published
   .slice(0, 3);
 
 const serviceLinks: Record<string, { href: string; label: string }> = {
-  SEO:         { href: '/servicos',    label: 'Consultoria SEO' },
-  CRO:         { href: '/#solucoes',   label: 'Módulo de Conversão (CRO)' },
-  Performance: { href: '/#solucoes',   label: 'Módulo de Desempenho' },
-  AIO:         { href: '/servicos',    label: 'Consultoria SEO/AIO' },
-  LGPD:        { href: '/privacidade', label: 'Conformidade LGPD' },
+  'Gestão Pública': { href: '/#contact', label: 'Projetos Públicos' },
+  'Tecnologia':     { href: '/#contact', label: 'Desenvolvimento' },
+  'Ciência de Dados':{ href: '/#contact', label: 'Análise de Dados' },
+  'Inovação':       { href: '/#contact', label: 'Transformação Digital' },
 };
-const serviceLink = serviceLinks[post.data.category] || { href: '/servicos', label: 'Nossos Serviços' };
+const serviceLink = serviceLinks[post.data.category] || { href: '/#contact', label: 'Falar com Ismael' };
 ---
 
 <BlogPostLayout frontmatter={post.data} slug={post.id} headings={headings} relatedPosts={relatedPosts} serviceLink={serviceLink}>
