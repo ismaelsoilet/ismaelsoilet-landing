@@ -18,46 +18,46 @@
   --font-serif: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  --color-navy: #0a0f1e;
+  --color-navy: #1d2226;
 
-  /* Neutral scale: cool-leaning, harmonizes with --color-navy */
-  --color-neutral-50: oklch(0.985 0.005 240);
-  --color-neutral-100: oklch(0.965 0.005 240);
-  --color-neutral-200: oklch(0.925 0.005 240);
-  --color-neutral-300: oklch(0.875 0.008 240);
-  --color-neutral-400: oklch(0.705 0.012 240);
-  --color-neutral-500: oklch(0.555 0.013 240);
-  --color-neutral-600: oklch(0.45 0.013 240);
-  --color-neutral-700: oklch(0.37 0.012 240);
-  --color-neutral-800: oklch(0.27 0.012 240);
-  --color-neutral-900: oklch(0.18 0.012 240);
-  --color-neutral-950: oklch(0.12 0.012 240);
+  /* Neutral scale: cool-leaning, harmonizes with --color-navy (LinkedIn-style) */
+  --color-neutral-50: oklch(0.975 0.002 250);
+  --color-neutral-100: oklch(0.96 0.003 250);
+  --color-neutral-200: oklch(0.92 0.004 250);
+  --color-neutral-300: oklch(0.86 0.005 250);
+  --color-neutral-400: oklch(0.68 0.008 250);
+  --color-neutral-500: oklch(0.52 0.01 250);
+  --color-neutral-600: oklch(0.42 0.012 250);
+  --color-neutral-700: oklch(0.34 0.014 250);
+  --color-neutral-800: oklch(0.26 0.014 250);
+  --color-neutral-900: oklch(0.20 0.012 250);
+  --color-neutral-950: oklch(0.14 0.012 250);
 
-  /* Primary: emerald (humanizing, growth) */
-  --color-primary-50: oklch(0.979 0.021 166.113);
-  --color-primary-100: oklch(0.95 0.052 163.051);
-  --color-primary-200: oklch(0.905 0.093 164.15);
-  --color-primary-300: oklch(0.845 0.143 164.978);
-  --color-primary-400: oklch(0.765 0.177 163.223);
-  --color-primary-500: oklch(0.696 0.17 162.48);
-  --color-primary-600: oklch(0.596 0.145 163.225);
-  --color-primary-700: oklch(0.508 0.118 165.612);
-  --color-primary-800: oklch(0.432 0.094 166.533);
-  --color-primary-900: oklch(0.378 0.077 168.94);
-  --color-primary-950: oklch(0.262 0.051 172.556);
+  /* Primary: LinkedIn blue (#0a66c2) — perceptually-uniform oklch scale at hue 258 */
+  --color-primary-50: oklch(0.97 0.018 258);
+  --color-primary-100: oklch(0.93 0.04 258);
+  --color-primary-200: oklch(0.86 0.08 258);
+  --color-primary-300: oklch(0.78 0.12 258);
+  --color-primary-400: oklch(0.64 0.15 258);
+  --color-primary-500: oklch(0.508 0.157 258);
+  --color-primary-600: oklch(0.45 0.15 258);
+  --color-primary-700: oklch(0.38 0.13 258);
+  --color-primary-800: oklch(0.32 0.11 258);
+  --color-primary-900: oklch(0.27 0.09 258);
+  --color-primary-950: oklch(0.20 0.06 258);
 
-  /* Cyber: shifted from cyan (194) to azure blue (220) for clearer hierarchy vs primary */
-  --color-cyber-50: oklch(0.98 0.018 220);
-  --color-cyber-100: oklch(0.948 0.037 220);
-  --color-cyber-200: oklch(0.906 0.072 220);
-  --color-cyber-300: oklch(0.859 0.108 220);
-  --color-cyber-400: oklch(0.78 0.14 220);
-  --color-cyber-500: oklch(0.7 0.14 220);
-  --color-cyber-600: oklch(0.63 0.13 220);
-  --color-cyber-700: oklch(0.52 0.10 220);
-  --color-cyber-800: oklch(0.42 0.075 220);
-  --color-cyber-900: oklch(0.36 0.06 220);
-  --color-cyber-950: oklch(0.30 0.045 220);
+  /* Cyber: same LinkedIn blue (single-accent identity) */
+  --color-cyber-50: oklch(0.97 0.018 258);
+  --color-cyber-100: oklch(0.93 0.04 258);
+  --color-cyber-200: oklch(0.86 0.08 258);
+  --color-cyber-300: oklch(0.78 0.12 258);
+  --color-cyber-400: oklch(0.64 0.15 258);
+  --color-cyber-500: oklch(0.508 0.157 258);
+  --color-cyber-600: oklch(0.45 0.15 258);
+  --color-cyber-700: oklch(0.38 0.13 258);
+  --color-cyber-800: oklch(0.32 0.11 258);
+  --color-cyber-900: oklch(0.27 0.09 258);
+  --color-cyber-950: oklch(0.20 0.06 258);
 
   /* Semantic colors: success, warning, danger, info */
   --color-success-50: oklch(0.975 0.02 150);
@@ -112,21 +112,21 @@
 :root {
   font-family: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
-  /* Semantic surface tokens (light mode) */
-  --color-surface: var(--color-neutral-50);
+  /* Semantic surface tokens (light mode — LinkedIn #f3f2ef bg, #ffffff surface, #e0dfdc border) */
+  --color-surface: #f3f2ef;
   --color-surface-elevated: #ffffff;
-  --color-border: var(--color-neutral-200);
-  --color-text: var(--color-neutral-900);
-  --color-text-muted: var(--color-neutral-500);
+  --color-border: #e0dfdc;
+  --color-text: #191919;
+  --color-text-muted: #666666;
 }
 
 .dark {
-  /* Semantic surface tokens (dark mode) */
+  /* Semantic surface tokens (dark mode — LinkedIn #1d2226 bg) */
   --color-surface: var(--color-navy);
-  --color-surface-elevated: var(--color-neutral-900);
-  --color-border: var(--color-neutral-700);
-  --color-text: var(--color-neutral-100);
-  --color-text-muted: var(--color-neutral-400);
+  --color-surface-elevated: #2a2f36;
+  --color-border: #38434f;
+  --color-text: #ffffff;
+  --color-text-muted: #b0b3b8;
 }
 
 /* Ensure Tailwind Typography (prose) uses Inter and the preloaded font is consumed.

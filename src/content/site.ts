@@ -79,8 +79,8 @@ export const site: SiteConfig = {
   },
   theme: {
     colors: {
-      light: "oklch(0.985 0.005 240)", // Cool off-white (--color-neutral-50)
-      dark: "#0a0f1e" // Deep Navy base
+      light: "#f3f2ef", // LinkedIn light background
+      dark: "#1d2226" // LinkedIn dark background
     }
   },
   tracking: {
