@@ -354,3 +354,10 @@ Quando um projeto é publicado na Vercel (ou plataformas com Preview nativo), as
 ### 4. Checklist Rápido de Validação
 - Utilize o [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) ou ferramentas de SEO (como o metatags.io) para limpar o cache das plataformas.
 - Se o scraper acusar que o tamanho do arquivo é muito grande, mantenha a OG image com **menos de 300 KB**.
+
+
+### Navegação Agêntica (llms.txt e robots.txt)
+- O arquivo `llms.txt` deve seguir o padrão oficial da [llmstxt.org](https://llmstxt.org).
+- A linha logo abaixo do título (`# Título`) DEVE ser um "Blockquote" com o resumo do projeto, iniciando com o caractere `> `. Exemplo: `> Este é o site da empresa...`.
+- Todos os links nos arquivos `llms.txt` e `llms-full.txt` DEVEM estar estritamente no formato Markdown de links: `[Nome do Link](https://www.url.com)`. Nunca deixe a URL "crua" apenas como texto, ou os validadores/auditores apontarão que o arquivo "não possui links".
+- Garanta que sempre existam links presentes nos arquivos `.txt` de IA. Se a listagem de posts de blog estiver vazia, certifique-se de que links de contato ou redes sociais supram essa validação.
