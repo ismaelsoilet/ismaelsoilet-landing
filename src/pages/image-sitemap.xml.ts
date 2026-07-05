@@ -15,7 +15,7 @@ export const GET: APIRoute = async () => {
       page: '',
       images: [
         { loc: '/logo-v2.svg', title: site.org.name },
-        { loc: '/og-image.png', title: `${site.org.name} Hero` },
+        { loc: '/og-image-v3.jpg', title: `${site.org.name} Hero` },
         { loc: profilePhoto.src, title: site.person?.name || site.org.name }
       ]
     },
