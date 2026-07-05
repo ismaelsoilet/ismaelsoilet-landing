@@ -58,7 +58,7 @@ export const site: SiteConfig = {
   org: {
     name: "Ismael Soilet",
     url: "https://ismaelsoilet.suitplus.com.br",
-    logo: "/logo.svg",
+    logo: "/logo-v2.svg",
     description: "Líder em Transformação Digital, Gestão Pública, Ciência de Dados e Desenvolvimento de Software.",
     sameAs: [
       "https://www.linkedin.com/in/ismael-soilet/",

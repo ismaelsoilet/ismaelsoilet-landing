@@ -15,7 +15,7 @@ export const GET: APIRoute = async () => {
     {
       page: '',
       images: [
-        { loc: '/logo.svg', title: site.org.name },
+        { loc: '/logo-v2.svg', title: site.org.name },
         { loc: ogImage.src, title: `${site.org.name} Hero` },
         { loc: profilePhoto.src, title: site.person?.name || site.org.name }
       ]
@@ -29,7 +29,7 @@ export const GET: APIRoute = async () => {
     ...posts.map(post => ({
       page: `/blog/${post.id}`,
       images: [
-        { loc: '/logo.svg', title: site.org.name },
+        { loc: '/logo-v2.svg', title: site.org.name },
         ...(post.data.cover ? [{ loc: post.data.cover, title: post.data.title }] : [])
       ]
     }))
