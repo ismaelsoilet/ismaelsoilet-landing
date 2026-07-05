@@ -305,3 +305,16 @@ pnpm check-a11y     # audits accessibility errors (axe)
 If necessary, configure the repository locally before committing:
 `git config user.email "ismael.soilet@hotmail.com" && git config user.name "Ismael Soilet"`
 
+## 📌 Diretrizes de SEO e Open Graph (OG)
+
+1. **Limites de Caracteres (Sweet Spots)**:
+   - **Title (og:title, twitter:title)**: Mantenha SEMPRE abaixo de 60 caracteres para evitar cortes no Google, X e LinkedIn. Lembre-se que o sufixo do site (` | Nome do Site`) geralmente é adicionado automaticamente no `BaseHead.astro`.
+   - **Description (og:description, twitter:description)**: Mantenha entre 120 e 150 caracteres. Textos muito longos serão cortados no preview de dispositivos móveis.
+
+2. **Regras para og:image**:
+   - **Dimensões Exatas**: A imagem DEVE ter exatamente **1200 x 630 pixels**. Redes sociais são estritas com a proporção.
+   - **Call-to-Action (CTA)**: Sempre adicione um texto chamativo na própria imagem (ex: "Clique e Saiba Mais", "Solicite uma Demo"). Validadores de SEO dão pontuação maior quando identificam texto focado em conversão na imagem.
+
+3. **Como burlar o Cache de Redes Sociais (X, LinkedIn)**:
+   - Redes sociais fazem cache agressivo da URL da `og:image`. 
+   - Se precisar atualizar a imagem, **NUNCA substitua o arquivo mantendo o mesmo nome**. Renomeie o arquivo (ex: de `og-image-v1.jpg` para `og-image-v2.jpg`), atualize a referência no código e faça o deploy. Isso força os robôs a buscarem a nova imagem imediatamente.
