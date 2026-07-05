@@ -15,7 +15,7 @@ interface Props {
 const { 
   title, 
   description, 
-  image = '/og-image.png', 
+  image = '/og-image.jpg', 
   noindex = false, 
   type = site.person ? 'profile' : 'website'
 } = Astro.props;
@@ -64,7 +64,7 @@ const lang = Astro.currentLocale || 'pt-BR';
 <meta property="og:image" content={absoluteImageUrl} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:type" content="image/png" />
+<meta property="og:image:type" content="image/jpeg" />
 <meta property="og:site_name" content={site.org.name} />
 <meta property="og:locale" content={lang === 'pt-BR' ? 'pt_BR' : 'en_US'} />
 
@@ -79,6 +79,8 @@ const lang = Astro.currentLocale || 'pt-BR';
 <meta property="twitter:title" content={`${title} | ${site.org.name}`} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={absoluteImageUrl} />
+<meta name="twitter:site" content="@ismaelsoilet" />
+<meta name="twitter:creator" content="@ismaelsoilet" />
 
 <!-- Theme Color Meta Tags (Safari and Chrome theme color support) -->
 <meta name="theme-color" media="(prefers-color-scheme: light)" content={site.theme.colors.light} />
