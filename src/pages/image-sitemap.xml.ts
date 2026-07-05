@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { site } from '../content/site';
 import profilePhoto from '../assets/ISMAEL PERFIL_COMPLETA.png';
-import ogImage from '../assets/og-image.png';
+import ogImage from '../assets/OG-IMAGE-NOVO.png';
 
 const escapeXml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
