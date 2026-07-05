@@ -5,9 +5,9 @@ import { site } from '../content/site';
 export const GET: APIRoute = async () => {
   const posts = await getCollection('blog', (post) => !post.data.draft);
   
-  const content = `# ${site.person?.name || site.org.name} - LLM Context
+  const content = `# ${site.person?.name || site.org.name}
 
-${site.person?.description || site.org.description}
+> ${site.person?.description || site.org.description}
 
 ## Informações de Contato
 - E-mail: ${site.contact.email}

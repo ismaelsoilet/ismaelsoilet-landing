@@ -5,9 +5,9 @@ import { site } from '../content/site';
 export const GET: APIRoute = async () => {
   const posts = await getCollection('blog', (post) => !post.data.draft);
 
-  const content = `# ${site.person?.name || site.org.name} - Full Documentation Manifest
+  const content = `# ${site.person?.name || site.org.name}
 
-Esta é a documentação completa do portfólio profissional e artigos de ${site.person?.name || site.org.name} para agentes de IA e ferramentas LLM.
+> Esta é a documentação completa do portfólio profissional e artigos de ${site.person?.name || site.org.name} para agentes de IA e ferramentas LLM.
 
 ## Sitemap de Conteúdo
 - Home: ${site.org.url}/
