@@ -4,32 +4,32 @@ import { site } from '../../content/site';
 
 <div id="mobile-menu" class="fixed inset-0 z-50 translate-x-full transition-transform duration-300 ease-in-out" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="Menu de Navegação">
   <!-- Backdrop -->
-  <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+  <div id="mobile-menu-backdrop" class="absolute inset-0 bg-neutral-950/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
 
   <!-- Menu Drawer -->
-  <div class="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-slate-900 border-l border-slate-800 p-6 flex flex-col justify-between shadow-2xl">
+  <div class="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-neutral-900 border-l border-neutral-800 p-6 flex flex-col justify-between shadow-2xl">
     <div class="flex flex-col gap-8">
       <div class="flex justify-between items-center">
         <span class="font-bold text-lg bg-gradient-to-r from-cyber-400 to-primary-500 bg-clip-text text-transparent">{site.org.name}</span>
-        <button id="mobile-menu-close" class="p-2 text-slate-400 hover:text-white rounded-lg active:scale-95 transition" aria-label="Fechar menu">
+        <button id="mobile-menu-close" class="p-2 text-neutral-400 hover:text-white rounded-lg active:scale-95 transition" aria-label="Fechar menu">
           <svg class="w-6 h-6"><use href="/icons/sprite.svg#icon-minus" /></svg>
         </button>
       </div>
 
-      <nav class="flex flex-col gap-6 text-lg font-medium text-slate-300">
-        <a href="/#about" class="mobile-nav-link hover:text-white transition py-2 border-b border-slate-800/50">Sobre</a>
-        <a href="/#impact" class="mobile-nav-link hover:text-white transition py-2 border-b border-slate-800/50">Impacto</a>
-        <a href="/#projects" class="mobile-nav-link hover:text-white transition py-2 border-b border-slate-800/50">Cases</a>
-        <a href="/#timeline" class="mobile-nav-link hover:text-white transition py-2 border-b border-slate-800/50">Trajetória</a>
-        <a href="/#skills" class="mobile-nav-link hover:text-white transition py-2 border-b border-slate-800/50">Skills</a>
-        <a href="/blog" class="hover:text-white transition py-2 border-b border-slate-800/50">Blog</a>
-        <a href="/#contact" class="mobile-nav-link hover:text-white transition py-2 border-b border-slate-800/50">Contato</a>
+      <nav class="flex flex-col gap-6 text-lg font-medium text-neutral-300">
+        <a href="/#about" class="mobile-nav-link hover:text-white transition py-2 border-b border-neutral-800/50">Sobre</a>
+        <a href="/#impact" class="mobile-nav-link hover:text-white transition py-2 border-b border-neutral-800/50">Impacto</a>
+        <a href="/#projects" class="mobile-nav-link hover:text-white transition py-2 border-b border-neutral-800/50">Cases</a>
+        <a href="/#timeline" class="mobile-nav-link hover:text-white transition py-2 border-b border-neutral-800/50">Trajetória</a>
+        <a href="/#skills" class="mobile-nav-link hover:text-white transition py-2 border-b border-neutral-800/50">Skills</a>
+        <a href="/blog" class="hover:text-white transition py-2 border-b border-neutral-800/50">Blog</a>
+        <a href="/#contact" class="mobile-nav-link hover:text-white transition py-2 border-b border-neutral-800/50">Contato</a>
       </nav>
     </div>
 
-    <div class="flex flex-col gap-4 text-center border-t border-slate-800 pt-6">
-      <span class="text-xs text-slate-500">{site.contact.email}</span>
-      <div class="flex justify-center gap-4 text-slate-400">
+    <div class="flex flex-col gap-4 text-center border-t border-neutral-800 pt-6">
+      <span class="text-xs text-neutral-500">{site.contact.email}</span>
+      <div class="flex justify-center gap-4 text-neutral-400">
         {site.social.linkedin && (
           <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-white transition" aria-label="LinkedIn">
             <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-linkedin-logo" /></svg>

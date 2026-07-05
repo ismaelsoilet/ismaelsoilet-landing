@@ -7,19 +7,19 @@ const tailwindVersion = pkg.dependencies.tailwindcss?.replace(/[\^~]/g, '') || '
 const siteVersion = pkg.version;
 ---
 
-<footer class="w-full bg-slate-50 dark:bg-slate-950 border-t border-slate-200/10 dark:border-slate-900 transition-colors duration-300">
+<footer class="w-full bg-neutral-50 dark:bg-neutral-950 border-t border-neutral-200/10 dark:border-neutral-900 transition-colors duration-300">
   <div class="max-w-6xl mx-auto px-6 py-12 md:py-16 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
     <!-- Brand column -->
     <div class="flex flex-col gap-4">
       <div class="flex items-center gap-2">
         <img src="/logo.svg" alt="" class="w-6 h-6" aria-hidden="true" />
-        <span class="font-bold text-lg text-slate-900 dark:text-white">{site.org.name}</span>
+        <span class="font-bold text-lg text-neutral-900 dark:text-white">{site.org.name}</span>
       </div>
-      <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+      <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
         {site.org.description}
       </p>
       <!-- Social networks -->
-      <div class="flex gap-4 text-slate-400 mt-2">
+      <div class="flex gap-4 text-neutral-400 mt-2">
         {site.social.linkedin && (
           <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-cyber-500 dark:hover:text-cyber-400 transition" aria-label="LinkedIn">
             <svg class="w-5 h-5"><use href="/icons/sprite.svg#icon-linkedin-logo" /></svg>
@@ -45,8 +45,8 @@ const siteVersion = pkg.version;
 
     <!-- Navigation links -->
     <div class="flex flex-col gap-4">
-      <h3 class="font-semibold text-slate-950 dark:text-white text-sm uppercase tracking-wider">Mapa do Site</h3>
-      <nav class="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+      <h3 class="font-semibold text-neutral-950 dark:text-white text-sm uppercase tracking-wider">Mapa do Site</h3>
+      <nav class="flex flex-col gap-2.5 text-sm text-neutral-600 dark:text-neutral-400">
         <a href="/#about" class="hover:text-cyber-500 dark:hover:text-cyber-400 transition">Sobre</a>
         <a href="/#impact" class="hover:text-cyber-500 dark:hover:text-cyber-400 transition">Impacto</a>
         <a href="/#projects" class="hover:text-cyber-500 dark:hover:text-cyber-400 transition">Cases</a>
@@ -59,15 +59,15 @@ const siteVersion = pkg.version;
     <!-- Legal & Resources column -->
     <div class="flex flex-col gap-4">
       <div>
-        <h3 class="font-semibold text-slate-950 dark:text-white text-sm uppercase tracking-wider mb-3">Legal</h3>
-        <nav class="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+        <h3 class="font-semibold text-neutral-950 dark:text-white text-sm uppercase tracking-wider mb-3">Legal</h3>
+        <nav class="flex flex-col gap-2.5 text-sm text-neutral-600 dark:text-neutral-400">
           <a href="/privacidade" class="hover:text-cyber-500 dark:hover:text-cyber-400 transition">Política de Privacidade</a>
           <a href="/termos" class="hover:text-cyber-500 dark:hover:text-cyber-400 transition">Termos de Uso</a>
         </nav>
       </div>
       <div>
-        <h3 class="font-semibold text-slate-950 dark:text-white text-sm uppercase tracking-wider mb-3">Recursos</h3>
-        <nav class="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+        <h3 class="font-semibold text-neutral-950 dark:text-white text-sm uppercase tracking-wider mb-3">Recursos</h3>
+        <nav class="flex flex-col gap-2.5 text-sm text-neutral-600 dark:text-neutral-400">
           <a href="/components" class="hover:text-cyber-500 dark:hover:text-cyber-400 transition">Visual Catalog</a>
           <a href="/quickstart" class="hover:text-cyber-500 dark:hover:text-cyber-400 transition">Quickstart Guide</a>
         </nav>
@@ -76,8 +76,8 @@ const siteVersion = pkg.version;
 
     <!-- Contact column -->
     <div class="flex flex-col gap-4">
-      <h3 class="font-semibold text-slate-950 dark:text-white text-sm uppercase tracking-wider">Contato</h3>
-      <ul class="flex flex-col gap-2.5 text-sm text-slate-600 dark:text-slate-400">
+      <h3 class="font-semibold text-neutral-950 dark:text-white text-sm uppercase tracking-wider">Contato</h3>
+      <ul class="flex flex-col gap-2.5 text-sm text-neutral-600 dark:text-neutral-400">
         <li class="flex items-center gap-2">
           <svg class="w-4 h-4 text-cyber-500 dark:text-cyber-400"><use href="/icons/sprite.svg#icon-file-text" /></svg>
           <span>{site.contact.email}</span>
@@ -90,7 +90,7 @@ const siteVersion = pkg.version;
     </div>
   </div>
 
-  <div class="max-w-6xl mx-auto px-6 py-6 border-t border-slate-200/5 dark:border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+  <div class="max-w-6xl mx-auto px-6 py-6 border-t border-neutral-200/5 dark:border-neutral-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500">
     <span>&copy; {new Date().getFullYear()} {site.org.name}. Todos os direitos reservados.</span>
     <span>Versão {siteVersion} | Feito com Astro {astroVersion} &amp; Tailwind v{tailwindVersion}</span>
   </div>

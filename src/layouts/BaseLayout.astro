@@ -30,7 +30,7 @@ const { title, description, image, noindex = false, type = 'website' } = Astro.p
       <ClientRouter />
     </BaseHead>
   </head>
-  <body class="bg-slate-50 text-slate-900 dark:bg-navy dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyber-500 selection:text-white transition-colors duration-300">
+  <body class="bg-neutral-50 text-neutral-900 dark:bg-navy dark:text-neutral-100 min-h-screen flex flex-col justify-between selection:bg-cyber-500 selection:text-white transition-colors duration-300">
     <!-- Skip-to-Content Link -->
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-6 focus:py-3 focus:bg-primary-600 focus:text-white focus:font-bold focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-4 focus:ring-primary-400">
       Pular para o conteúdo principal
@@ -147,6 +147,14 @@ const { title, description, image, noindex = false, type = 'website' } = Astro.p
             }, 150); // Small delay to let View Transitions finish
           }
         }
+      });
+    </script>
+
+    <!-- Re-apply saved theme after View Transitions navigation (FOUC script only runs on initial paint) -->
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.classList.toggle('dark', theme === 'dark');
       });
     </script>
   </body>

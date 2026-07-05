@@ -11,31 +11,31 @@ import Badge from '../components/ui/Badge.astro';
   noindex={true}
 >
   <!-- Hero Section -->
-  <Section class="pt-8 pb-12 bg-radial from-slate-900 via-slate-950 to-slate-950 text-slate-100 border-b border-slate-200/5 dark:border-slate-900">
+  <Section class="pt-8 pb-12 bg-radial from-neutral-900 via-neutral-950 to-neutral-950 text-neutral-100 border-b border-neutral-200/5 dark:border-neutral-900">
     <div class="max-w-3xl mx-auto text-center flex flex-col gap-6">
       <Badge variant="success" class="self-center">Passo a Passo</Badge>
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
         Lançamento em <span class="bg-gradient-to-r from-cyber-400 to-primary-500 bg-clip-text text-transparent">30 Minutos</span>
       </h1>
-      <p class="text-lg text-slate-400 leading-relaxed">
+      <p class="text-lg text-neutral-400 leading-relaxed">
         Siga as 5 etapas a seguir para reconfigurar o template, atualizar o design visual e publicar a página de destino do seu novo cliente.
       </p>
     </div>
   </Section>
 
   <!-- Walkthrough Steps -->
-  <Section class="bg-white dark:bg-slate-900/20">
+  <Section class="bg-white dark:bg-neutral-900/20">
     <div class="max-w-4xl mx-auto flex flex-col gap-10">
       
       <!-- Step 1 -->
-      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/30">
         <div class="w-12 h-12 rounded-full bg-cyber-500/10 flex items-center justify-center text-cyber-500 shrink-0 text-xl font-bold">1</div>
         <div>
-          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Editar Configurações Básicas</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          <h2 class="text-xl font-bold text-neutral-900 dark:text-white mb-2">Editar Configurações Básicas</h2>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
             Abra o arquivo `src/content/site.ts` e atualize as informações da organização, e-mails de contato, link do WhatsApp corporativo, chaves de webhooks e IDs opcionais de monitoramento.
           </p>
-          <pre class="bg-slate-100 dark:bg-slate-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+          <pre class="bg-neutral-100 dark:bg-neutral-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-neutral-600 dark:text-neutral-300">
 export const site: SiteConfig = &#123;
   org: &#123;
     name: "Nome do Cliente",
@@ -47,11 +47,11 @@ export const site: SiteConfig = &#123;
       </Card>
 
       <!-- Step 2 -->
-      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/30">
         <div class="w-12 h-12 rounded-full bg-primary-500/10 flex items-center justify-center text-primary-500 shrink-0 text-xl font-bold">2</div>
         <div>
-          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Substituir Arquivo do Logo</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          <h2 class="text-xl font-bold text-neutral-900 dark:text-white mb-2">Substituir Arquivo do Logo</h2>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
             Salve o arquivo de logotipo oficial do seu cliente em formato SVG na pasta `public/logo.svg`. Certifique-se de que ele esteja devidamente limpo e otimizado para que carregue instantaneamente.
           </p>
           <p class="text-xs text-primary-500 dark:text-primary-400 font-semibold">Dica: O favicon.ico e apple-touch-icon.png também podem ser substituídos na pasta public/.</p>
@@ -59,46 +59,60 @@ export const site: SiteConfig = &#123;
       </Card>
 
       <!-- Step 3 -->
-      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
-        <div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0 text-xl font-bold">3</div>
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/30">
+        <div class="w-12 h-12 rounded-full bg-success-500/10 flex items-center justify-center text-success-500 shrink-0 text-xl font-bold">3</div>
         <div>
-          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Ajustar Variáveis de Cores</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-            Altere as cores principais nas declarações de tema. O Tailwind v4 utiliza variáveis CSS no arquivo de estilos principal `src/styles/global.css`. Altere o `@theme` principal do projeto para as cores do manual de marca do seu cliente.
+          <h2 class="text-xl font-bold text-neutral-900 dark:text-white mb-2">Ajustar Variáveis de Cores</h2>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
+            O design system está organizado em escalas semânticas no arquivo `src/styles/global.css`. Edite apenas os tokens abaixo para aplicar o manual de marca do seu cliente; o restante da UI se adapta automaticamente.
           </p>
-          <pre class="bg-slate-100 dark:bg-slate-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+          <pre class="bg-neutral-100 dark:bg-neutral-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-neutral-600 dark:text-neutral-300">
 @theme &#123;
-  --color-primary-500: oklch(0.769 0.188 70.08);
-  --color-cyber-500: oklch(0.715 0.143 194.76);
-  --color-navy: #0a0f1e;
-  --font-sans: 'Inter Variable', sans-serif;
+  /* Marca */
+  --color-primary-500: oklch(0.696 0.17 162.48); /* Acento humano */
+  --color-cyber-500:   oklch(0.7 0.14 220);    /* Acento tech */
+  --color-navy:        #0a0f1e;                /* Base dark */
+  /* Semanticas (formularios, notificacoes) */
+  --color-success-500: oklch(0.68 0.17 150);
+  --color-warning-500: oklch(0.72 0.16 80);
+  --color-danger-500:  oklch(0.65 0.20 25);
+  --color-info-500:    oklch(0.7 0.14 230);
+  /* Neutros (textos, bordas, superficies) ja calibrados */
 &#125;</pre>
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed mt-3">
+            <strong>Escala neutra</strong> (50-950) e <strong>tokens semanticos</strong> (success/warning/danger/info) ja vem definidos e harmonizados com a base navy. Use-os com sufixos como <code class="px-1 py-0.5 rounded bg-neutral-200 dark:bg-neutral-800">bg-neutral-900</code> e <code class="px-1 py-0.5 rounded bg-neutral-200 dark:bg-neutral-800">text-danger-500</code>.
+          </p>
         </div>
       </Card>
 
       <!-- Step 4 -->
-      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
-        <div class="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-500 shrink-0 text-xl font-bold">4</div>
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/30">
+        <div class="w-12 h-12 rounded-full bg-info-500/10 flex items-center justify-center text-info-500 shrink-0 text-xl font-bold">4</div>
         <div>
-          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Atualizar Textos e Portfólio</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          <h2 class="text-xl font-bold text-neutral-900 dark:text-white mb-2">Atualizar Textos e Portfólio</h2>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
             Substitua os textos promocionais, depoimentos e itens de serviços na pasta `src/content/`. Você pode editar os arquivos JSON existentes e escrever artigos de blog específicos na pasta `src/content/blog/`.
           </p>
         </div>
       </Card>
 
       <!-- Step 5 -->
-      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/30">
-        <div class="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0 text-xl font-bold">5</div>
+      <Card class="flex flex-col md:flex-row gap-6 p-8 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/30">
+        <div class="w-12 h-12 rounded-full bg-warning-500/10 flex items-center justify-center text-warning-500 shrink-0 text-xl font-bold">5</div>
         <div>
-          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Construir e Implantar (Build e Deploy)</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+          <h2 class="text-xl font-bold text-neutral-900 dark:text-white mb-2">Construir e Implantar (Build e Deploy)</h2>
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed mb-4">
             Execute a compilação local ou configure sua plataforma de hospedagem preferida (Nginx, Vercel ou Cloudflare Pages). Todos os arquivos de configuração necessários já vêm integrados ao template.
           </p>
-          <pre class="bg-slate-100 dark:bg-slate-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-slate-600 dark:text-slate-300">
+          <pre class="bg-neutral-100 dark:bg-neutral-900 p-3 rounded-lg text-xs font-mono overflow-x-auto text-neutral-600 dark:text-neutral-300">
 # Instalar dependências e realizar build
 pnpm install
-pnpm build</pre>
+pnpm build
+
+# Verificacoes de qualidade
+pnpm typecheck      # astro check
+pnpm check-a11y     # auditoria WCAG
+pnpm qa-seo         # schemas JSON-LD</pre>
         </div>
       </Card>
 

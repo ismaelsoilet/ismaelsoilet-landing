@@ -10,19 +10,19 @@ import { site } from '../../content/site';
 
   <!-- Form Fields -->
   <div class="flex flex-col gap-1.5">
-    <label for="name" class="text-sm font-bold text-slate-700 dark:text-slate-300">Nome Completo</label>
+    <label for="name" class="text-sm font-bold text-neutral-700 dark:text-neutral-300">Nome Completo</label>
     <input 
       type="text" 
       id="name" 
       name="name" 
       required 
       placeholder="Seu nome completo" 
-      class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition"
+      class="w-full px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition"
     />
   </div>
 
   <div class="flex flex-col gap-1.5">
-    <label for="organization" class="text-sm font-bold text-slate-700 dark:text-slate-300">Organização ou Empresa</label>
+    <label for="organization" class="text-sm font-bold text-neutral-700 dark:text-neutral-300">Organização ou Empresa</label>
     <input 
       type="text" 
       id="organization" 
@@ -30,43 +30,44 @@ import { site } from '../../content/site';
       required 
       minlength="2"
       placeholder="Pode ser prefeitura, empresa, clínica ou instituição" 
-      class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition"
+      class="w-full px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition"
     />
   </div>
 
   <div class="flex flex-col gap-1.5">
-    <label for="email" class="text-sm font-bold text-slate-700 dark:text-slate-300">E-mail Corporativo</label>
+    <label for="email" class="text-sm font-bold text-neutral-700 dark:text-neutral-300">E-mail Corporativo</label>
     <input 
       type="email" 
       id="email" 
       name="email" 
       required 
       placeholder="seu.nome@empresa.com" 
-      class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition"
+      class="w-full px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition"
     />
   </div>
 
   <div class="flex flex-col gap-1.5">
-    <label for="phone" class="text-sm font-bold text-slate-700 dark:text-slate-300">Telefone / WhatsApp</label>
+    <label for="phone" class="text-sm font-bold text-neutral-700 dark:text-neutral-300">Telefone / WhatsApp</label>
     <input 
-      type="tel" 
+      type="text" 
+      inputmode="numeric"
       id="phone" 
       name="phone" 
       required 
       placeholder="(00) 00000-0000" 
-      class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition"
+      class="w-full px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition"
     />
   </div>
 
   <div class="flex flex-col gap-1.5">
-    <label for="message" class="text-sm font-bold text-slate-700 dark:text-slate-300">Como podemos ajudar?</label>
+    <label for="message" class="text-sm font-bold text-neutral-700 dark:text-neutral-300">Como podemos ajudar?</label>
     <textarea 
       id="message" 
       name="message" 
       rows="4" 
       required 
       placeholder="Escreva sua mensagem aqui..." 
-      class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition resize-y"
+      class="w-full px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/50 text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cyber-500 transition resize-y"
     ></textarea>
   </div>
 
@@ -82,25 +83,28 @@ import { site } from '../../content/site';
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const form = document.getElementById('contact-form');
     if (!form) return;
     
     const webhookUrl = form.dataset.webhook;
-    const phoneInput = document.getElementById('phone') as HTMLInputElement;
+    const phoneInput = form.querySelector('#phone') as HTMLInputElement | null;
     const successEl = document.getElementById('status-success');
     const errorEl = document.getElementById('status-error');
-    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
 
-    // Lazy load imask when input gets focus
+    // Apply phone mask (vanilla JS, no external dependency)
     if (phoneInput) {
-      phoneInput.addEventListener('focus', async () => {
-        try {
-          const { default: IMask } = await import('imask');
-          IMask(phoneInput, { mask: '(00) 00000-0000' });
-        } catch (err) {
-          console.error('Error loading imask:', err);
+      phoneInput.addEventListener('input', () => {
+        let value = phoneInput.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
+        if (value.length <= 2) {
+          phoneInput.value = value;
+        } else if (value.length <= 7) {
+          phoneInput.value = `(${value.slice(0,2)}) ${value.slice(2)}`;
+        } else {
+          phoneInput.value = `(${value.slice(0,2)}) ${value.slice(2,7)}-${value.slice(7)}`;
         }
-      }, { once: true });
+      });
     }
 
     // Handle submit

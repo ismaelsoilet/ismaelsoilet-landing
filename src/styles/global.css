@@ -20,6 +20,20 @@
 
   --color-navy: #0a0f1e;
 
+  /* Neutral scale: cool-leaning, harmonizes with --color-navy */
+  --color-neutral-50: oklch(0.985 0.005 240);
+  --color-neutral-100: oklch(0.965 0.005 240);
+  --color-neutral-200: oklch(0.925 0.005 240);
+  --color-neutral-300: oklch(0.875 0.008 240);
+  --color-neutral-400: oklch(0.705 0.012 240);
+  --color-neutral-500: oklch(0.555 0.013 240);
+  --color-neutral-600: oklch(0.45 0.013 240);
+  --color-neutral-700: oklch(0.37 0.012 240);
+  --color-neutral-800: oklch(0.27 0.012 240);
+  --color-neutral-900: oklch(0.18 0.012 240);
+  --color-neutral-950: oklch(0.12 0.012 240);
+
+  /* Primary: emerald (humanizing, growth) */
   --color-primary-50: oklch(0.979 0.021 166.113);
   --color-primary-100: oklch(0.95 0.052 163.051);
   --color-primary-200: oklch(0.905 0.093 164.15);
@@ -32,21 +46,87 @@
   --color-primary-900: oklch(0.378 0.077 168.94);
   --color-primary-950: oklch(0.262 0.051 172.556);
 
-  --color-cyber-50: oklch(0.98 0.018 195);
-  --color-cyber-100: oklch(0.948 0.037 194.8);
-  --color-cyber-200: oklch(0.906 0.072 195);
-  --color-cyber-300: oklch(0.859 0.108 194.7);
-  --color-cyber-400: oklch(0.815 0.139 194.7);
-  --color-cyber-500: oklch(0.715 0.143 194.76);
-  --color-cyber-600: oklch(0.645 0.13 196.2);
-  --color-cyber-700: oklch(0.535 0.103 197.7);
-  --color-cyber-800: oklch(0.435 0.078 199);
-  --color-cyber-900: oklch(0.376 0.061 200.5);
-  --color-cyber-950: oklch(0.313 0.045 201.7);
+  /* Cyber: shifted from cyan (194) to azure blue (220) for clearer hierarchy vs primary */
+  --color-cyber-50: oklch(0.98 0.018 220);
+  --color-cyber-100: oklch(0.948 0.037 220);
+  --color-cyber-200: oklch(0.906 0.072 220);
+  --color-cyber-300: oklch(0.859 0.108 220);
+  --color-cyber-400: oklch(0.78 0.14 220);
+  --color-cyber-500: oklch(0.7 0.14 220);
+  --color-cyber-600: oklch(0.63 0.13 220);
+  --color-cyber-700: oklch(0.52 0.10 220);
+  --color-cyber-800: oklch(0.42 0.075 220);
+  --color-cyber-900: oklch(0.36 0.06 220);
+  --color-cyber-950: oklch(0.30 0.045 220);
+
+  /* Semantic colors: success, warning, danger, info */
+  --color-success-50: oklch(0.975 0.02 150);
+  --color-success-100: oklch(0.94 0.05 150);
+  --color-success-200: oklch(0.89 0.10 150);
+  --color-success-300: oklch(0.82 0.14 150);
+  --color-success-400: oklch(0.75 0.16 150);
+  --color-success-500: oklch(0.68 0.17 150);
+  --color-success-600: oklch(0.58 0.15 150);
+  --color-success-700: oklch(0.48 0.12 150);
+  --color-success-800: oklch(0.40 0.10 150);
+  --color-success-900: oklch(0.33 0.08 150);
+  --color-success-950: oklch(0.26 0.06 150);
+
+  --color-warning-50: oklch(0.98 0.02 80);
+  --color-warning-100: oklch(0.95 0.05 80);
+  --color-warning-200: oklch(0.90 0.10 80);
+  --color-warning-300: oklch(0.84 0.14 80);
+  --color-warning-400: oklch(0.78 0.16 80);
+  --color-warning-500: oklch(0.72 0.16 80);
+  --color-warning-600: oklch(0.62 0.15 80);
+  --color-warning-700: oklch(0.52 0.13 80);
+  --color-warning-800: oklch(0.42 0.10 80);
+  --color-warning-900: oklch(0.35 0.08 80);
+  --color-warning-950: oklch(0.28 0.06 80);
+
+  --color-danger-50: oklch(0.97 0.02 25);
+  --color-danger-100: oklch(0.93 0.05 25);
+  --color-danger-200: oklch(0.88 0.10 25);
+  --color-danger-300: oklch(0.80 0.15 25);
+  --color-danger-400: oklch(0.72 0.18 25);
+  --color-danger-500: oklch(0.65 0.20 25);
+  --color-danger-600: oklch(0.55 0.18 25);
+  --color-danger-700: oklch(0.46 0.16 25);
+  --color-danger-800: oklch(0.38 0.13 25);
+  --color-danger-900: oklch(0.32 0.10 25);
+  --color-danger-950: oklch(0.25 0.08 25);
+
+  --color-info-50: oklch(0.98 0.018 230);
+  --color-info-100: oklch(0.948 0.037 230);
+  --color-info-200: oklch(0.906 0.072 230);
+  --color-info-300: oklch(0.859 0.108 230);
+  --color-info-400: oklch(0.78 0.14 230);
+  --color-info-500: oklch(0.7 0.14 230);
+  --color-info-600: oklch(0.63 0.13 230);
+  --color-info-700: oklch(0.52 0.10 230);
+  --color-info-800: oklch(0.42 0.075 230);
+  --color-info-900: oklch(0.36 0.06 230);
+  --color-info-950: oklch(0.30 0.045 230);
 }
 
 :root {
   font-family: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Semantic surface tokens (light mode) */
+  --color-surface: var(--color-neutral-50);
+  --color-surface-elevated: #ffffff;
+  --color-border: var(--color-neutral-200);
+  --color-text: var(--color-neutral-900);
+  --color-text-muted: var(--color-neutral-500);
+}
+
+.dark {
+  /* Semantic surface tokens (dark mode) */
+  --color-surface: var(--color-navy);
+  --color-surface-elevated: var(--color-neutral-900);
+  --color-border: var(--color-neutral-700);
+  --color-text: var(--color-neutral-100);
+  --color-text-muted: var(--color-neutral-400);
 }
 
 /* Ensure Tailwind Typography (prose) uses Inter and the preloaded font is consumed.

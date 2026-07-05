@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GlassCard from '../components/ui/GlassCard.astro';
+import ContactForm from '../components/ui/ContactForm.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { buildPersonSchema } from '../lib/seo';
 import { site } from '../content/site';
@@ -31,7 +32,7 @@ const personSchema = buildPersonSchema();
       <div class="max-w-5xl mx-auto px-6 py-20 text-center flex flex-col items-center gap-8 relative z-10">
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyber-500/30 bg-cyber-500/5 text-cyber-600 dark:text-cyber-400 text-xs font-semibold tracking-wider uppercase animate-fade-in">
           <svg class="w-3.5 h-3.5 animate-spin-slow" aria-hidden="true"><use href="/icons/sprite.svg#icon-sparkle" /></svg>
-          Tecnologia & Gestão Pública
+          Tecnologia & Administração
         </div>
 
         <h1 class="text-5xl md:text-8xl font-black tracking-tight leading-none uppercase text-slate-900 dark:text-white">
@@ -40,20 +41,22 @@ const personSchema = buildPersonSchema();
           </span>
         </h1>
 
-        <div class="ticker-wrapper h-12 overflow-hidden flex items-center justify-center text-xl md:text-3xl font-bold text-slate-700 dark:text-slate-300">
+        <div class="ticker-wrapper h-12 overflow-hidden flex items-start justify-center text-xl md:text-2xl font-bold text-slate-700 dark:text-slate-300">
           <div class="ticker-track">
-            {site.person?.roles.map((role) => (
-              <div class="ticker-item py-1">{role}</div>
-            ))}
+            <div class="ticker-item py-1">Servidor público</div>
+            <div class="ticker-item py-1">Gestor de Projetos</div>
+            <div class="ticker-item py-1">Desenvolvedor</div>
+            <div class="ticker-item py-1">Empreendedor</div>
+            <div class="ticker-item py-1">Servidor público</div>
           </div>
         </div>
 
         <p class="max-w-2xl text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-          Transformo regras de negócio complexas em soluções digitais de alto impacto. Unindo Tecnologia da Informação, Ciência de Dados e Gestão Estratégica para gerar economia milionária e desburocratização.
+          Transformo regras de negócio complexas em soluções digitais de alto impacto. Unindo Tecnologia da Informação, Ciência de Dados, Gestão de Projetos e Gestão Estratégica para gerar economia milionária e desburocratização.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 mt-4">
-          <a href="#about" class="px-8 py-4 bg-gradient-to-r from-cyber-500 to-primary-600 hover:from-cyber-600 hover:to-primary-700 text-white font-bold rounded-xl shadow-lg shadow-cyber-500/10 transition duration-300 active:scale-95 text-center">
+          <a href="#timeline" class="px-8 py-4 bg-gradient-to-r from-cyber-500 to-primary-600 hover:from-cyber-600 hover:to-primary-700 text-white font-bold rounded-xl shadow-lg shadow-cyber-500/10 transition duration-300 active:scale-95 text-center">
             Conhecer Trajetória
           </a>
           <a href="#contact" class="px-8 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-xl transition duration-300 active:scale-95 text-center backdrop-blur-sm">
@@ -82,11 +85,8 @@ const personSchema = buildPersonSchema();
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Photo Card -->
           <div class="md:row-span-2 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800/80 bg-slate-100 dark:bg-slate-900/40 backdrop-blur-md relative group">
-            <Image src={profilePhoto} alt="Ismael Soilet" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500" />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent p-6 flex flex-col justify-end">
-              <span class="text-xs font-semibold text-cyber-400 uppercase tracking-widest mb-1">Origem</span>
-              <h3 class="text-xl font-bold text-white">Peruíbe - SP, Brasil</h3>
-            </div>
+            <Image src={profilePhoto} alt="Ismael Soilet" class="w-full h-full object-cover grayscale group-hover:grayscale-0 about-photo transition-[filter] duration-[2000ms] ease-in-out" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent p-6 flex flex-col justify-end"></div>
           </div>
 
           <!-- Bio Narrative Card -->
@@ -95,13 +95,15 @@ const personSchema = buildPersonSchema();
               <span class="text-xs font-semibold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest block mb-4">Minha História</span>
               <h3 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">Como Gestor, Desenvolvedor, Líder e Empreendedor</h3>
               <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                Minha história é abrangente e repleta de desafios superados. Atuo integrando a liderança de equipes com a escrita de códigos e análise de dados para transformar governos e organizações. Lidero iniciativas paperless, modernização tributária e desenvolvimento de softwares de estado da arte para desatar nós burocráticos.
+                Minha história é abrangente e repleta de desafios superados. Atuo integrando liderança de equipes, desenvolvimento de software, gestão de projetos e empreendedorismo para transformar governos e organizações. Lidero iniciativas de digitalização (paperless), modernização e desenvolvimento de softwares, aliando visão estratégica à capacidade de execução para desatar nós burocráticos.
               </p>
             </div>
             <div class="flex flex-wrap gap-3">
               <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Liderança de TI</span>
-              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Desenvolvimento Backend</span>
-              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Data Science</span>
+              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Desenvolvimento de Software</span>
+              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Ciência de Dados</span>
+              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Gestão de Projetos</span>
+              <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Empreendedorismo</span>
               <span class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">Governança Pública</span>
             </div>
           </GlassCard>
@@ -110,7 +112,7 @@ const personSchema = buildPersonSchema();
           <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between">
             <svg class="w-8 h-8 text-cyber-500/40 mb-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-4.765 2.627-5.023 5.424.301-.15.688-.225 1.054-.225 1.761 0 3.208 1.447 3.208 3.208.001 1.761-1.447 3.208-3.208 3.208-1.76 0-3.023-1.189-3.023-3.208v-1.558c0-3.328 1.956-6.113 4.542-7.505l-.995-2.151C14.07 4.908 9.571 8.8 9.571 14.156v6.844h4.446zm-10 0v-7.391c0-5.704 3.73-9.57 8.983-10.609l.994 2.151c-2.432.917-4.764 2.627-5.023 5.424.302-.15.688-.225 1.054-.225 1.761 0 3.208 1.447 3.208 3.208.001 1.761-1.447 3.208-3.208 3.208-1.76 0-3.024-1.189-3.024-3.208v-1.558c0-3.328 1.956-6.113 4.542-7.505l-.995-2.151C4.07 4.908.571 8.8.571 14.156v6.844h4.446z"/></svg>
             <p class="text-slate-700 dark:text-slate-300 font-medium italic text-lg leading-relaxed mb-4">
-              "Construo ecossistemas ágeis que desburocratizam serviços, aumentam a performance da equipe e geram economia milionária."
+              "Construo ecossistemas ágeis que modernizam processos, desburocratizam serviços, aumentam a performance da equipe e geram economia milionária."
             </p>
             <span class="text-xs text-slate-600 dark:text-slate-500 font-bold uppercase tracking-wider">— Filosofia de Trabalho</span>
           </GlassCard>
@@ -119,192 +121,502 @@ const personSchema = buildPersonSchema();
           <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between">
             <span class="text-xs font-semibold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest block mb-4">Tempo</span>
             <div class="flex items-baseline gap-2">
-              <span class="text-6xl font-black text-slate-900 dark:text-white bg-gradient-to-r from-cyber-400 to-primary-400 bg-clip-text text-transparent">10+</span>
+              <span class="text-6xl font-black text-slate-900 dark:text-white bg-gradient-to-r from-cyber-400 to-primary-400 bg-clip-text text-transparent">15+</span>
               <span class="text-lg font-bold text-slate-700 dark:text-slate-300">Anos</span>
             </div>
             <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm leading-relaxed">
-              De experiência atuando como elo estratégico entre equipes técnicas e regras de negócio complexas de administração pública.
+              De experiência atuando como elo estratégico entre equipes técnicas e regras de negócio complexas de administração pública e empreendimentos privados. Capacitação contínua em administração, gestão de projetos e tecnologia, atuando na vanguarda da Inteligência Artificial para transformar e otimizar processos.
             </p>
           </GlassCard>
         </div>
       </div>
     </section>
 
-    <!-- IMPACT DASHBOARD -->
-    <section id="impact" class="py-24 border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-900/10 reveal">
+    <!-- ATUAÇÃO POR EIXOS (TABS) -->
+    <section id="atuacao" class="py-24 border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-900/10 reveal">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Retorno de Investimento (ROI)</h2>
-          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Resultados tangíveis e economia direta gerada por meio de liderança tecnológica e inovação estratégica.</p>
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Áreas de Atuação</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Resultados, cases e marcos organizados por eixo de competência.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <!-- Metric Card 1 -->
-          <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between relative group hover:border-cyber-500/30">
-            <div>
-              <div class="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">Paperless</div>
-              <div class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="350000">0</div>
-            </div>
-            <div class="mt-4">
-              <div class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-1">Processos Digitais</div>
-              <p class="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">Legado físico de 350.000 processos migrado com sucesso para formato digital.</p>
-            </div>
-          </GlassCard>
+        <div data-tabs-container class="w-full">
+          <!-- Tab Buttons (grid 2x2 mobile, 4 cols desktop) -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2 p-1.5 rounded-2xl bg-slate-100 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80" role="tablist" aria-label="Eixos de atuação">
+            <button role="tab" id="atuacao-tab-desenvolvimento" aria-selected="true" aria-controls="atuacao-panel-desenvolvimento" tabindex="0" data-tab-btn="desenvolvimento" class="tab-btn-active px-4 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all select-none focus:outline-none focus:ring-2 focus:ring-cyber-500/50 text-center">
+              Software
+            </button>
+            <button role="tab" id="atuacao-tab-gestao" aria-selected="false" aria-controls="atuacao-panel-gestao" tabindex="-1" data-tab-btn="gestao" class="tab-btn px-4 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all select-none focus:outline-none focus:ring-2 focus:ring-cyber-500/50 text-center">
+              Projetos
+            </button>
+            <button role="tab" id="atuacao-tab-administracao" aria-selected="false" aria-controls="atuacao-panel-administracao" tabindex="-1" data-tab-btn="administracao" class="tab-btn px-4 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all select-none focus:outline-none focus:ring-2 focus:ring-cyber-500/50 text-center">
+              Administração
+            </button>
+            <button role="tab" id="atuacao-tab-empreendedorismo" aria-selected="false" aria-controls="atuacao-panel-empreendedorismo" tabindex="-1" data-tab-btn="empreendedorismo" class="tab-btn px-4 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all select-none focus:outline-none focus:ring-2 focus:ring-cyber-500/50 text-center">
+              Empreender
+            </button>
+          </div>
 
-          <!-- Metric Card 2 -->
-          <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between relative group hover:border-cyber-500/30">
-            <div>
-              <div class="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">IPTU & ISS</div>
-              <div class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="300000">R$ 0</div>
-            </div>
-            <div class="mt-4">
-              <div class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-1">Economia / Ano</div>
-              <p class="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">Graças à implantação do IPTU e ISS 100% digitais e Portal Cidadão.</p>
-            </div>
-          </GlassCard>
+          <div class="relative w-full mt-8">
 
-          <!-- Metric Card 3 -->
-          <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between relative group hover:border-cyber-500/30">
-            <div>
-              <div class="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">FiscalizaPlus</div>
-              <div class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="25000">R$ 0</div>
-            </div>
-            <div class="mt-4">
-              <div class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-1">Economia / Mês</div>
-              <p class="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">Redução direta de custos com licença de softwares de terceiros.</p>
-            </div>
-          </GlassCard>
+            <!-- === PAINEL 1: Desenvolvimento de Software === -->
+            <div role="tabpanel" id="atuacao-panel-desenvolvimento" aria-labelledby="atuacao-tab-desenvolvimento" tabindex="0" data-tab-panel="desenvolvimento" class="block opacity-100 translate-y-0 focus:outline-none focus:ring-2 focus:ring-cyber-500/50 rounded-xl transition-all duration-300">
 
-          <!-- Metric Card 4 -->
-          <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-8 flex flex-col justify-between relative group hover:border-cyber-500/30">
-            <div>
-              <div class="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-500 mb-2">Eficiência</div>
-              <div class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="78">0%</div>
-            </div>
-            <div class="mt-4">
-              <div class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-1">Aumento de Capacidade</div>
-              <p class="text-xs text-slate-600 dark:text-slate-500 leading-relaxed">Escala de 18k para 32k processos anuais sem aumentar funcionários.</p>
-            </div>
-          </GlassCard>
-        </div>
-      </div>
-    </section>
-
-    <!-- CASE STUDIES (PROJECTS) -->
-    <section id="projects" class="py-24 border-t border-slate-200 dark:border-slate-900 reveal">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Casos de Sucesso</h2>
-          <p class="text-slate-600 dark:text-slate-400 mt-4 max-w-xl mx-auto">Projetos reais detalhados através do formato clássico de Desafio, Solução e Impacto gerado.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Case 1: FiscalizaPlus -->
-          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 group">
-            <div class="h-64 overflow-hidden relative">
-              <Image src={codingPhoto} alt="FiscalizaPlus Codificando" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-              <div class="absolute inset-0 bg-slate-950/70 p-6 flex flex-col justify-between">
-                <span class="px-3 py-1 rounded bg-cyber-500/20 text-cyber-600 dark:text-cyber-400 text-xs font-bold self-start uppercase tracking-wider">Inovação em Produto</span>
-                <span class="text-2xl font-black text-white">FiscalizaPlus</span>
-              </div>
-            </div>
-            <div class="p-8 flex-grow flex flex-col justify-between">
-              <div class="flex flex-col gap-4">
-                <div>
-                  <h4 class="text-sm font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-1">Desafio</h4>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Custo recorrente de R$ 25.000 mensais com licenças de softwares terceirizados ineficientes na fiscalização tributária.</p>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-1">Solução</h4>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Liderança e desenvolvimento de software próprio customizado, orquestrado e integrado para a fiscalização da fazenda pública municipal.</p>
+              <!-- Photo Cover -->
+              <div class="relative aspect-[4/3] sm:aspect-[5/3] rounded-2xl overflow-hidden mb-8 group">
+                <Image src={codingPhoto} alt="Desenvolvimento de Software" class="w-full h-full object-cover object-center group-hover:scale-102 transition duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent flex flex-col justify-end p-5 sm:p-6 md:px-10 md:pb-8 pb-6">
+                  <span class="px-3.5 py-2 rounded-lg bg-cyber-500/20 text-cyber-300 text-xs sm:text-sm font-bold uppercase tracking-wider w-fit mb-2 sm:mb-3 backdrop-blur-sm">Desenvolvimento de Software</span>
+                  <p class="text-white/95 text-sm sm:text-base md:text-lg font-medium max-w-md leading-snug">Ecossistema SuitPlus + Digital Landing. Criação de sistemas completos e aplicações de alta performance.</p>
                 </div>
               </div>
-              <div class="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
-                <span class="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold">Impacto Direto</span>
-                <span class="text-lg font-black text-slate-900 dark:text-white">R$ 25.000 / mês salvos</span>
-              </div>
-            </div>
-          </GlassCard>
 
-          <!-- Case 2: Paperless Peruíbe -->
-          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 group">
-            <div class="h-64 overflow-hidden relative">
-              <Image src={notebookPhoto} alt="Processos Digitais" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-              <div class="absolute inset-0 bg-slate-950/70 p-6 flex flex-col justify-between">
-                <span class="px-3 py-1 rounded bg-primary-500/20 text-primary-700 dark:text-primary-400 text-xs font-bold self-start uppercase tracking-wider">Desburocratização</span>
-                <span class="text-2xl font-black text-white">Paperless (Prefeitura de Peruíbe)</span>
+              <!-- ROI Stats -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">FiscalizaPlus</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="25000" data-format="currency" data-suffix="/mês">R$ 0</div>
+                  <p class="text-xs text-slate-500 mt-2">Economia mensal eliminando licenças de terceiros</p>
+                </GlassCard>
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Ecossistema SuitPlus</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-format="static">6+</div>
+                  <p class="text-xs text-slate-500 mt-2">Soluções integradas de gestão pública e privada</p>
+                </GlassCard>
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Digital Landing</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-format="static">Sites & APPs</div>
+                  <p class="text-xs text-slate-500 mt-2">Landing pages, hubs institucionais e aplicações web</p>
+                </GlassCard>
               </div>
-            </div>
-            <div class="p-8 flex-grow flex flex-col justify-between">
-              <div class="flex flex-col gap-4">
-                <div>
-                  <h4 class="text-sm font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-1">Desafio</h4>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Um legado de 350.000 processos físicos que geravam gastos com sulfite, logística, arquivos físicos e limitação de processamento anual.</p>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-1">Solução</h4>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Liderança estratégica para a migração para processos 100% digitais, eliminando o papel e desburocratizando as rotinas públicas.</p>
-                </div>
-              </div>
-              <div class="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
-                <span class="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold">Resultado</span>
-                <span class="text-lg font-black text-slate-900 dark:text-white">+78% Capacidade de Processamento</span>
-              </div>
-            </div>
-          </GlassCard>
 
-          <!-- Case 3: IPTU e ISS 100% Digitais -->
-          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 group">
-            <div class="h-64 overflow-hidden relative">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary-950/80 to-slate-950 p-6 flex flex-col justify-between">
-                <span class="px-3 py-1 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold self-start uppercase tracking-wider">Eficiência Tributária</span>
-                <span class="text-2xl font-black text-white">IPTU & ISS Digitais + Portal Cidadão</span>
-              </div>
-            </div>
-            <div class="p-8 flex-grow flex flex-col justify-between">
-              <div class="flex flex-col gap-4">
-                <div>
-                  <h4 class="text-sm font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-1">Desafio</h4>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Custos altos e burocracia desnecessária no envio físico de carnês de tributos e atendimento presencial lento.</p>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-1">Solução</h4>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Desenvolvimento e coordenação do Portal Cidadão com emissões e pagamentos em ambiente seguro 100% online.</p>
-                </div>
-              </div>
-              <div class="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
-                <span class="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold">Impacto</span>
-                <span class="text-lg font-black text-slate-900 dark:text-white">R$ 300.000 / ano economizados</span>
-              </div>
-            </div>
-          </GlassCard>
+              <!-- Cases -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Cases do Eixo</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <!-- Case: FiscalizaPlus -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 transition-colors">
+                  <div class="px-5 py-3 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between bg-slate-50 dark:bg-slate-900/40">
+                    <span class="text-sm font-bold text-slate-900 dark:text-white">FiscalizaPlus</span>
+                    <span class="px-2.5 py-0.5 rounded bg-cyber-500/20 text-cyber-600 dark:text-cyber-400 text-[10px] font-bold uppercase tracking-wider">Inovação em Produto</span>
+                  </div>
+                  <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex flex-col gap-3">
+                      <div>
+                        <h4 class="text-[11px] font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-0.5">Desafio</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">R$ 25.000/mês em licenças de softwares terceirizados ineficientes na fiscalização tributária municipal.</p>
+                      </div>
+                      <div>
+                        <h4 class="text-[11px] font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-0.5">Solução</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Software próprio customizado com geointeligência, offline-first e automação documental.</p>
+                      </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                      <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Impacto</span>
+                      <span class="text-sm font-black text-slate-900 dark:text-white">R$ 25.000 / mês</span>
+                    </div>
+                  </div>
+                </GlassCard>
 
-          <!-- Case 4: E-SUS Saúde Digital -->
-          <GlassCard class="rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 group">
-            <div class="h-64 overflow-hidden relative">
-              <Image src={futurePhoto} alt="E-SUS Saúde" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-              <div class="absolute inset-0 bg-slate-950/70 p-6 flex flex-col justify-between">
-                <span class="px-3 py-1 rounded bg-cyber-500/20 text-cyber-600 dark:text-cyber-400 text-xs font-bold self-start uppercase tracking-wider">Saúde Digital</span>
-                <span class="text-2xl font-black text-white">Implantação E-SUS Custo Zero</span>
+                <!-- Case: Digital Landing -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 transition-colors">
+                  <div class="px-5 py-3 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between bg-slate-50 dark:bg-slate-900/40">
+                    <span class="text-sm font-bold text-slate-900 dark:text-white">Digital Landing</span>
+                    <span class="px-2.5 py-0.5 rounded bg-primary-500/20 text-primary-700 dark:text-primary-400 text-[10px] font-bold uppercase tracking-wider">Serviços Web</span>
+                  </div>
+                  <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex flex-col gap-3">
+                      <div>
+                        <h4 class="text-[11px] font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-0.5">Desafio</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Empresas e instituições precisam de presença digital profissional com performance, SEO e AIO.</p>
+                      </div>
+                      <div>
+                        <h4 class="text-[11px] font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-0.5">Solução</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Desenvolvimento de landing pages, hubs institucionais e otimização para buscadores e IAs.</p>
+                      </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                      <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Entregas</span>
+                      <span class="text-sm font-black text-slate-900 dark:text-white">Performance Máxima</span>
+                    </div>
+                  </div>
+                </GlassCard>
+              </div>
+
+              <!-- Marcos do Eixo -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Marcos</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-cyber-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-cyber-500/10 text-cyber-600 dark:text-cyber-400 flex items-center justify-center font-black text-sm">2023</span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Início do Ecossistema SuitPlus</h4>
+                    <p class="text-xs text-slate-500">Arquitetura e desenvolvimento do framework que originou o conjunto de soluções integradas.</p>
+                  </div>
+                </GlassCard>
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-cyber-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-primary-500/10 text-primary-700 dark:text-primary-400 flex items-center justify-center font-black text-sm">2025</span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Lançamento FiscalizaPlus</h4>
+                    <p class="text-xs text-slate-500">Produto próprio de fiscalização municipal substituindo sistemas terceirizados.</p>
+                  </div>
+                </GlassCard>
               </div>
             </div>
-            <div class="p-8 flex-grow flex flex-col justify-between">
-              <div class="flex flex-col gap-4">
-                <div>
-                  <h4 class="text-sm font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-1">Desafio</h4>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Grandes custos (estimados em R$ 20.000/mês) para contratar empresas intermediadoras para implantar o prontuário eletrônico na rede municipal.</p>
-                </div>
-                <div>
-                  <h4 class="text-sm font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-1">Solução</h4>
-                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Implantação e customização da infraestrutura do e-SUS usando exclusivamente servidores e equipe própria de servidores municipais.</p>
+
+            <!-- === PAINEL 2: Gestão de Projetos === -->
+            <div role="tabpanel" id="atuacao-panel-gestao" aria-labelledby="atuacao-tab-gestao" tabindex="0" data-tab-panel="gestao" class="hidden opacity-0 translate-y-2 focus:outline-none focus:ring-2 focus:ring-cyber-500/50 rounded-xl transition-all duration-300">
+
+              <!-- Photo Cover -->
+              <div class="relative aspect-[4/3] sm:aspect-[5/3] rounded-2xl overflow-hidden mb-8 group">
+                <Image src={notebookPhoto} alt="Gestão de Projetos" class="w-full h-full object-cover object-center group-hover:scale-102 transition duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent flex flex-col justify-end p-5 sm:p-6 md:px-10 md:pb-8 pb-6">
+                  <span class="px-3.5 py-2 rounded-lg bg-primary-500/20 text-primary-300 text-xs sm:text-sm font-bold uppercase tracking-wider w-fit mb-2 sm:mb-3 backdrop-blur-sm">Gestão de Projetos</span>
+                  <p class="text-white/95 text-sm sm:text-base md:text-lg font-medium max-w-md leading-snug">Transformação digital em escala municipal. Implantação e coordenação de digitalização em larga escala.</p>
                 </div>
               </div>
-              <div class="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
-                <span class="text-xs text-slate-600 dark:text-slate-500 uppercase tracking-wider font-bold">Impacto Contínuo</span>
-                <span class="text-lg font-black text-slate-900 dark:text-white">R$ 20.000 / mês economizados</span>
+
+              <!-- ROI Stats -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Paperless</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="350000" data-format="number" data-suffix="+">0</div>
+                  <p class="text-xs text-slate-500 mt-2">Processos físicos migrados para o formato digital</p>
+                </GlassCard>
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">IPTU & ISS Digitais</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="300000" data-format="currency" data-suffix="/ano">R$ 0</div>
+                  <p class="text-xs text-slate-500 mt-2">Economia anual com eliminação de carnês físicos</p>
+                </GlassCard>
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Eficiência</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-target="78" data-format="percent">0%</div>
+                  <p class="text-xs text-slate-500 mt-2">Aumento de capacidade: de 18k para 32k processos/ano</p>
+                </GlassCard>
+              </div>
+
+              <!-- Cases -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Cases do Eixo</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <!-- Case: Paperless -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 transition-colors">
+                  <div class="px-5 py-3 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between bg-slate-50 dark:bg-slate-900/40 gap-2">
+                    <span class="text-sm font-bold text-slate-900 dark:text-white">Paperless (Prefeitura de Peruíbe)</span>
+                    <span class="px-2.5 py-0.5 rounded bg-primary-500/20 text-primary-700 dark:text-primary-400 text-[10px] font-bold uppercase tracking-wider shrink-0">Desburocratização</span>
+                  </div>
+                  <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex flex-col gap-3">
+                      <div>
+                        <h4 class="text-[11px] font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-0.5">Desafio</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">350.000 processos físicos gerando gastos com sulfite, logística e arquivos.</p>
+                      </div>
+                      <div>
+                        <h4 class="text-[11px] font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-0.5">Solução</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Migração completa para processos 100% digitais com implantação do Protocolo Web em toda a prefeitura.</p>
+                      </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                      <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Resultado</span>
+                      <span class="text-sm font-black text-slate-900 dark:text-white">+78% Capacidade</span>
+                    </div>
+                  </div>
+                </GlassCard>
+
+                <!-- Case: IPTU & ISS -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 transition-colors">
+                  <div class="px-5 py-3 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between bg-slate-50 dark:bg-slate-900/40 gap-2">
+                    <span class="text-sm font-bold text-slate-900 dark:text-white">IPTU & ISS Digitais + Portal Cidadão</span>
+                    <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider shrink-0">Tributária</span>
+                  </div>
+                  <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex flex-col gap-3">
+                      <div>
+                        <h4 class="text-[11px] font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-0.5">Desafio</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Carnês físicos caros e atendimento presencial lento na arrecadação municipal.</p>
+                      </div>
+                      <div>
+                        <h4 class="text-[11px] font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-0.5">Solução</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">IPTU e ISS 100% digitais com Portal Cidadão para emissão e pagamento online.</p>
+                      </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                      <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Impacto</span>
+                      <span class="text-sm font-black text-slate-900 dark:text-white">R$ 300.000/ano</span>
+                    </div>
+                  </div>
+                </GlassCard>
+
+                <!-- Case: E-SUS -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 transition-colors">
+                  <div class="px-5 py-3 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between bg-slate-50 dark:bg-slate-900/40 gap-2">
+                    <span class="text-sm font-bold text-slate-900 dark:text-white">Implantação E-SUS Custo Zero</span>
+                    <span class="px-2.5 py-0.5 rounded bg-cyber-500/20 text-cyber-600 dark:text-cyber-400 text-[10px] font-bold uppercase tracking-wider shrink-0">Saúde Digital</span>
+                  </div>
+                  <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex flex-col gap-3">
+                      <div>
+                        <h4 class="text-[11px] font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-0.5">Desafio</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">R$ 20.000/mês estimados para contratar intermediadoras do prontuário eletrônico.</p>
+                      </div>
+                      <div>
+                        <h4 class="text-[11px] font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-0.5">Solução</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Implantação on premise com servidores e equipe própria da prefeitura.</p>
+                      </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                      <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Impacto</span>
+                      <span class="text-sm font-black text-slate-900 dark:text-white">R$ 20.000/mês</span>
+                    </div>
+                  </div>
+                </GlassCard>
+
+                <!-- Case: Boleto Registrado -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col justify-between hover:border-cyber-500/20 transition-colors">
+                  <div class="px-5 py-3 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between bg-slate-50 dark:bg-slate-900/40 gap-2">
+                    <span class="text-sm font-bold text-slate-900 dark:text-white">Boleto Registrado</span>
+                    <span class="px-2.5 py-0.5 rounded bg-teal-500/20 text-teal-600 dark:text-teal-400 text-[10px] font-bold uppercase tracking-wider shrink-0">Inovação Fiscal</span>
+                  </div>
+                  <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div class="flex flex-col gap-3">
+                      <div>
+                        <h4 class="text-[11px] font-bold text-cyber-600 dark:text-cyber-400 uppercase tracking-widest mb-0.5">Desafio</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Guia simples sem rastreabilidade, sem acesso ao DDA e com alto custo operacional.</p>
+                      </div>
+                      <div>
+                        <h4 class="text-[11px] font-bold text-primary-700 dark:text-primary-400 uppercase tracking-widest mb-0.5">Solução</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Boleto registrado para todos os tributos: DDA eletrônico, pagamento no banco, cálculo automático de juros e rastreabilidade.</p>
+                      </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex justify-between items-center">
+                      <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Redução de Custo</span>
+                      <span class="text-sm font-black text-slate-900 dark:text-white">~70%</span>
+                    </div>
+                  </div>
+                </GlassCard>
+              </div>
+
+              <!-- Marcos do Eixo -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Marcos</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-cyber-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-cyber-500/10 text-cyber-600 dark:text-cyber-400 flex items-center justify-center font-black text-sm">2016</span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">E-SUS na Rede Municipal</h4>
+                    <p class="text-xs text-slate-500">Implantação do prontuário eletrônico com infraestrutura própria e custo zero.</p>
+                  </div>
+                </GlassCard>
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-primary-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-primary-500/10 text-primary-700 dark:text-primary-400 flex items-center justify-center font-black text-sm">2018</span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Processo Digital & Tributário</h4>
+                    <p class="text-xs text-slate-500">Migração de 350k processos e lançamento do IPTU/ISS 100% digital.</p>
+                  </div>
+                </GlassCard>
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-teal-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center font-black text-sm">2026</span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Selo Ouro Facilita SP</h4>
+                    <p class="text-xs text-slate-500">Peruíbe conquista o selo ouro de desburocratização do governo estadual.</p>
+                  </div>
+                </GlassCard>
               </div>
             </div>
-          </GlassCard>
+
+            <!-- === PAINEL 3: Administração === -->
+            <div role="tabpanel" id="atuacao-panel-administracao" aria-labelledby="atuacao-tab-administracao" tabindex="0" data-tab-panel="administracao" class="hidden opacity-0 translate-y-2 focus:outline-none focus:ring-2 focus:ring-cyber-500/50 rounded-xl transition-all duration-300">
+
+              <!-- Photo Cover -->
+              <div class="relative aspect-[4/3] sm:aspect-[5/3] rounded-2xl overflow-hidden mb-8 group">
+                <Image src={profilePhoto} alt="Administração" class="w-full h-full object-cover object-center group-hover:scale-102 transition duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent flex flex-col justify-end p-5 sm:p-6 md:px-10 md:pb-8 pb-6">
+                  <span class="px-3.5 py-2 rounded-lg bg-teal-500/20 text-teal-300 text-xs sm:text-sm font-bold uppercase tracking-wider w-fit mb-2 sm:mb-3 backdrop-blur-sm">Administração</span>
+                  <p class="text-white/95 text-sm sm:text-base md:text-lg font-medium max-w-md leading-snug">Governança, conselhos e representação institucional. Atuação em órgãos deliberativos e desenvolvimento local.</p>
+                </div>
+              </div>
+
+              <!-- ROI Stats -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Conselhos</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-format="static">3 Ativos</div>
+                  <p class="text-xs text-slate-500 mt-2">Conselho de Contribuintes, PeruíbePrev, Câmara de Preços</p>
+                </GlassCard>
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">CRA-SP</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-format="static">Registro 6-2962</div>
+                  <p class="text-xs text-slate-500 mt-2">Conselho Regional de Administração de São Paulo</p>
+                </GlassCard>
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Sebrae</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-format="static">ADL</div>
+                  <p class="text-xs text-slate-500 mt-2">Agente de Desenvolvimento Local</p>
+                </GlassCard>
+              </div>
+
+              <!-- Cases -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Atuação em Conselhos</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <!-- Case: Conselho de Contribuintes -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-cyber-500/20">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center font-black">CC</div>
+                    <div>
+                      <h3 class="font-bold text-slate-900 dark:text-white text-sm">Conselho de Contribuintes</h3>
+                      <span class="text-xs text-slate-500">Vice-Presidência</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">Atuação na Vice-Presidência do Conselho de Contribuintes da Secretaria Municipal de Fazenda, julgamento de recursos tributários e proposição de políticas fiscais.</p>
+                  <span class="text-[10px] text-cyber-600 dark:text-cyber-400 uppercase font-bold tracking-wider">Fazenda Municipal</span>
+                </GlassCard>
+
+                <!-- Case: PeruíbePrev -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-primary-500/20">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary-500/10 text-primary-700 dark:text-primary-400 flex items-center justify-center font-black">PP</div>
+                    <div>
+                      <h3 class="font-bold text-slate-900 dark:text-white text-sm">PeruíbePrev</h3>
+                      <span class="text-xs text-slate-500">Conselheiro de Administração</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">Membro do Conselho de Administração da Autarquia Previdenciária de Peruíbe, deliberando sobre gestão de recursos e políticas previdenciárias.</p>
+                  <span class="text-[10px] text-primary-700 dark:text-primary-400 uppercase font-bold tracking-wider">Previdência Municipal</span>
+                </GlassCard>
+
+                <!-- Case: Câmara de Preços -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-cyber-500/20">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-cyber-500/10 text-cyber-600 dark:text-cyber-400 flex items-center justify-center font-black">CP</div>
+                    <div>
+                      <h3 class="font-bold text-slate-900 dark:text-white text-sm">Câmara de Preços</h3>
+                      <span class="text-xs text-slate-500">Membro da Câmara de Gerenciamento</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">Participação na Câmara de Gerenciamento de Preços, análise de custos e definição de políticas de compras e contratações públicas.</p>
+                  <span class="text-[10px] text-cyber-600 dark:text-cyber-400 uppercase font-bold tracking-wider">Gestão Estratégica</span>
+                </GlassCard>
+
+                <!-- Case: ADL Sebrae -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-primary-500/20">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-black">AD</div>
+                    <div>
+                      <h3 class="font-bold text-slate-900 dark:text-white text-sm">ADL - Sebrae</h3>
+                      <span class="text-xs text-slate-500">Agente de Desenvolvimento Local</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">Atuação como Agente de Desenvolvimento Local vinculado à Prefeitura e Sebrae, fomentando empreendedorismo e desenvolvimento econômico regional.</p>
+                  <span class="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase font-bold tracking-wider">Desenvolvimento Local</span>
+                </GlassCard>
+              </div>
+
+              <!-- Marcos do Eixo -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Marcos</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-teal-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center font-black text-sm">2020</span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Conselho & CRA-SP</h4>
+                    <p class="text-xs text-slate-500">Vice-Presidência do Conselho de Contribuintes e registro no CRA-SP.</p>
+                  </div>
+                </GlassCard>
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-primary-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-primary-500/10 text-primary-700 dark:text-primary-400 flex items-center justify-center font-black text-sm">2023</span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">PeruíbePrev & Sebrae</h4>
+                    <p class="text-xs text-slate-500">Conselheiro de Administração da Autarquia Previdenciária e ADL Sebrae.</p>
+                  </div>
+                </GlassCard>
+              </div>
+            </div>
+
+            <!-- === PAINEL 4: Empreendedorismo === -->
+            <div role="tabpanel" id="atuacao-panel-empreendedorismo" aria-labelledby="atuacao-tab-empreendedorismo" tabindex="0" data-tab-panel="empreendedorismo" class="hidden opacity-0 translate-y-2 focus:outline-none focus:ring-2 focus:ring-cyber-500/50 rounded-xl transition-all duration-300">
+
+              <!-- Photo Cover -->
+              <div class="relative aspect-[4/3] sm:aspect-[5/3] rounded-2xl overflow-hidden mb-8 group">
+                <Image src={futurePhoto} alt="Empreendedorismo" class="w-full h-full object-cover object-[50%_25%] group-hover:scale-102 transition duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent flex flex-col justify-end p-5 sm:p-6 md:px-10 md:pb-8 pb-6">
+                  <span class="px-3.5 py-2 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs sm:text-sm font-bold uppercase tracking-wider w-fit mb-2 sm:mb-3 backdrop-blur-sm">Empreendedorismo</span>
+                  <p class="text-white/95 text-sm sm:text-base md:text-lg font-medium max-w-md leading-snug">Negócios em tecnologia e informática. Manutenção, e-commerce e desenvolvimento de sites e soluções digitais.</p>
+                </div>
+              </div>
+
+              <!-- Stats -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Áreas</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-format="static">Tecnologia</div>
+                  <p class="text-xs text-slate-500 mt-2">Informática, desenvolvimento e e-commerce</p>
+                </GlassCard>
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Digital Landing</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-format="static">Serviços Web</div>
+                  <p class="text-xs text-slate-500 mt-2">Landing pages, hubs e otimização AIO</p>
+                </GlassCard>
+                <GlassCard class="metric-card rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex flex-col justify-between relative group hover:border-cyber-500/30">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">E-commerce</div>
+                  <div class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white group-hover:text-cyber-600 dark:group-hover:text-cyber-400 transition" data-format="static">Experiência</div>
+                  <p class="text-xs text-slate-500 mt-2">Plataformas e integrações comerciais</p>
+                </GlassCard>
+              </div>
+
+              <!-- Cases -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Empreendimentos</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <!-- Case: Digital Landing -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-cyber-500/20">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-cyber-500/10 text-cyber-600 dark:text-cyber-400 flex items-center justify-center font-black text-lg">DL</div>
+                    <div>
+                      <h3 class="font-bold text-slate-900 dark:text-white text-sm">Digital Landing</h3>
+                      <span class="text-xs text-slate-500">Serviços de sites e consultoria digital</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">Desenvolvimento de landing pages de alta conversão, hubs institucionais de vendas, consultoria digital estratégica e otimização AIO para inteligência artificial.</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Performance</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">AIO</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">CRO</span>
+                  </div>
+                </GlassCard>
+
+                <!-- Case: E-commerce -->
+                <GlassCard class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-primary-500/20">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary-500/10 text-primary-700 dark:text-primary-400 flex items-center justify-center font-black text-lg">EC</div>
+                    <div>
+                      <h3 class="font-bold text-slate-900 dark:text-white text-sm">E-commerce & Tecnologia</h3>
+                      <span class="text-xs text-slate-500">Manutenção, equipamentos e comércio eletrônico</span>
+                    </div>
+                  </div>
+                  <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">Experiência em empreendimentos de tecnologia e informática, manutenção de equipamentos, e-commerce e desenvolvimento de sites e soluções correlatas.</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Infraestrutura</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Comércio Digital</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">Soluções Web</span>
+                  </div>
+                </GlassCard>
+              </div>
+
+              <!-- Marcos do Eixo -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Marcos</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-cyber-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-cyber-500/10 text-cyber-600 dark:text-cyber-400 flex items-center justify-center font-black text-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Início da Trajetória Empreendedora</h4>
+                    <p class="text-xs text-slate-500">Primeiros passos no mercado de tecnologia e informática, construindo base de conhecimento e rede de contatos.</p>
+                  </div>
+                </GlassCard>
+                <GlassCard class="rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-start gap-4 hover:border-primary-500/20">
+                  <span class="shrink-0 w-10 h-10 rounded-full bg-primary-500/10 text-primary-700 dark:text-primary-400 flex items-center justify-center font-black text-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg></span>
+                  <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Fundação Digital Landing</h4>
+                    <p class="text-xs text-slate-500">Criação do braço de desenvolvimento web com foco em performance, conversão e AIO.</p>
+                  </div>
+                </GlassCard>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
@@ -577,36 +889,8 @@ const personSchema = buildPersonSchema();
           </div>
 
           <!-- Contact Form with Honeypot -->
-          <GlassCard class="md:col-span-2 rounded-3xl border border-slate-200 dark:border-slate-800 p-8">
-            <form id="contact-form" action={site.webhook.contact} method="POST" class="flex flex-col gap-4">
-              <!-- Honeypot Field for Spam Prevention (Hidden visually but available to bots) -->
-              <div class="absolute -left-[9999px] h-0 overflow-hidden" tabindex="-1">
-                <label for="honeypot_field">Se você é humano, deixe este campo em branco</label>
-                <input type="text" id="honeypot_field" name="honeypot_field" tabindex="-1" autocomplete="off" />
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="flex flex-col gap-1.5">
-                  <label for="name" class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Nome</label>
-                  <input type="text" id="name" name="name" required class="px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-cyber-500 transition" placeholder="Seu nome" />
-                </div>
-                <div class="flex flex-col gap-1.5">
-                  <label for="email" class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">E-mail</label>
-                  <input type="email" id="email" name="email" required class="px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-cyber-500 transition" placeholder="seu@email.com" />
-                </div>
-              </div>
-
-              <div class="flex flex-col gap-1.5">
-                <label for="message" class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Mensagem</label>
-                <textarea id="message" name="message" required rows="4" class="px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-cyber-500 transition" placeholder="Como posso ajudar você?"></textarea>
-              </div>
-
-              <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-cyber-500 to-primary-600 hover:from-cyber-600 hover:to-primary-700 text-white font-bold rounded-lg shadow-lg shadow-cyber-500/10 transition active:scale-[0.99] flex items-center justify-center gap-2">
-                Enviar Mensagem
-                <svg class="w-4 h-4"><use href="/icons/sprite.svg#icon-arrow-right" /></svg>
-              </button>
-            </form>
-            <div id="form-feedback" class="mt-4 text-sm text-center font-bold hidden"></div>
+          <GlassCard class="md:col-span-2 rounded-3xl border border-slate-200 dark:border-slate-800/80 p-8">
+            <ContactForm />
           </GlassCard>
         </div>
       </div>
@@ -654,16 +938,15 @@ const personSchema = buildPersonSchema();
   }
 
   .ticker-track {
-    animation: ticker 15s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+    animation: ticker 12s cubic-bezier(0.76, 0, 0.24, 1) infinite;
   }
 
   @keyframes ticker {
-    0%, 15% { transform: translateY(0); }
-    20%, 35% { transform: translateY(-20%); }
-    40%, 55% { transform: translateY(-40%); }
-    60%, 75% { transform: translateY(-60%); }
-    80%, 95% { transform: translateY(-80%); }
-    100% { transform: translateY(0); }
+    0%, 18% { transform: translateY(0); }
+    22%, 40% { transform: translateY(-20%); }
+    44%, 62% { transform: translateY(-40%); }
+    66%, 84% { transform: translateY(-60%); }
+    88%, 100% { transform: translateY(-80%); }
   }
 
   .animate-pulse-slow {
@@ -673,6 +956,15 @@ const personSchema = buildPersonSchema();
   @keyframes pulseSlow {
     0%, 100% { opacity: 0.6; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  /* About photo: colored when section is in view */
+  .about-photo {
+    filter: grayscale(100%);
+  }
+  .about-photo.colored,
+  .group:hover .about-photo {
+    filter: grayscale(0%);
   }
 
   /* Scroll-driven Reveal Animations */
@@ -697,6 +989,32 @@ const personSchema = buildPersonSchema();
     }
   }
 
+  /* Tab Pill Toggle */
+  .tab-btn {
+    color: rgb(100 116 139); /* slate-500 */
+    background: transparent;
+  }
+  html.dark .tab-btn {
+    color: rgb(148 163 184); /* slate-400 */
+  }
+  .tab-btn:hover {
+    color: rgb(6 182 212); /* cyber-500 */
+    background: rgb(241 245 249); /* slate-100 */
+  }
+  html.dark .tab-btn:hover {
+    color: rgb(34 211 238); /* cyber-400 */
+    background: rgb(30 41 59 / 0.4); /* slate-800/40 */
+  }
+  .tab-btn-active {
+    color: rgb(255 255 255);
+    background: linear-gradient(to right, rgb(6 182 212), rgb(20 184 166)); /* cyber-500 to teal-500 */
+    box-shadow: 0 4px 14px 0 rgb(6 182 212 / 0.25);
+  }
+  .tab-btn-active:hover {
+    color: rgb(255 255 255);
+    background: linear-gradient(to right, rgb(8 145 178), rgb(13 148 136)); /* cyber-600 to teal-600 */
+  }
+
   /* Accessibility: prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     * {
@@ -716,32 +1034,92 @@ const personSchema = buildPersonSchema();
 </style>
 
 <script>
-  // Simple Counter Animation trigger
-  function animateCounters() {
-    const cards = document.querySelectorAll('.metric-card');
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const options = {
-      threshold: 0.2,
-      rootMargin: '0px'
-    };
+  // Tab Switching
+  function initTabs() {
+    const containers = document.querySelectorAll('[data-tabs-container]');
+    containers.forEach((container : any) => {
+      const buttons : any = container.querySelectorAll('[data-tab-btn]');
+      const panels : any = container.querySelectorAll('[data-tab-panel]');
 
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
+      buttons.forEach((btn : any, idx : number) => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-tab-btn');
+
+          buttons.forEach((b : any) => {
+            const isTarget = b.getAttribute('data-tab-btn') === targetId;
+            b.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+            b.setAttribute('tabindex', isTarget ? '0' : '-1');
+            if (isTarget) {
+              b.classList.remove('tab-btn');
+              b.classList.add('tab-btn-active');
+            } else {
+              b.classList.remove('tab-btn-active');
+              b.classList.add('tab-btn');
+            }
+          });
+
+          panels.forEach((panel : any) => {
+            const isTarget = panel.getAttribute('data-tab-panel') === targetId;
+            if (isTarget) {
+              panel.classList.remove('hidden');
+              setTimeout(() => {
+                panel.classList.remove('opacity-0', 'translate-y-2');
+                panel.classList.add('opacity-100', 'translate-y-0');
+              }, 50);
+              animateCountersIn(panel);
+            } else {
+              panel.classList.add('hidden', 'opacity-0', 'translate-y-2');
+              panel.classList.remove('opacity-100', 'translate-y-0');
+            }
+          });
+        });
+
+        btn.addEventListener('keydown', (e : any) => {
+          let targetIdx : number | null = null;
+          if (e.key === 'ArrowRight') targetIdx = (idx + 1) % buttons.length;
+          if (e.key === 'ArrowLeft') targetIdx = (idx - 1 + buttons.length) % buttons.length;
+          if (targetIdx !== null) {
+            (buttons[targetIdx] as HTMLElement).focus();
+            (buttons[targetIdx] as HTMLElement).click();
+          }
+        });
+      });
+    });
+  }
+
+  // Generic Counter Animation
+  function animateCountersIn(container : any) {
+    const cards : any = container.querySelectorAll('.metric-card');
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const options = { threshold: 0.2, rootMargin: '0px' };
+
+    const observer = new IntersectionObserver((entries : any, observer : any) => {
+      entries.forEach((entry : any) => {
         if (entry.isIntersecting) {
-          const numberEl = entry.target.querySelector('[data-target]');
+          const numberEl : any = entry.target.querySelector('[data-target]');
           if (numberEl) {
             const target = parseInt(numberEl.getAttribute('data-target') || '0', 10);
-            
+            const format = numberEl.getAttribute('data-format') || '';
+            const suffix = numberEl.getAttribute('data-suffix') || '';
+
+            if (format === 'static') {
+              observer.unobserve(entry.target);
+              return;
+            }
+
+            const formatFinal = (val : number) => {
+              if (format === 'currency') return 'R$ ' + val.toLocaleString('pt-BR') + suffix;
+              if (format === 'number') return val.toLocaleString('pt-BR') + suffix;
+              if (format === 'percent') return val + suffix;
+              return val.toLocaleString('pt-BR') + suffix;
+            };
+
             if (prefersReducedMotion) {
-              // Set final value immediately
-              if (target === 350000) numberEl.textContent = '350.000+';
-              else if (target === 300000) numberEl.textContent = 'R$ 300K/ano';
-              else if (target === 25000) numberEl.textContent = 'R$ 25K/mês';
-              else if (target === 78) numberEl.textContent = '78%';
+              numberEl.textContent = formatFinal(target);
             } else {
               let count = 0;
-              const duration = 1500; // ms
-              const stepTime = 16; // ms (approx 60fps)
+              const duration = 1500;
+              const stepTime = 16;
               const steps = duration / stepTime;
               const increment = target / steps;
 
@@ -749,18 +1127,16 @@ const personSchema = buildPersonSchema();
                 count += increment;
                 if (count >= target) {
                   clearInterval(timer);
-                  // Final formats
-                  if (target === 350000) numberEl.textContent = '350.000+';
-                  else if (target === 300000) numberEl.textContent = 'R$ 300K/ano';
-                  else if (target === 25000) numberEl.textContent = 'R$ 25K/mês';
-                  else if (target === 78) numberEl.textContent = '78%';
+                  numberEl.textContent = formatFinal(target);
                 } else {
-                  if (target === 350000) {
-                    numberEl.textContent = Math.floor(count).toLocaleString('pt-BR') + '+';
-                  } else if (target === 300000 || target === 25000) {
+                  if (format === 'currency') {
                     numberEl.textContent = 'R$ ' + Math.floor(count).toLocaleString('pt-BR');
-                  } else {
+                  } else if (format === 'number') {
+                    numberEl.textContent = Math.floor(count).toLocaleString('pt-BR') + '+';
+                  } else if (format === 'percent') {
                     numberEl.textContent = Math.floor(count) + '%';
+                  } else {
+                    numberEl.textContent = Math.floor(count).toLocaleString('pt-BR');
                   }
                 }
               }, stepTime);
@@ -771,7 +1147,28 @@ const personSchema = buildPersonSchema();
       });
     }, options);
 
-    cards.forEach(card => observer.observe(card));
+    cards.forEach((card : any) => observer.observe(card));
+  }
+
+  function animateCounters() {
+    animateCountersIn(document);
+  }
+
+  // About photo: color when section enters viewport
+  function initAboutPhotoObserver() {
+    const about = document.getElementById('about');
+    const photo = document.querySelector('.about-photo');
+    if (!about || !photo) return;
+    const observer = new IntersectionObserver((entries : any) => {
+      entries.forEach((entry : any) => {
+        if (entry.isIntersecting) {
+          photo.classList.add('colored');
+        } else {
+          photo.classList.remove('colored');
+        }
+      });
+    }, { threshold: 0.25 });
+    observer.observe(about);
   }
 
   // Handle Form Submission via Webhook
@@ -780,13 +1177,11 @@ const personSchema = buildPersonSchema();
     const feedback = document.getElementById('form-feedback');
     if (!form || !feedback) return;
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async (e : any) => {
       e.preventDefault();
 
-      // HoneyPot check
-      const honeypot = (document.getElementById('honeypot_field') as HTMLInputElement)?.value;
-      if (honeypot) {
-        console.warn('Spam detected via honeypot.');
+      const honeypot = document.getElementById('honeypot_field') as HTMLInputElement | null;
+      if (honeypot && honeypot.value) {
         feedback.textContent = 'Mensagem enviada com sucesso (filtro anti-spam ativo).';
         feedback.className = 'mt-4 text-sm text-center font-bold text-emerald-600 dark:text-emerald-400 block';
         form.reset();
@@ -799,16 +1194,11 @@ const personSchema = buildPersonSchema();
       try {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        
         const response = await fetch(form.action, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(data)
         });
-
         if (response.ok) {
           feedback.textContent = 'Mensagem enviada com sucesso! Em breve entrarei em contato.';
           feedback.className = 'mt-4 text-sm text-center font-bold text-emerald-600 dark:text-emerald-400 block';
@@ -825,7 +1215,9 @@ const personSchema = buildPersonSchema();
 
   // Bind JS on Astro transitions and initial load
   document.addEventListener('astro:page-load', () => {
+    initTabs();
     animateCounters();
+    initAboutPhotoObserver();
     handleFormSubmission();
   });
 </script>

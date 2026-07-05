@@ -57,7 +57,7 @@ export interface SiteConfig {
 export const site: SiteConfig = {
   org: {
     name: "Ismael Soilet",
-    url: "https://ismaelsoilet.com.br",
+    url: "https://ismaelsoilet.suitplus.com.br",
     logo: "/logo.svg",
     description: "Líder em Transformação Digital, Gestão Pública, Ciência de Dados e Desenvolvimento de Software.",
     sameAs: [
@@ -79,7 +79,7 @@ export const site: SiteConfig = {
   },
   theme: {
     colors: {
-      light: "#ffffff",
+      light: "oklch(0.985 0.005 240)", // Cool off-white (--color-neutral-50)
       dark: "#0a0f1e" // Deep Navy base
     }
   },
@@ -104,7 +104,7 @@ export const site: SiteConfig = {
     ],
     description: "Transformo regras de negócio complexas em soluções digitais de alto impacto, unindo Tecnologia da Informação, Ciência de Dados e Gestão Estratégica.",
     image: "/src/assets/photo.jpg", // Real/placeholder path
-    url: "https://ismaelsoilet.com.br",
+    url: "https://ismaelsoilet.suitplus.com.br",
     sameAs: [
       "https://www.linkedin.com/in/ismael-soilet/",
       "https://github.com/ismaelsoilet"
