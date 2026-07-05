@@ -189,6 +189,47 @@ The following pages are template artifacts kept for reference and must **never**
 
 When forking into a client site, either delete these pages or keep them with `noindex` + sitemap exclusion (the default filter already excludes them).
 
+### OG Image & Social Preview (CRITICAL)
+
+OG images are the #1 cause of "funciona local mas não no WhatsApp/LinkedIn" bugs. Follow these rules strictly:
+
+1. **File location**: Place the OG image in `public/`, NOT `src/assets/`. Files in `public/` are served as-is at `/og-image.jpg`; files in `src/assets/` get content-hashed by Astro and the path breaks when social scrapers fetch it.
+
+2. **Default fallback in BaseHead**: Set the default OG image in `BaseHead.astro` props, not in page layouts:
+   ```astro
+   const { image = '/og-image.jpg' } = Astro.props;
+   ```
+
+3. **Absolute URL**: All OG meta tags require absolute URLs. In `BaseHead.astro`, build the URL as:
+   ```astro
+   const absoluteImageUrl = image.startsWith('http') ? image : `${site.org.url}${image}`;
+   ```
+   Never use relative paths in `og:image`, `twitter:image`, or JSON-LD image references.
+
+4. **Required meta tags** — always emit all of these:
+   - `og:image` — absolute URL
+   - `og:image:width` — 1200
+   - `og:image:height` — 630
+   - `og:image:type` — `image/jpeg` (or `image/png` if using PNG)
+   - `og:image:secure_url` — same absolute URL
+   - `og:image:alt` — descriptive text (e.g., `"${site.org.name} - Hero"`)
+   - `twitter:card` — `summary_large_image`
+   - `twitter:image` — same absolute URL
+   - `twitter:site` / `twitter:creator` — @handle (if applicable)
+
+5. **Image dimensions**: Always use 1200×630 pixels — the standard OG ratio. Non-standard dimensions (e.g., 1730×909) will be cropped unpredictably by social platforms.
+
+6. **Image sitemap**: Register the OG image in `image-sitemap.xml.ts` with an absolute URL built from `site.org.url`. Blog post cover images must also be registered here.
+
+7. **JSON-LD blog image**: In `buildBlogPostingSchema()`, build the image URL the same way:
+   ```ts
+   "image": post.cover ? (post.cover.startsWith('http') ? post.cover : `${site.org.url}${post.cover}`) : `${site.org.url}/og-image.jpg`
+   ```
+
+8. **One active file only**: Keep exactly one OG image file in `public/`. Delete old versions (e.g., `og-image-v2.jpg`, `og-image.png` if using `og-image-v3.jpg`) to avoid confusion and stale files.
+
+9. **Test before deploying**: Always test with https://opengraph.dev or the WhatsApp/LinkedIn debugger. The most common mistake is a relative URL that works in the browser but fails when a social scraper fetches it.
+
 ---
 
 ```bash
