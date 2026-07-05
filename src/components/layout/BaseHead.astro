@@ -3,7 +3,6 @@ import { site } from '../../content/site';
 import { themeScript } from '../../lib/theme';
 import { buildOrganizationSchema, buildWebPageSchema, buildPersonSchema, buildProfilePageSchema } from '../../lib/seo';
 import JsonLd from '../seo/JsonLd.astro';
-import defaultOgImage from '../../assets/OG-IMAGE-NOVO.png';
 
 interface Props {
   title: string;
@@ -16,13 +15,13 @@ interface Props {
 const { 
   title, 
   description, 
-  image = '/src/assets/OG-IMAGE-NOVO.png', 
+  image = '/og-image.png', 
   noindex = false, 
   type = site.person ? 'profile' : 'website'
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, site.org.url).toString();
-const absoluteImageUrl = image.startsWith('http') ? image : `${site.org.url}${defaultOgImage.src}`;
+const absoluteImageUrl = image.startsWith('http') ? image : `${site.org.url}${image}`;
 
 // Schema builds
 const orgSchema = buildOrganizationSchema();
@@ -63,7 +62,7 @@ const lang = Astro.currentLocale || 'pt-BR';
 <meta property="og:title" content={`${title} | ${site.org.name}`} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={absoluteImageUrl} />
-<meta property="og:image:width" content="1730" />
+<meta property="og:image:width" content="1731" />
 <meta property="og:image:height" content="909" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:site_name" content={site.org.name} />
