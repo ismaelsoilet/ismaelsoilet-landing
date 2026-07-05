@@ -1,7 +1,7 @@
 {
   "name": "template-landing",
   "type": "module",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "packageManager": "pnpm@11.5.2",
   "engines": {
     "node": ">=22.12.0"
