@@ -12,7 +12,11 @@ export const GET: APIRoute = async () => {
 ## Informações de Contato
 - E-mail: ${site.contact.email}
 - Telefone: ${site.contact.phone}
-- Website: ${site.org.url}
+- Website: [${site.org.url}](${site.org.url})
+
+## Redes Profissionais
+- [LinkedIn](${site.social.linkedin})
+- [GitHub](${site.social.github})
 
 ## Artigos do Blog (Insights)
 ${posts.slice(0, 5).map(post => `- [${post.data.title}](${site.org.url}/blog/${post.id}): ${post.data.description}`).join('\n')}
