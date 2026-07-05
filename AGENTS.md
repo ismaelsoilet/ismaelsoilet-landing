@@ -318,3 +318,39 @@ If necessary, configure the repository locally before committing:
 3. **Como burlar o Cache de Redes Sociais (X, LinkedIn)**:
    - Redes sociais fazem cache agressivo da URL da `og:image`. 
    - Se precisar atualizar a imagem, **NUNCA substitua o arquivo mantendo o mesmo nome**. Renomeie o arquivo (ex: de `og-image-v1.jpg` para `og-image-v2.jpg`), atualize a referência no código e faça o deploy. Isso força os robôs a buscarem a nova imagem imediatamente.
+
+
+## SEO e Open Graph - Melhores Práticas (2024)
+
+### 1. Limites de Meta Tags
+- **Title (`<title>` e `og:title`)**: Manter até **60 caracteres**. Passar disso pode gerar truncamento no Google, X e LinkedIn.
+- **Description (`<meta name="description">` e `og:description`)**: Manter entre **150 e 160 caracteres**. Para previews mobile e social, o ideal é focar a mensagem principal nos primeiros 125 caracteres.
+
+### 2. Especificações da OG Image (`og:image`)
+- **Dimensão Ideal**: **1200x630 pixels** (proporção de 1.91:1). Isso evita cortes indesejados nas redes sociais.
+- **Formato**: Utilizar **JPG** (preferencial para arquivos menores e compatibilidade máxima) ou **PNG**. WebP ainda pode apresentar problemas em scrapers mais antigos.
+- **URL Absoluta**: A URL da imagem DEVE ser absoluta (ex: `https://dominio.com.br/imagem.jpg`), começando com `http` ou `https`.
+- **Tags Recomendadas**: Para que a imagem renderize logo no primeiro compartilhamento, inclua as dimensões no HTML:
+  ```html
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  ```
+- **Acessibilidade**: Se aplicável, use a tag `og:image:alt`.
+
+### 3. Problema Frequente em Vercel: "URL did not return an image"
+Quando um projeto é publicado na Vercel (ou plataformas com Preview nativo), as URLs de Preview (`VERCEL_URL`) costumam ter proteção **SSO/Senha (Vercel Protection)**. 
+- **O erro**: O scraper do Facebook/X tenta baixar a imagem na URL de Preview e recebe um Redirecionamento 302 para uma página de login HTML, resultando no erro de que "a URL não retornou uma imagem".
+- **A solução**: No Astro, não utilize a `VERCEL_URL` crua para construir a URL Base das Meta Tags. Dê preferência à variável de ambiente da URL de produção: `VERCEL_PROJECT_PRODUCTION_URL` ou faça um fallback para a URL de produção oficial (configurada no `site.url`).
+  ```javascript
+  // Exemplo no Astro (BaseHead.astro)
+  const baseUrl = import.meta.env.DEV 
+    ? 'http://localhost:4321' 
+    : (process.env.VERCEL_PROJECT_PRODUCTION_URL 
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` 
+        : (process.env.SITE_URL || site.url));
+  ```
+
+### 4. Checklist Rápido de Validação
+- Utilize o [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) ou ferramentas de SEO (como o metatags.io) para limpar o cache das plataformas.
+- Se o scraper acusar que o tamanho do arquivo é muito grande, mantenha a OG image com **menos de 300 KB**.
