@@ -62,8 +62,16 @@ template-landing/
 │       └── ci.yml          # CI pipeline (typecheck, build, size, SEO, links, a11y, LHCI)
 ├── public/                 # ── Root static assets (favicons, manifestos, icons) ──
 │   ├── logo.svg            # brand logo (SVG vector)
-│   ├── favicon.ico         # favicon link
-│   ├── apple-touch-icon.png# iOS touch icon
+│   ├── favicon.ico            # Multi-res ICO (16/32/48px) — Google Search & legacy
+│   ├── favicon-16x16.png       # PNG favicon (16×16)
+│   ├── favicon-32x32.png       # PNG favicon (32×32)
+│   ├── favicon-48x48.png       # PNG favicon (48×48)
+│   ├── favicon-96x96.png       # PNG favicon (96×96)
+│   ├── favicon-144x144.png     # PNG favicon (144×144)
+│   ├── apple-touch-icon.png    # iOS home screen icon (180×180)
+│   ├── icon-192x192.png        # PWA / Android icon
+│   ├── icon-512x512.png        # PWA / Android splash icon
+│   ├── site.webmanifest        # PWA manifest
 │   ├── _headers            # Cloudflare Pages custom headers (security, CSP, AIO)
 │   ├── _redirects          # Cloudflare Pages proxies
 │   ├── icons/
@@ -163,6 +171,61 @@ template-landing/
 - **Zero-CDN (Fonts & Scripts)**: Absolutely no third-party CDNs for fonts or scripts. Use auto-hosted `@fontsource-variable/*` packages instead of Google Fonts (`@import` or `<link>`). Never leave unused or legacy scripts (e.g., `vanilla-tilt.min.js`) in the codebase as they block the critical rendering path.
 - **Hidden Elements (A11y)**: Always use the `inert` HTML attribute for visually hidden interactive elements (like mobile menus or modals) to completely remove them from the accessibility tree and tab order. Toggle it via JS (`removeAttribute('inert')` and `setAttribute('inert', '')`). Do not rely solely on `aria-hidden`.
 - **Heading Hierarchy**: Strictly follow sequential descending heading order (e.g., `h1` → `h2` → `h3`). Do not skip heading levels (e.g., jumping from `h3` directly to `h5`), as it creates critical accessibility violations.
+
+### 5. Favicon System (Critical for Google Search & Social Previews)
+
+All favicon files are generated from a **single source SVG** (`public/logo.svg`) and rasterized into multiple formats for maximum browser and platform compatibility.
+
+#### File Inventory
+
+```
+public/
+├── favicon.ico                    # Multi-res ICO (16, 32, 48px) — used by Google Search & legacy browsers
+├── favicon-16x16.png              # PNG favicon (16×16)
+├── favicon-32x32.png              # PNG favicon (32×32)
+├── favicon-48x48.png              # PNG favicon (48×48)
+├── favicon-96x96.png              # PNG favicon (96×96)
+├── favicon-144x144.png            # PNG favicon (144×144)
+├── apple-touch-icon.png           # iOS home screen icon (180×180)
+├── icon-192x192.png               # PWA / Android icon
+├── icon-512x512.png               # PWA / Android splash icon
+├── site.webmanifest               # PWA manifest (references 192 & 512 icons)
+└── logo.svg                       # Original SVG — also used as SVG favicon + Safari mask-icon
+```
+
+#### HTML Head References (BaseHead.astro)
+
+The canonical `<head>` block for `BaseHead.astro`:
+
+```astro
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+<link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="mask-icon" href="/logo.svg" color="#0a66c2" />
+<link rel="manifest" href="/site.webmanifest" />
+```
+
+#### Generation Workflow
+
+Use `sharp` (already a project dependency for `astro:assets`) to rasterize the source SVG:
+
+1. Rasterize the SVG into PNGs at 16, 32, 48, 96, 144, 180, 192, and 512 pixels.
+2. Package the 16, 32, and 48px PNGs into a multi-resolution `favicon.ico` (embed PNG data — NOT legacy BMP).
+3. Create `site.webmanifest` (minimum PWA manifest referencing the 192 and 512 icons).
+4. Ensure `BaseHead.astro` links to all generated files.
+
+#### Critical Notes
+
+- **Google Search**: Displays the ICO favicon next to search results. After deploying, it may take **days to weeks** for Google to recrawl. Use [Google Search Console](https://search.google.com/search-console) to request a favicon refresh.
+- **Apple Touch Icon**: Must be exactly 180×180px. iOS applies its own rounded corners — do NOT pre-round the PNG.
+- **Cache Busting**: Browsers and social platforms cache favicons aggressively. When updating the design, **rename the source SVG** (e.g., `logo-v2.svg` → `logo-v3.svg`) and update all references. Simply overwriting the same filename will NOT trigger a refresh.
+- **Mask Icon**: Safari pinned tabs use `<link rel="mask-icon">` with a monochrome SVG. The `logo.svg` works for this — Safari renders it using only the declared `color` attribute.
+- **Single Source of Truth**: The `logo.svg` is the **original vector source**. Never create favicon PNGs manually — always regenerate from the SVG.
 
 ---
 
